@@ -1,0 +1,20 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.4
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  # Run the same command as local/CI (`uv run mypy`).
+  # The mirrors-mypy hook uses an isolated env and passes staged filenames,
+  # which typechecks tests and misses project deps — unlike `uv run mypy`,
+  # which uses .venv and only packages listed in pyproject.toml (`app`).
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy
+        entry: uv run mypy
+        language: system
+        pass_filenames: false
+        types: [python]
