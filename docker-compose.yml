@@ -1,5 +1,4 @@
-# Postgres 16 with the pgvector extension.
-# Vector storage uses the VectorStore Protocol; swap backends via VECTOR_BACKEND.
+# Postgres 16 with the pgvector extension (vector store wiring comes in Phase 1).
 
 services:
   postgres:
