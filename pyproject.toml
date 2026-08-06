@@ -43,6 +43,8 @@ package = true
 target-version = "py312"
 line-length = 100
 src = ["src", "tests"]
+# Corpus generators under data/ are markdown-template scripts, not app code.
+exclude = ["data", ".venv"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM", "ASYNC"]
