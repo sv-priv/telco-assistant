@@ -1,5 +1,5 @@
 ---
-doc_id: op-pricelist-xl-2026
+doc_id: op-cenovnik-xl-2026
 title: Price list — Вардар Мобилен XL (2026)
 source: operator
 authority: operator

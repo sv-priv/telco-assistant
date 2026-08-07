@@ -16,10 +16,10 @@ Available to new subscribers and to existing subscribers renewing during the cam
 
 | Item | Value |
 |---|---|
-| Plan | Вардар Мобилен S |
-| Discount on monthly fee | 15% |
-| Discount duration | first 12 months |
-| Standard fee afterwards | 579 MKD |
+| Plan | Вардар Мобилен L |
+| Discount on monthly fee | 25% |
+| Discount duration | first 9 months |
+| Standard fee afterwards | 1.249 MKD |
 | Minimum term | 24 months |
 
 ## Restrictions

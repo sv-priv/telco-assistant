@@ -1,37 +1,31 @@
 # telco-assistant
 
-Work-in-progress assistant for a fictional Macedonian mobile operator
-(**Вардар Мобиле / Vardar Mobile**). The main knowledge base is a large
-**synthetic** operator corpus (plans, roaming, devices, billing, campaigns,
-support) in Macedonian and English. A smaller layer of real public regulation
-(EU acquis + Western Balkans roaming) sits underneath for policy-style
-questions. Safety-gated account tools and evaluation come in later phases.
-
-**Current status:** Phase 0 scaffold is in place (FastAPI health, Postgres +
-pgvector, lint/type/test CI). Corpus documents are in the repo. Ingestion,
-retrieval, chat, and the agent loop are not implemented yet.
+RAG assistant over a synthetic Macedonian operator (**Vardar Mobile**) plus a
+small EU / WB6 regulation layer.
 
 ## Stack
 
 - Python 3.12 · [uv](https://github.com/astral-sh/uv)
-- FastAPI · Pydantic v2 · pydantic-settings
-- PostgreSQL with [pgvector](https://github.com/pgvector/pgvector)
-- ruff · mypy (strict) · pytest · pre-commit
+- FastAPI · Pydantic v2
+- PostgreSQL + [pgvector](https://github.com/pgvector/pgvector)
+- ruff · mypy · pytest · pre-commit
 
 ## Quick start
 
 ```bash
 uv sync --group dev
-cp .env.example .env
+cp .env.example .env   # set OPENAI_API_KEY
 docker compose up -d
 uv run uvicorn app.main:app --app-dir src --reload --port 8000
 curl -s http://localhost:8000/v1/health | jq
 ```
 
-Postgres is on host port **5433** (container 5432) so it does not collide with a
-local Postgres on 5432.
+Postgres listens on host port **5433**.
 
-Expected: HTTP 200 with `postgres` and `pgvector` both `up`.
+```bash
+# ingest (embeddings → pgvector)
+uv run python -m app.ingest --embed --source operator --lang mk
+```
 
 ## Checks
 
@@ -44,52 +38,33 @@ uv run pytest -n auto
 
 ## Corpus
 
-Documents live under `data/corpus/`. Licensing and provenance:
-[`data/corpus/SOURCES.md`](data/corpus/SOURCES.md).
+Under `data/corpus/`. See [`SOURCES.md`](data/corpus/SOURCES.md).
 
-| Layer | Path | Role |
-|-------|------|------|
-| **Operator (primary)** | `data/corpus/operator/` | Synthetic Vardar Mobile docs (MK + EN) — plans, roaming, devices, billing, FAQ, etc. |
-| Western Balkans | `data/corpus/wb6/` | Regional roaming agreement (supporting) |
-| EU acquis | `data/corpus/eu/` | Small EUR-Lex set (EN + NL) for regulatory grounding |
-
-The operator layer is generated from a single catalogue so prices and terms stay
-consistent across hundreds of files:
+| Layer | Path |
+|-------|------|
+| Operator (primary, MK+EN) | `data/corpus/operator/` |
+| EU | `data/corpus/eu/` |
+| WB6 | `data/corpus/wb6/` |
 
 ```bash
-python data/scripts/generate_corpus.py
-```
-
-Optional: re-download the EU HTML (already committed):
-
-```bash
-bash scripts_fetch_eu_corpus.sh
+python data/scripts/generate_corpus.py   # regenerate operator docs
+bash scripts_fetch_eu_corpus.sh          # re-fetch EUR-Lex HTML
 ```
 
 ## Layout
 
 ```
-src/app/                 FastAPI application (health, config, errors)
-tests/                   unit tests (no live database required)
-data/corpus/operator/    primary synthetic operator knowledge base
-data/corpus/eu/          supporting EU regulation (small)
-data/corpus/wb6/         supporting regional roaming text
-data/scripts/            operator catalogue + corpus generator
-docker-compose.yml       local Postgres + pgvector
-docker/init-pgvector.sql enables the vector extension on first boot
+src/app/           FastAPI app + ingest
+tests/
+data/corpus/       markdown knowledge base
+data/scripts/      operator corpus generator
+docker-compose.yml local Postgres + pgvector
 ```
 
-## Roadmap (high level)
+## Status
 
-1. **Done** — project scaffold, health checks, local Postgres/pgvector, corpus
-2. **Next** — ingestion (chunking, embeddings, vector store)
-3. Hybrid retrieval + evaluation harness
-4. Chat API with grounding and citations
-5. Agent loop, tool tiers, approval gates
-6. Streaming UI, observability, deploy notes
+Ingest (load → chunk → embed → pgvector) works. Next: retrieval API, then chat.
 
-## License notes
+## License
 
-Operator documents are **synthetic**: invented carrier, prices, and promotions;
-not copied from a real operator. EU documents are reused under CC BY 4.0 as
-described in `SOURCES.md`.
+Operator docs are synthetic. EU text: CC BY 4.0 — see `SOURCES.md`.

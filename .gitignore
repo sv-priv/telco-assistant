@@ -22,6 +22,10 @@ wheels/
 htmlcov/
 .tox/
 
+# Local / generated inspection dumps
+data/corpus_load_inspect.json
+data/corpus_chunk_inspect.json
+
 # Editors / OS
 .idea/
 .vscode/

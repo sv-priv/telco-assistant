@@ -2905,3 +2905,171 @@ DEVICES_FULL = [
         "—",
     ),
 ]
+
+
+# ═══════════════════════════════════════════════════════════════ prepaid
+# The corpus was entirely postpaid. Prepaid is a genuinely different product
+# with different answers to identical questions, which is what makes it useful
+# for evaluation: "how much do I get in Serbia" has two correct answers and the
+# retriever has to pick the arm that matches the customer's subscription type.
+
+
+@dataclass
+class Prepaid:
+    code: str
+    name: str
+    topup: int  # MKD required to activate the bundle
+    days: int  # bundle validity
+    data_gb: dict  # year -> GB
+    minutes: str
+    sms: str
+
+
+PREPAID = [
+    Prepaid("PP-200", "Вардар Припејд 200", 200, 30, {2024: 1, 2025: 1.5, 2026: 2}, "100", "100"),
+    Prepaid("PP-350", "Вардар Припејд 350", 350, 30, {2024: 4, 2025: 5, 2026: 6}, "300", "300"),
+    Prepaid(
+        "PP-600",
+        "Вардар Припејд 600",
+        600,
+        30,
+        {2024: 10, 2025: 12, 2026: 15},
+        "неограничени во мрежа",
+        "неограничени во мрежа",
+    ),
+    Prepaid(
+        "PP-1000",
+        "Вардар Припејд 1000",
+        1000,
+        60,
+        {2024: 25, 2025: 30, 2026: 40},
+        "неограничени",
+        "неограничени",
+    ),
+]
+
+PREPAID_RULES = {
+    "credit_validity_days": 180,  # unused credit expires
+    "grace_days": 90,  # incoming calls only after credit expiry
+    "number_release_days": 365,  # number returns to the pool
+    "min_topup_mkd": 100,
+    "max_balance_mkd": 15000,
+    "out_of_bundle_per_mb": 2.0,
+    "out_of_bundle_per_min": 4.9,
+    "out_of_bundle_per_sms": 3.5,
+    "roaming_requires_balance": True,
+    "roaming_min_balance_mkd": 300,
+    # The trap. Postpaid fair use is anchored to the monthly fee; prepaid is
+    # anchored to the top-up in the last 30 days, so the same WB6 question has
+    # a different numeric answer depending on subscription type.
+    "wb6_fup_gb_per_100_mkd": 1.5,
+    "wb6_fup_cap_gb": 20,
+    "contract": False,
+    "early_fee": False,
+    "cooloff_days": 0,
+}
+
+# ═══════════════════════════════════════════════════════════ billing scenarios
+# Each entry is a worked example. The generator computes the arithmetic from
+# PLANS so the numbers cannot drift from the price lists.
+
+VAT_PCT = 18
+BILLING_FEES = {
+    "sim_replacement": 300,
+    "paper_invoice": 60,
+    "late_payment_pct": 1.0,  # per month on the overdue amount
+    "reconnection": 490,
+    "itemised_bill": 0,
+    "suspension_after_days": 45,
+    "termination_after_days": 75,
+}
+
+BILLING_SCENARIOS = [
+    ("proration-activation", "Пропорционална пресметка при активација", "First partial month"),
+    ("first-invoice", "Прва фактура — зошто е повисока", "Why the first invoice is higher"),
+    ("upgrade-midcycle", "Премин во повисок пакет во тек на период", "Mid-cycle upgrade"),
+    ("downgrade-blocked", "Одбиено намалување на пакет", "Refused downgrade"),
+    ("fup-throttle", "Достигната квота и намалена брзина", "Fair use throttling"),
+    ("addon-midcycle", "Купен додатен интернет пакет", "Add-on purchased mid-cycle"),
+    ("roaming-wb6", "Роаминг во Западен Балкан на фактура", "WB6 roaming on the invoice"),
+    ("roaming-eu", "Роаминг во ЕУ на фактура", "EU roaming on the invoice"),
+    ("roaming-intl", "Меѓународен роаминг на фактура", "International roaming on the invoice"),
+    ("device-instalment", "Рата за уред на фактура", "Device instalment on the invoice"),
+    ("vat-breakdown", "Пресметка на ДДВ", "VAT breakdown"),
+    ("one-off-charges", "Еднократни надоместоци", "One-off charges"),
+    ("late-payment", "Задоцнето плаќање и суспензија", "Late payment and suspension"),
+    ("credit-note", "Одобрение по прифатен приговор", "Credit note after an upheld complaint"),
+    ("final-invoice", "Последна фактура по раскинување", "Final invoice after termination"),
+]
+
+# ═══════════════════════════════════════════════════════ complaints and SLA
+# Zero coverage before this. Also the bridge between the operator layer and the
+# regulation layer: the deadlines below are the operator's implementation of
+# obligations that live in the EU documents, so a question about them can be
+# answered from either layer and the eval can check which one is cited.
+
+COMPLAINTS = {
+    "submit_within_days": 30,  # from the invoice date
+    "operator_reply_days": 15,
+    "operator_reply_days_complex": 30,
+    "escalate_to_regulator_days": 15,  # after the operator's reply
+    "regulator": {"mk": "АЕК", "en": "AEK (Agency for Electronic Communications)"},
+    "disputed_amount_due": False,  # undisputed part still payable
+    "refund_days": 30,
+    "channels_mk": ["Мој Вардар", "е-пошта", "продажно место", "телефон 0800 12 345", "пошта"],
+    "channels_en": ["My Vardar", "email", "retail store", "phone 0800 12 345", "post"],
+}
+
+SLA = [
+    # service, target, measurement window, credit if missed
+    ("Достапност на мобилна мрежа", "99.5%", "месечно", 5),
+    ("Достапност на мобилен интернет", "99.0%", "месечно", 5),
+    ("Отстранување на дефект во градска зона", "24 часа", "по пријава", 10),
+    ("Отстранување на дефект во рурална зона", "72 часа", "по пријава", 10),
+    ("Активација на нова СИМ", "2 часа", "по потпис", 0),
+    ("Пренос на број", "1 работен ден", "по барање", 15),
+    ("Одговор на приговор", "15 дена", "по прием", 0),
+]
+
+# Service credit as a share of the monthly fee, by outage duration.
+OUTAGE_CREDIT = [
+    (4, 12, 5),  # hours from, hours to, % of monthly fee
+    (12, 24, 15),
+    (24, 72, 40),
+    (72, 10**6, 100),
+]
+
+# ══════════════════════════════════════════════════ contract terms by year
+# Deliberately different per year so effective_date filtering is testable:
+# a question about early termination has three defensible answers and only the
+# in_force one is correct.
+
+CONTRACT_BY_YEAR = {
+    2024: {
+        "min_term_months": 24,
+        "notice_days": 30,
+        "early_fee_pct": 30,
+        "cooloff_days": 14,
+        "downgrade_floor_pct": 70,
+        "sim_lock_months": 12,
+        "auto_renew": True,
+    },
+    2025: {
+        "min_term_months": 24,
+        "notice_days": 30,
+        "early_fee_pct": 25,
+        "cooloff_days": 14,
+        "downgrade_floor_pct": 70,
+        "sim_lock_months": 6,
+        "auto_renew": True,
+    },
+    2026: {
+        "min_term_months": 12,
+        "notice_days": 15,
+        "early_fee_pct": 20,
+        "cooloff_days": 14,
+        "downgrade_floor_pct": 60,
+        "sim_lock_months": 0,
+        "auto_renew": False,
+    },
+}

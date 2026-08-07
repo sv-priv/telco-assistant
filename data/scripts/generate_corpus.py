@@ -16,7 +16,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 import catalog as C  # noqa: E402
 
-OUT = Path(__file__).parent / "corpus" / "operator"
+OUT = Path(__file__).resolve().parents[1] / "corpus" / "operator"
 DEN = "ден."
 
 
@@ -113,7 +113,7 @@ def gen_price_lists() -> None:
             w(
                 f"price/op-pricelist-{plan.code.lower()}-{y}-en.md",
                 front(
-                    f"op-pricelist-{plan.code.lower()}-{y}",
+                    f"op-cenovnik-{plan.code.lower()}-{y}",
                     f"Price list — {plan.name} ({y})",
                     "en",
                     y,
@@ -1770,8 +1770,8 @@ def gen_device_specs() -> None:
         inst24 = round(mkd / 24)
         supported = bands != "—"
         w(
-            f"catalog/op-spec-{slug}-mk.md",
-            front(f"op-spec-{slug}", f"Спецификација — {b} {m}", "mk", y, "device-spec")
+            f"catalog/op-katalog-{slug}-mk.md",
+            front(f"op-katalog-{slug}", f"Спецификација — {b} {m}", "mk", y, "device-spec")
             + f"""# {b} {m}
 
 | Спецификација | Вредност |
@@ -1808,8 +1808,8 @@ def gen_device_specs() -> None:
 """.replace(",", "."),
         )
         w(
-            f"catalog/op-spec-{slug}-en.md",
-            front(f"op-spec-{slug}", f"Specification — {b} {m}", "en", y, "device-spec")
+            f"catalog/op-katalog-{slug}-en.md",
+            front(f"op-katalog-{slug}", f"Specification — {b} {m}", "en", y, "device-spec")
             + f"""# {b} {m}
 
 | Specification | Value |
@@ -2036,6 +2036,1622 @@ def gen_full_specs() -> None:
 """,
         )
 
+        rows_en = "\n".join(
+            f"| {d['brand']} {d['model']} | {d['mkd']:,} MKD | {_pts(d['mkd']):,} | "
+            f"{d['ram']} GB | {d['storage'] or '—'} GB | {d['batt'] or '—'} mAh | "
+            f"{'yes' if d['esim'] else 'no'} | {'yes' if d['bands5g'] != '—' else 'no'} |"
+            for d in sorted(ds, key=lambda x: -x["mkd"])
+        )
+        w(
+            f"specs/op-compare-{kind}-en.md",
+            front(f"op-compare-{kind}", f"Comparison — {kind}", "en", y, "device-compare")
+            + f"""# All models compared: {kind}
+
+| Model | Price | Points | RAM | Storage | Battery | eSIM | 5G |
+|---|---|---|---|---|---|---|---|
+{rows_en}
+
+Sorted by price, descending. Availability depends on stock.
+""",
+        )
+
+
+
+# ─────────────────────────────────────────────────────────────────── prepaid
+def gen_prepaid() -> None:
+    """Prepaid tariffs.
+
+    The corpus was 100% postpaid, which made a whole class of question
+    unanswerable and, worse, made it *confidently* answerable with the postpaid
+    number. Prepaid gives several questions two correct answers that differ,
+    so retrieval has to discriminate on subscription type rather than topic.
+    """
+    for pp in C.PREPAID:
+        for y in C.YEARS:
+            gb = pp.data_gb[y]
+            prev = (
+                f"\nВо {y-1} година пакетот содржеше {pp.data_gb[y-1]} GB.\n"
+                if y > C.YEARS[0]
+                else "\n"
+            )
+            r = C.PREPAID_RULES
+            w(
+                f"prepaid/op-pripejd-{pp.code.lower()}-{y}-mk.md",
+                front(
+                    f"op-pripejd-{pp.code.lower()}-{y}",
+                    f"Припејд пакет — {pp.name} ({y})",
+                    "mk",
+                    y,
+                    "prepaid",
+                )
+                + f"""# {pp.name}
+## Припејд пакет за {y} година
+
+Ова е **припејд** пакет. Не се склучува договор, нема минимален период и нема
+надоместок за предвремено раскинување.
+
+| Ставка | Вредност |
+|---|---|
+| Потребна дополна | **{money(pp.topup)} {DEN}** |
+| Важност на пакетот | {pp.days} дена |
+| Интернет | {gb} GB |
+| Разговори | {pp.minutes} |
+| SMS | {pp.sms} |
+{prev}
+## По потрошена квота
+
+Наплатата продолжува од расположливиот кредит по стандардна тарифа:
+{money(r['out_of_bundle_per_mb'])} {DEN} по MB, {money(r['out_of_bundle_per_min'])} {DEN}
+по минута, {money(r['out_of_bundle_per_sms'])} {DEN} по SMS. Кога кредитот ќе се
+потроши, услугата запира. Нема фактура и нема пречекорување.
+
+## Важност на кредитот
+
+Неискористениот кредит важи {r['credit_validity_days']} дена од последната дополна.
+По истекот следуваат {r['grace_days']} дена во кои бројот прима повици но не може да
+троши. По вкупно {r['number_release_days']} дена без дополна бројот се враќа во
+слободниот опсег и не може да се поврати.
+
+## Разлика во однос на постпејд
+
+| | Припејд | Постпејд |
+|---|---|---|
+| Договор | нема | {C.CONTRACT_BY_YEAR[y]['min_term_months']} месеци |
+| Предвремено раскинување | без надоместок | {C.CONTRACT_BY_YEAR[y]['early_fee_pct']}% од преостанатите месеци |
+| Право на откажување во 14 дена | не се применува | се применува |
+| Фактура | нема | месечна |
+| Роаминг | бара позитивен кредит од најмалку {money(r['roaming_min_balance_mkd'])} {DEN} | вклучен во фактурата |
+""",
+            )
+
+            w(
+                f"prepaid/op-prepaid-{pp.code.lower()}-{y}-en.md",
+                front(
+                    f"op-pripejd-{pp.code.lower()}-{y}",
+                    f"Prepaid bundle — {pp.name} ({y})",
+                    "en",
+                    y,
+                    "prepaid",
+                )
+                + f"""# {pp.name}
+## Prepaid bundle for {y}
+
+This is a **prepaid** product. There is no contract, no minimum term and no
+early termination fee.
+
+| Item | Value |
+|---|---|
+| Top-up required | **{money(pp.topup)} MKD** |
+| Bundle validity | {pp.days} days |
+| Data | {gb} GB |
+| Voice | {pp.minutes} |
+| SMS | {pp.sms} |
+
+## After the allowance is used
+
+Charging continues from the remaining credit at the standard rate:
+{money(r['out_of_bundle_per_mb'])} MKD per MB, {money(r['out_of_bundle_per_min'])} MKD
+per minute, {money(r['out_of_bundle_per_sms'])} MKD per SMS. When the credit runs out
+the service stops. There is no invoice and no overage.
+
+## Credit validity
+
+Unused credit is valid for {r['credit_validity_days']} days from the last top-up.
+After that the number enters a {r['grace_days']}-day grace period during which it can
+receive calls but not spend. After {r['number_release_days']} days without a top-up
+the number returns to the free pool and cannot be recovered.
+
+## Difference from postpaid
+
+| | Prepaid | Postpaid |
+|---|---|---|
+| Contract | none | {C.CONTRACT_BY_YEAR[y]['min_term_months']} months |
+| Early termination | no fee | {C.CONTRACT_BY_YEAR[y]['early_fee_pct']}% of remaining months |
+| 14-day right of withdrawal | does not apply | applies |
+| Invoice | none | monthly |
+| Roaming | requires credit of at least {money(r['roaming_min_balance_mkd'])} MKD | billed |
+""",
+            )
+
+    # ── prepaid roaming, where the fair use anchor differs from postpaid
+    r = C.PREPAID_RULES
+    for y in C.YEARS:
+        rows_mk, rows_en = [], []
+        for topup in (200, 350, 600, 1000, 2000):
+            fup = min(topup / 100 * r["wb6_fup_gb_per_100_mkd"], r["wb6_fup_cap_gb"])
+            rows_mk.append(f"| {money(topup)} {DEN} | {fup:.1f} GB |")
+            rows_en.append(f"| {money(topup)} MKD | {fup:.1f} GB |")
+
+        w(
+            f"prepaid/op-pripejd-roaming-{y}-mk.md",
+            front(f"op-pripejd-roaming-{y}", f"Припејд роаминг ({y})", "mk", y, "prepaid")
+            + f"""# Припејд роаминг
+## Правила за {y} година
+
+Роамингот е достапен за припејд корисници со кредит од најмалку
+{money(r['roaming_min_balance_mkd'])} {DEN}. Услугата се исклучува автоматски штом
+кредитот падне под нула, без пречекорување.
+
+## Западен Балкан — политика на правична употреба
+
+За постпејд корисници квотата за правична употреба во Западен Балкан се врзува за
+месечната претплата. **За припејд корисници таа се врзува за вкупната дополна во
+последните 30 дена**, по {r['wb6_fup_gb_per_100_mkd']} GB на секои 100 {DEN},
+најмногу {r['wb6_fup_cap_gb']} GB.
+
+| Дополна во последните 30 дена | Квота во Западен Балкан |
+|---|---|
+""" + "\n".join(rows_mk) + f"""
+
+Ова е честа причина за недоразбирање. Постпејд корисник со пакет M ја носи целата
+домашна квота во Западен Балкан. Припејд корисник со иста потрошувачка добива
+пресметка по горната табела, што вообичаено е помалку.
+
+## ЕУ и останати земји
+
+Во ЕУ важи ограничена наплата по MB од кредитот. Во останатите земји важи полна
+меѓународна тарифа. Пакетите за роаминг може да се купат само додека кредитот е
+позитивен.
+""",
+        )
+
+        w(
+            f"prepaid/op-prepaid-roaming-{y}-en.md",
+            front(f"op-pripejd-roaming-{y}", f"Prepaid roaming ({y})", "en", y, "prepaid")
+            + f"""# Prepaid roaming
+## Rules for {y}
+
+Roaming is available to prepaid customers holding at least
+{money(r['roaming_min_balance_mkd'])} MKD of credit. The service stops automatically
+when the credit reaches zero. There is no overage.
+
+## Western Balkans fair use
+
+For postpaid customers the Western Balkans fair use allowance is anchored to the
+monthly fee. **For prepaid customers it is anchored to the total topped up in the
+last 30 days**, at {r['wb6_fup_gb_per_100_mkd']} GB per 100 MKD, capped at
+{r['wb6_fup_cap_gb']} GB.
+
+| Topped up in the last 30 days | Western Balkans allowance |
+|---|---|
+""" + "\n".join(rows_en) + """
+
+This is a common source of confusion. A postpaid customer on plan M carries the
+full domestic allowance into the Western Balkans. A prepaid customer with the same
+spend is assessed against the table above, which is usually less.
+
+## EU and rest of world
+
+In the EU, capped per-MB charging applies against the credit. Elsewhere the full
+international tariff applies. Roaming packs can only be bought while the credit is
+positive.
+""",
+        )
+
+    # ── top-up channels and the prepaid-to-postpaid migration
+    w(
+        "prepaid/op-pripejd-dopolnuvanje-mk.md",
+        front("op-pripejd-dopolnuvanje", "Дополнување на кредит", "mk", C.CURRENT_YEAR, "prepaid")
+        + f"""# Дополнување на припејд кредит
+
+Минимална дополна {money(r['min_topup_mkd'])} {DEN}. Максимално салдо
+{money(r['max_balance_mkd'])} {DEN}; уплата над тоа се одбива.
+
+| Канал | Провизија | Време до книжење |
+|---|---|---|
+| Мој Вардар (картичка) | нема | веднаш |
+| Ваучер | нема | веднаш |
+| Банкомат | според банката | до 15 минути |
+| Продажно место | нема | веднаш |
+| Пошта | 20 {DEN} | до 24 часа |
+
+## Премин од припејд во постпејд
+
+Преминот е бесплатен и бројот се задржува. Расположливиот кредит се пренесува како
+одобрение на првата фактура. Со преминот се склучува договор и оттогаш важат
+постпејд правилата, вклучително минималниот период и надоместокот за предвремено
+раскинување. Преминот назад од постпејд во припејд е можен по истекот на
+минималниот период.
+""",
+    )
+    w(
+        "prepaid/op-prepaid-topup-en.md",
+        front("op-pripejd-dopolnuvanje", "Topping up credit", "en", C.CURRENT_YEAR, "prepaid")
+        + f"""# Topping up prepaid credit
+
+Minimum top-up {money(r['min_topup_mkd'])} MKD. Maximum balance
+{money(r['max_balance_mkd'])} MKD; payments above that are rejected.
+
+| Channel | Fee | Time to credit |
+|---|---|---|
+| My Vardar (card) | none | immediate |
+| Voucher | none | immediate |
+| ATM | per the bank | up to 15 minutes |
+| Retail store | none | immediate |
+| Post office | 20 MKD | up to 24 hours |
+
+## Moving from prepaid to postpaid
+
+The move is free and the number is kept. Remaining credit carries over as a credit
+on the first invoice. The move creates a contract, so postpaid rules apply from that
+point, including the minimum term and the early termination fee. Moving back to
+prepaid is possible once the minimum term has expired.
+""",
+    )
+
+
+# ─────────────────────────────────────────────────────────────────── billing
+def gen_billing() -> None:
+    """Worked invoice examples.
+
+    Billing is the highest-volume real support category and the corpus had two
+    documents for it. These are deliberately situation-shaped rather than
+    topic-shaped: every one of them contains the words 'фактура', 'сметка' and
+    'цена', so keyword overlap cannot separate them and the retriever has to
+    match on the scenario. That is the useful kind of hard.
+
+    All arithmetic is computed from PLANS, so no example can contradict a price
+    list.
+    """
+    Y = C.CURRENT_YEAR
+    fees = C.BILLING_FEES
+    ct = C.CONTRACT_BY_YEAR[Y]
+    by_code = {p.code: p for p in C.PLANS}
+
+    def vat_split(gross: float) -> tuple[float, float]:
+        net = gross / (1 + C.VAT_PCT / 100)
+        return net, gross - net
+
+    # ── 1. proration on activation, per plan
+    for plan in C.PLANS:
+        fee = plan.price[Y]
+        day, days = 18, 30
+        used = days - day + 1
+        part = fee * used / days
+        w(
+            f"billing/op-smetka-proracun-aktivacija-{plan.code.lower()}-mk.md",
+            front(
+                f"op-smetka-proracun-aktivacija-{plan.code.lower()}",
+                f"Пропорционална пресметка при активација — {plan.name}",
+                "mk",
+                Y,
+                "billing",
+            )
+            + f"""# Пропорционална пресметка при активација
+## {plan.name}
+
+Пресметковниот период трае од 1 до {days} во месецот. Ако услугата е активирана на
+{day}-ти, се наплаќаат {used} дена, не цел месец.
+
+| Ставка | Пресметка | Износ |
+|---|---|---|
+| Месечна претплата | — | {money(fee)} {DEN} |
+| Искористени денови | {used} од {days} | — |
+| Пропорционален дел | {money(fee)} × {used} ÷ {days} | **{money(round(part, 2))} {DEN}** |
+
+Износот е со вклучен ДДВ од {C.VAT_PCT}%.
+
+## Што уште се појавува на истата фактура
+
+Претплатата за следниот полн месец се наплаќа однапред, во истата фактура. Затоа
+првата фактура вообичаено изнесува {money(round(part + fee, 2))} {DEN}, а не
+{money(fee)} {DEN}. Ова не е грешка и не се повторува во наредните месеци.
+
+## Ако услугата е активирана на 1-ви
+
+Тогаш нема пропорционален дел и првата фактура е {money(fee)} {DEN}.
+""",
+        )
+        w(
+            f"billing/op-invoice-proration-activation-{plan.code.lower()}-en.md",
+            front(
+                f"op-smetka-proracun-aktivacija-{plan.code.lower()}",
+                f"Proration on activation — {plan.name}",
+                "en",
+                Y,
+                "billing",
+            )
+            + f"""# Proration on activation
+## {plan.name}
+
+The billing period runs from the 1st to the {days}th. If the service is activated on
+the {day}th, {used} days are charged, not a full month.
+
+| Item | Calculation | Amount |
+|---|---|---|
+| Monthly fee | — | {money(fee)} MKD |
+| Days used | {used} of {days} | — |
+| Prorated part | {money(fee)} × {used} ÷ {days} | **{money(round(part, 2))} MKD** |
+
+Amounts include {C.VAT_PCT}% VAT.
+
+## What else appears on the same invoice
+
+The following full month is billed in advance on the same invoice. That is why the
+first invoice usually comes to {money(round(part + fee, 2))} MKD rather than
+{money(fee)} MKD. This is not an error and does not repeat.
+
+## If the service is activated on the 1st
+
+There is no prorated part and the first invoice is {money(fee)} MKD.
+""",
+        )
+
+    # ── 2. mid-cycle upgrade, per adjacent pair
+    pairs = [("S", "M"), ("M", "L"), ("L", "XL"), ("XL", "L")]
+    for a, b in pairs:
+        pa, pb = by_code[a], by_code[b]
+        fa, fb = pa.price[Y], pb.price[Y]
+        day, days = 12, 30
+        rem = days - day + 1
+        credit = fa * rem / days
+        charge = fb * rem / days
+        delta = charge - credit
+        down = fb < fa
+        floor_ok = fb >= fa * ct["downgrade_floor_pct"] / 100
+        note_mk = (
+            f"Ова е намалување на пакет. Дозволено е само ако новата претплата не е под "
+            f"{ct['downgrade_floor_pct']}% од првичната. {money(fb)} наспроти "
+            f"{money(round(fa * ct['downgrade_floor_pct'] / 100, 2))} {DEN} — "
+            f"{'условот е исполнет' if floor_ok else 'условот НЕ е исполнет и барањето се одбива'}. "
+            f"Намалувањето важи од следниот период, не веднаш."
+            if down
+            else "Ова е зголемување на пакет и важи веднаш."
+        )
+        note_en = (
+            f"This is a downgrade. It is allowed only if the new fee is not below "
+            f"{ct['downgrade_floor_pct']}% of the original. {money(fb)} against "
+            f"{money(round(fa * ct['downgrade_floor_pct'] / 100, 2))} MKD, so the condition "
+            f"{'is met' if floor_ok else 'is NOT met and the request is refused'}. "
+            f"A downgrade takes effect from the next period, not immediately."
+            if down
+            else "This is an upgrade and takes effect immediately."
+        )
+        w(
+            f"billing/op-smetka-promena-paket-{a.lower()}-{b.lower()}-mk.md",
+            front(
+                f"op-smetka-promena-paket-{a.lower()}-{b.lower()}",
+                f"Промена на пакет во тек на период — {a} во {b}",
+                "mk",
+                Y,
+                "billing",
+            )
+            + f"""# Промена од {pa.name} во {pb.name}
+## Пресметка во тек на пресметковен период
+
+Промената е побарана на {day}-ти. Преостануваат {rem} од {days} дена.
+
+| Ставка | Пресметка | Износ |
+|---|---|---|
+| Одобрение за стариот пакет | {money(fa)} × {rem} ÷ {days} | −{money(round(credit, 2))} {DEN} |
+| Наплата за новиот пакет | {money(fb)} × {rem} ÷ {days} | +{money(round(charge, 2))} {DEN} |
+| Разлика на оваа фактура | — | **{'+' if delta >= 0 else '−'}{money(round(abs(delta), 2))} {DEN}** |
+| Од следниот месец | — | {money(fb)} {DEN} |
+
+{note_mk}
+
+## Квота за интернет по промената
+
+Квотата се пресметува пропорционално за преостанатите денови. Веќе потрошениот
+сообраќај не се враќа и не се пренесува.
+""",
+        )
+        w(
+            f"billing/op-invoice-plan-change-{a.lower()}-{b.lower()}-en.md",
+            front(
+                f"op-smetka-promena-paket-{a.lower()}-{b.lower()}",
+                f"Mid-cycle plan change — {a} to {b}",
+                "en",
+                Y,
+                "billing",
+            )
+            + f"""# Change from {pa.name} to {pb.name}
+## Calculation mid-period
+
+The change is requested on the {day}th. {rem} of {days} days remain.
+
+| Item | Calculation | Amount |
+|---|---|---|
+| Credit for the old plan | {money(fa)} × {rem} ÷ {days} | −{money(round(credit, 2))} MKD |
+| Charge for the new plan | {money(fb)} × {rem} ÷ {days} | +{money(round(charge, 2))} MKD |
+| Difference on this invoice | — | **{'+' if delta >= 0 else '−'}{money(round(abs(delta), 2))} MKD** |
+| From next month | — | {money(fb)} MKD |
+
+{note_en}
+
+## Data allowance after the change
+
+The allowance is prorated over the remaining days. Traffic already used is not
+refunded and does not carry over.
+""",
+        )
+
+    # ── 3. final invoice after termination, per plan
+    for plan in C.PLANS:
+        fee = plan.price[Y]
+        remaining = 7
+        early = fee * ct["early_fee_pct"] / 100 * remaining
+        w(
+            f"billing/op-smetka-poslednja-{plan.code.lower()}-mk.md",
+            front(
+                f"op-smetka-poslednja-{plan.code.lower()}",
+                f"Последна фактура по раскинување — {plan.name}",
+                "mk",
+                Y,
+                "billing",
+            )
+            + f"""# Последна фактура по раскинување
+## {plan.name}, раскинување пред истек на минималниот период
+
+Минималниот период за договори склучени во {Y} изнесува {ct['min_term_months']} месеци.
+Во примерот преостануваат {remaining} месеци.
+
+| Ставка | Пресметка | Износ |
+|---|---|---|
+| Претплата до денот на исклучување | пропорционално | според датумот |
+| Надоместок за предвремено раскинување | {money(fee)} × {ct['early_fee_pct']}% × {remaining} | {money(round(early, 2))} {DEN} |
+| Преостанати рати за уред | доспеваат веднаш | според договорот |
+| Неискористено одобрение | се враќа | −износ |
+
+Отказниот рок е {ct['notice_days']} дена. Претплатата се наплаќа до крајот на
+отказниот рок дури и ако СИМ картичката веќе не се користи.
+
+## Кога нема надоместок
+
+Нема надоместок ако минималниот период е истечен, ако раскинувањето е во рок од
+{ct['cooloff_days']} дена од склучувањето, или ако е поради еднострана измена на
+условите од страна на операторот која е на штета на корисникот.
+""",
+        )
+        w(
+            f"billing/op-invoice-final-{plan.code.lower()}-en.md",
+            front(
+                f"op-smetka-poslednja-{plan.code.lower()}",
+                f"Final invoice after termination — {plan.name}",
+                "en",
+                Y,
+                "billing",
+            )
+            + f"""# Final invoice after termination
+## {plan.name}, terminated before the minimum term ends
+
+The minimum term for contracts signed in {Y} is {ct['min_term_months']} months.
+In this example {remaining} months remain.
+
+| Item | Calculation | Amount |
+|---|---|---|
+| Fee up to the disconnection date | prorated | per the date |
+| Early termination fee | {money(fee)} × {ct['early_fee_pct']}% × {remaining} | {money(round(early, 2))} MKD |
+| Remaining device instalments | fall due immediately | per the contract |
+| Unused credit | refunded | −amount |
+
+The notice period is {ct['notice_days']} days. The fee is charged to the end of the
+notice period even if the SIM is no longer in use.
+
+## When no fee applies
+
+No fee applies if the minimum term has expired, if termination is within
+{ct['cooloff_days']} days of signing, or if it follows a unilateral change of terms
+by the operator that is to the customer's detriment.
+""",
+        )
+
+    # ── 4. single-instance scenarios
+    m = by_code["M"]
+    fee = m.price[Y]
+    net, vat = vat_split(fee)
+    addon = C.DATA_ADDONS[1]
+    pack = C.ROAMING_PACKS[0]
+
+    singles: list[tuple[str, str, str, str, str]] = [
+        (
+            "op-smetka-fup",
+            "Достигната квота и намалена брзина",
+            "Fair use throttling on the invoice",
+            f"""# Достигната квота
+
+Кај {m.name} квотата за {Y} изнесува {m.data_gb[Y]} GB. По потрошената квота брзината
+се намалува на {C.FUP['throttle_kbps']} kbps до крајот на периодот.
+
+**Не се наплаќа ништо дополнително.** На фактурата нема ставка за пречекорување, затоа
+што автоматската наплата по MB е исклучена по правило. Ако на фактурата се појави
+ставка за сообраќај над квотата, тоа значи дека опцијата „Продолжи со полна брзина"
+била рачно вклучена во Мој Вардар.
+
+| Ставка | Износ |
+|---|---|
+| Месечна претплата | {money(fee)} {DEN} |
+| Сообраќај над квотата | 0,00 {DEN} |
+| Вкупно | {money(fee)} {DEN} |
+
+Алтернатива на намалената брзина е додатен пакет: {addon['gb']} GB за
+{money(addon['price'][Y])} {DEN}, важи {addon['days']} дена.""",
+            f"""# Allowance reached
+
+On {m.name} the {Y} allowance is {m.data_gb[Y]} GB. Once it is used, the speed is
+reduced to {C.FUP['throttle_kbps']} kbps until the end of the period.
+
+**Nothing extra is charged.** There is no overage line on the invoice, because
+automatic per-MB charging is off by default. If an over-allowance line does appear,
+the "Continue at full speed" option was switched on manually in My Vardar.
+
+| Item | Amount |
+|---|---|
+| Monthly fee | {money(fee)} MKD |
+| Traffic over the allowance | 0.00 MKD |
+| Total | {money(fee)} MKD |
+
+The alternative to throttling is an add-on: {addon['gb']} GB for
+{money(addon['price'][Y])} MKD, valid {addon['days']} days.""",
+        ),
+        (
+            "op-smetka-ddv",
+            "Пресметка на ДДВ на фактура",
+            "VAT breakdown on the invoice",
+            f"""# Пресметка на ДДВ
+
+Сите објавени цени се **со вклучен ДДВ** од {C.VAT_PCT}%. На фактурата износот се
+прикажува расчленето, што често изгледа како двојна наплата иако не е.
+
+| Ставка | Износ |
+|---|---|
+| Основица | {money(round(net, 2))} {DEN} |
+| ДДВ {C.VAT_PCT}% | {money(round(vat, 2))} {DEN} |
+| **Вкупно за плаќање** | **{money(fee)} {DEN}** |
+
+Основицата се добива со делење на бруто износот со {1 + C.VAT_PCT / 100:.2f}, а не со
+одземање на {C.VAT_PCT}%. Тоа е најчестата грешка при проверка на фактура.
+
+Правни лица со ДДВ број добиваат фактура со истиот вкупен износ; разликата е само во
+можноста за одбивање на претходниот данок.""",
+            f"""# VAT breakdown
+
+All published prices **include** {C.VAT_PCT}% VAT. The invoice shows the amount split
+out, which often looks like double charging but is not.
+
+| Item | Amount |
+|---|---|
+| Net | {money(round(net, 2))} MKD |
+| VAT {C.VAT_PCT}% | {money(round(vat, 2))} MKD |
+| **Total payable** | **{money(fee)} MKD** |
+
+The net figure is obtained by dividing the gross by {1 + C.VAT_PCT / 100:.2f}, not by
+subtracting {C.VAT_PCT}%. That is the most common mistake when checking an invoice.
+
+VAT-registered businesses receive an invoice with the same total; the only difference
+is their ability to reclaim input tax.""",
+        ),
+        (
+            "op-smetka-ednokratni",
+            "Еднократни надоместоци",
+            "One-off charges",
+            f"""# Еднократни надоместоци
+
+| Надоместок | Износ | Кога се наплаќа |
+|---|---|---|
+| Замена на СИМ картичка | {money(fees['sim_replacement'])} {DEN} | при губење или оштетување |
+| Печатена фактура по пошта | {money(fees['paper_invoice'])} {DEN} месечно | ако не е избрана е-фактура |
+| Повторно вклучување по суспензија | {money(fees['reconnection'])} {DEN} | по подмирен долг |
+| Детална спецификација на повици | {money(fees['itemised_bill'])} {DEN} | на барање |
+| Пренос на број кон друг оператор | 0 {DEN} | секогаш бесплатно |
+
+Замената на СИМ е бесплатна ако е поради технички дефект на картичката потврден во
+продажно место, или при премин на eSIM во првите 30 дена од активација.""",
+            f"""# One-off charges
+
+| Charge | Amount | When it applies |
+|---|---|---|
+| SIM replacement | {money(fees['sim_replacement'])} MKD | loss or damage |
+| Paper invoice by post | {money(fees['paper_invoice'])} MKD per month | if e-invoice is not selected |
+| Reconnection after suspension | {money(fees['reconnection'])} MKD | after the debt is settled |
+| Itemised call listing | {money(fees['itemised_bill'])} MKD | on request |
+| Porting the number out | 0 MKD | always free |
+
+SIM replacement is free if it follows a technical fault confirmed in store, or when
+switching to eSIM within the first 30 days of activation.""",
+        ),
+        (
+            "op-smetka-docna-uplata",
+            "Задоцнето плаќање, суспензија и повторно вклучување",
+            "Late payment, suspension and reconnection",
+            f"""# Задоцнето плаќање
+
+Рокот за плаќање е 15 дена од датумот на фактурата.
+
+| Ден по достасување | Што се случува |
+|---|---|
+| 1 | Потсетување со SMS. Нема камата. |
+| 15 | Затезна камата {fees['late_payment_pct']}% месечно на доспеаниот износ |
+| {fees['suspension_after_days']} | Суспензија на одлезни повици и интернет. Дојдовните остануваат. |
+| {fees['termination_after_days']} | Раскинување на договорот и пренос во наплата |
+
+Повторното вклучување чини {money(fees['reconnection'])} {DEN} и се врши во рок од 2
+часа по евидентирана уплата.
+
+## Ако износот е оспорен
+
+Ако е поднесен приговор во рок од {C.COMPLAINTS['submit_within_days']} дена,
+**оспорениот дел не се наплаќа** додека трае постапката и не се пресметува камата на
+него. Неоспорениот дел останува достасан. Суспензија поради неплатен оспорен износ не
+е дозволена.""",
+            f"""# Late payment
+
+Payment is due 15 days from the invoice date.
+
+| Day past due | What happens |
+|---|---|
+| 1 | SMS reminder. No interest. |
+| 15 | Default interest of {fees['late_payment_pct']}% per month on the overdue amount |
+| {fees['suspension_after_days']} | Outgoing calls and data suspended. Incoming stays on. |
+| {fees['termination_after_days']} | Contract terminated and the debt passed to collection |
+
+Reconnection costs {money(fees['reconnection'])} MKD and is done within 2 hours of the
+payment being recorded.
+
+## If the amount is disputed
+
+If a complaint is filed within {C.COMPLAINTS['submit_within_days']} days, **the
+disputed part is not collected** while the case is open and no interest accrues on it.
+The undisputed part remains due. Suspension for an unpaid disputed amount is not
+permitted.""",
+        ),
+        (
+            "op-smetka-odobrenie",
+            "Одобрение по прифатен приговор",
+            "Credit note after an upheld complaint",
+            f"""# Одобрение по прифатен приговор
+
+Кога приговорот е прифатен, износот не се враќа во готово по правило. Се книжи како
+одобрение на наредната фактура.
+
+| Ставка | Износ |
+|---|---|
+| Месечна претплата | {money(fee)} {DEN} |
+| Одобрение по приговор бр. 2026/0417 | −{money(round(fee * 0.4, 2))} {DEN} |
+| **За плаќање** | **{money(round(fee * 0.6, 2))} {DEN}** |
+
+## Кога се враќа во готово
+
+Враќање на сметка се врши ако договорот е раскинат, ако одобрението надминува две
+месечни претплати, или на изречно барање на корисникот. Рокот е
+{C.COMPLAINTS['refund_days']} дена од прифаќањето на приговорот.
+
+Одобрението секогаш носи број на приговорот, за да може да се поврзе со постапката.""",
+            f"""# Credit note after an upheld complaint
+
+When a complaint is upheld the amount is not refunded in cash by default. It is posted
+as a credit on the next invoice.
+
+| Item | Amount |
+|---|---|
+| Monthly fee | {money(fee)} MKD |
+| Credit for complaint no. 2026/0417 | −{money(round(fee * 0.4, 2))} MKD |
+| **Payable** | **{money(round(fee * 0.6, 2))} MKD** |
+
+## When cash is refunded
+
+A bank refund is made if the contract has been terminated, if the credit exceeds two
+monthly fees, or on the customer's explicit request. The deadline is
+{C.COMPLAINTS['refund_days']} days from the complaint being upheld.
+
+The credit always carries the complaint number so it can be traced to the case.""",
+        ),
+        (
+            "op-smetka-rata-uredj",
+            "Рата за уред на фактура",
+            "Device instalment on the invoice",
+            f"""# Рата за уред на фактура
+
+Уредот купен на рати се појавува како посебна ставка, одвоена од претплатата.
+
+| Ставка | Износ |
+|---|---|
+| Месечна претплата ({m.name}) | {money(fee)} {DEN} |
+| Рата за уред, 8 од 24 | {money(1250)} {DEN} |
+| **Вкупно** | **{money(fee + 1250)} {DEN}** |
+
+Ратата не се менува при промена на тарифен пакет. Раскинувањето на договорот за
+услуга **не** го гаси договорот за уред: преостанатите рати доспеваат веднаш и се
+наплаќаат во една ставка на последната фактура.
+
+Предвремена отплата на уредот е можна во секое време без надоместок; преостанатата
+главнина се пресметува линеарно.""",
+            f"""# Device instalment on the invoice
+
+A device bought on instalments appears as a separate line, apart from the service fee.
+
+| Item | Amount |
+|---|---|
+| Monthly fee ({m.name}) | {money(fee)} MKD |
+| Device instalment, 8 of 24 | {money(1250)} MKD |
+| **Total** | **{money(fee + 1250)} MKD** |
+
+The instalment does not change when the tariff changes. Terminating the service
+contract does **not** cancel the device agreement: the remaining instalments fall due
+immediately and appear as a single line on the final invoice.
+
+The device can be paid off early at any time without a fee; the outstanding principal
+is calculated on a straight-line basis.""",
+        ),
+        (
+            "op-smetka-dodatok",
+            "Купен додатен интернет пакет во тек на период",
+            "Add-on purchased mid-cycle",
+            f"""# Додатен интернет пакет на фактура
+
+Додатните пакети се наплаќаат во целост во месецот на купување. Нема пропорционална
+пресметка, затоа што важноста тече од моментот на активација, не од почетокот на
+пресметковниот период.
+
+| Ставка | Износ |
+|---|---|
+| Месечна претплата ({m.name}) | {money(fee)} {DEN} |
+| Додаток {addon['gb']} GB, {addon['days']} дена | {money(addon['price'][Y])} {DEN} |
+| **Вкупно** | **{money(fee + addon['price'][Y])} {DEN}** |
+
+Неискористениот сообраќај од додатокот **не се пренесува** во нареден период и не се
+рефундира по истек на важноста.
+
+Редослед на трошење: прво домашната квота, потоа додатоците по редослед на истекување.""",
+            f"""# Data add-on on the invoice
+
+Add-ons are charged in full in the month of purchase. There is no proration, because
+validity runs from activation rather than from the start of the billing period.
+
+| Item | Amount |
+|---|---|
+| Monthly fee ({m.name}) | {money(fee)} MKD |
+| {addon['gb']} GB add-on, {addon['days']} days | {money(addon['price'][Y])} MKD |
+| **Total** | **{money(fee + addon['price'][Y])} MKD** |
+
+Unused data from an add-on does **not** carry over and is not refunded when the
+validity expires.
+
+Consumption order: the domestic allowance first, then add-ons in order of expiry.""",
+        ),
+        (
+            "op-smetka-roaming-wb6",
+            "Роаминг во Западен Балкан на фактура",
+            "Western Balkans roaming on the invoice",
+            f"""# Роаминг во Западен Балкан на фактура
+
+Пример: 6 дена во Србија, 4,2 GB, 96 минути, 30 SMS, постпејд {m.name}.
+
+| Ставка | Износ |
+|---|---|
+| Месечна претплата | {money(fee)} {DEN} |
+| Интернет во роаминг, Србија, 4,2 GB | 0,00 {DEN} |
+| Повици во роаминг, 96 мин | 0,00 {DEN} |
+| SMS во роаминг, 30 | 0,00 {DEN} |
+| **Вкупно** | **{money(fee)} {DEN}** |
+
+Србија е во зоната на Западен Балкан, каде важи наплата како во домашна мрежа.
+Потрошениот сообраќај се одзема од домашната квота од {m.data_gb[Y]} GB и **не се
+појавува како посебна ставка**.
+
+## Честа забуна
+
+Ако на фактурата се појави ставка за роаминг во Србија, проверете ја земјата на
+мрежата, не земјата на дестинацијата. Повик од Србија кон Албанија е меѓународен
+повик направен во роаминг и се наплаќа, иако двете земји се во истата зона.
+
+Оваа зона не е иста како ЕУ. За Грција важат други правила.""",
+            f"""# Western Balkans roaming on the invoice
+
+Example: 6 days in Serbia, 4.2 GB, 96 minutes, 30 SMS, postpaid {m.name}.
+
+| Item | Amount |
+|---|---|
+| Monthly fee | {money(fee)} MKD |
+| Roaming data, Serbia, 4.2 GB | 0.00 MKD |
+| Roaming calls, 96 min | 0.00 MKD |
+| Roaming SMS, 30 | 0.00 MKD |
+| **Total** | **{money(fee)} MKD** |
+
+Serbia is in the Western Balkans zone, where domestic rates apply. The traffic is
+deducted from the domestic {m.data_gb[Y]} GB allowance and **does not appear as a
+separate line**.
+
+## Common confusion
+
+If a Serbia roaming line does appear, check the network country rather than the
+destination country. A call from Serbia to Albania is an international call made while
+roaming and is charged, even though both countries are in the same zone.
+
+This zone is not the same as the EU. Different rules apply to Greece.""",
+        ),
+        (
+            "op-smetka-roaming-eu",
+            "Роаминг во ЕУ на фактура",
+            "EU roaming on the invoice",
+            f"""# Роаминг во ЕУ на фактура
+
+Пример: 5 дена во Грција, 3,1 GB, постпејд {m.name}.
+
+Северна Македонија не е членка на ЕУ, па правилото „роаминг како дома" на Унијата
+**не се применува** за македонски број во Грција. Важи ограничена наплата по MB со
+месечен лимит.
+
+| Ставка | Пресметка | Износ |
+|---|---|---|
+| Месечна претплата | — | {money(fee)} {DEN} |
+| Интернет во роаминг, ЕУ, 3,1 GB | по важечка тарифа за зона 2 | се наплаќа |
+| Месечен лимит на трошок | автоматска блокада | {money(C.FUP['roaming_monthly_cap_mkd'])} {DEN} |
+
+Поевтина алтернатива е пакет за роаминг: {pack['gb']} GB за
+{money(pack['price'][Y])} {DEN}, важи {pack['days']} дена. Пакетот мора да се активира
+**пред** почетокот на трошењето; не се применува наназад на веќе потрошен сообраќај.
+
+## Зошто Србија е бесплатна а Грција не
+
+Србија е во зоната на Западен Балкан по регионален договор. Грција е во ЕУ, каде
+реципроцитетот важи меѓу членки. Двете се соседни земји и двете имаат различен режим.""",
+            f"""# EU roaming on the invoice
+
+Example: 5 days in Greece, 3.1 GB, postpaid {m.name}.
+
+North Macedonia is not an EU member, so the Union's roam-like-at-home rule **does not
+apply** to a Macedonian number in Greece. Capped per-MB charging applies instead, with
+a monthly ceiling.
+
+| Item | Calculation | Amount |
+|---|---|---|
+| Monthly fee | — | {money(fee)} MKD |
+| Roaming data, EU, 3.1 GB | at the zone 2 tariff | charged |
+| Monthly spend cap | automatic bar | {money(C.FUP['roaming_monthly_cap_mkd'])} MKD |
+
+A roaming pack is cheaper: {pack['gb']} GB for {money(pack['price'][Y])} MKD, valid
+{pack['days']} days. The pack must be activated **before** usage starts; it is not
+applied retrospectively to traffic already used.
+
+## Why Serbia is free and Greece is not
+
+Serbia is in the Western Balkans zone under a regional agreement. Greece is in the EU,
+where reciprocity applies between member states. Two neighbouring countries, two
+different regimes.""",
+        ),
+        (
+            "op-smetka-roaming-svet",
+            "Меѓународен роаминг на фактура",
+            "International roaming on the invoice",
+            f"""# Меѓународен роаминг на фактура
+
+Пример: 3 дена во Турција, 1,4 GB, постпејд {m.name}.
+
+Турција не е ни во ЕУ ни во зоната на Западен Балкан. Важи полна меѓународна тарифа
+за зона 3.
+
+| Ставка | Износ |
+|---|---|
+| Месечна претплата | {money(fee)} {DEN} |
+| Интернет во роаминг, зона 3, 1,4 GB | по тарифа за зона 3 |
+| Месечен лимит на трошок | {money(C.FUP['roaming_monthly_cap_mkd'])} {DEN} |
+
+По достигнување на лимитот интернетот се блокира и се испраќа SMS. Блокадата може да
+се укине рачно во Мој Вардар, со што корисникот прифаќа наплата над лимитот.
+
+## Три соседни земји, три режима
+
+| Земја | Зона | Наплата |
+|---|---|---|
+| Србија | Западен Балкан | како дома |
+| Грција | ЕУ | ограничена по MB |
+| Турција | меѓународна | полна тарифа |
+
+Ова е најчестиот извор на неочекувано висока фактура. Препорачано е пакетот за
+роаминг да се купи пред патувањето.""",
+            f"""# International roaming on the invoice
+
+Example: 3 days in Turkey, 1.4 GB, postpaid {m.name}.
+
+Turkey is neither in the EU nor in the Western Balkans zone. The full international
+zone 3 tariff applies.
+
+| Item | Amount |
+|---|---|
+| Monthly fee | {money(fee)} MKD |
+| Roaming data, zone 3, 1.4 GB | at the zone 3 tariff |
+| Monthly spend cap | {money(C.FUP['roaming_monthly_cap_mkd'])} MKD |
+
+Once the cap is reached data is barred and an SMS is sent. The bar can be lifted
+manually in My Vardar, which means accepting charges above the cap.
+
+## Three neighbouring countries, three regimes
+
+| Country | Zone | Charging |
+|---|---|---|
+| Serbia | Western Balkans | as at home |
+| Greece | EU | capped per MB |
+| Turkey | international | full tariff |
+
+This is the most common source of an unexpectedly high invoice. Buying a roaming pack
+before travelling is recommended.""",
+        ),
+        (
+            "op-smetka-kako-se-cita",
+            "Како се чита фактурата",
+            "How to read the invoice",
+            f"""# Како се чита фактурата
+
+Фактурата има четири дела. Прочитани по ред, објаснуваат речиси секое отстапување.
+
+**1. Заглавие.** Број на фактура, пресметковен период, датум на достасување. Периодот
+не се совпаѓа со календарскиот месец ако услугата е активирана во тек на месецот.
+
+**2. Претплата.** Секогаш **однапред**, за периодот што доаѓа.
+
+**3. Потрошувачка.** Секогаш **наназад**, за периодот што помина. Оваа разлика е
+причината зошто фактурата покрива два различни временски интервали и зошто роаминг од
+минатиот месец се појавува дури сега.
+
+**4. Еднократни ставки.** Рати, надоместоци, одобренија.
+
+## Проверка во три чекора
+
+1. Дали претплатата одговара на пакетот во Мој Вардар?
+2. Дали има ставка што не ја препознавате? Проверете го датумот, не износот.
+3. Дали збирот на ставките одговара на вкупниот износ со ДДВ?
+
+Ако некој чекор не се совпаѓа, поднесете приговор во рок од
+{C.COMPLAINTS['submit_within_days']} дена од датумот на фактурата.""",
+            f"""# How to read the invoice
+
+The invoice has four parts. Read in order, they explain almost every discrepancy.
+
+**1. Header.** Invoice number, billing period, due date. The period does not match the
+calendar month if the service was activated mid-month.
+
+**2. Subscription.** Always **in advance**, for the period ahead.
+
+**3. Usage.** Always **in arrears**, for the period just ended. This difference is why
+an invoice covers two different time spans, and why last month's roaming only appears
+now.
+
+**4. One-off items.** Instalments, fees, credits.
+
+## A three-step check
+
+1. Does the subscription match the plan shown in My Vardar?
+2. Is there a line you do not recognise? Check the date, not the amount.
+3. Does the sum of the lines match the VAT-inclusive total?
+
+If any step does not reconcile, file a complaint within
+{C.COMPLAINTS['submit_within_days']} days of the invoice date.""",
+        ),
+    ]
+
+    for doc_id, title_mk, title_en, body_mk, body_en in singles:
+        slug = doc_id.replace("op-smetka-", "")
+        w(
+            f"billing/{doc_id}-mk.md",
+            front(doc_id, title_mk, "mk", Y, "billing") + body_mk + "\n",
+        )
+        w(
+            f"billing/op-invoice-{slug}-en.md",
+            front(doc_id, title_en, "en", Y, "billing") + body_en + "\n",
+        )
+
+
+# ────────────────────────────────────────────────────── complaints, SLA, credits
+def gen_complaints() -> None:
+    """Complaints, service levels and compensation.
+
+    Zero coverage before this, and it is the natural bridge between the operator
+    layer and the regulation layer: these deadlines are the operator's
+    implementation of obligations that live in the EU documents. A question about
+    them is answerable from either layer, so the eval can check *which* source the
+    model cites, not just whether the answer is right.
+    """
+    Y = C.CURRENT_YEAR
+    cm = C.COMPLAINTS
+    reg_mk, reg_en = cm["regulator"]["mk"], cm["regulator"]["en"]
+
+    w(
+        "complaints/op-prigovor-postapka-mk.md",
+        front("op-prigovor-postapka", "Приговор — постапка и рокови", "mk", Y, "complaints")
+        + f"""# Приговор
+## Постапка и рокови
+
+Приговор може да поднесе секој корисник на услугата, за фактура, за квалитет на
+услугата или за постапување на операторот.
+
+| Чекор | Рок |
+|---|---|
+| Поднесување на приговор | {cm['submit_within_days']} дена од датумот на фактурата или од настанот |
+| Одговор на операторот | {cm['operator_reply_days']} дена од приемот |
+| Одговор кај сложени предмети | {cm['operator_reply_days_complex']} дена, со писмено известување за одложувањето |
+| Ескалација кон {reg_mk} | {cm['escalate_to_regulator_days']} дена по одговорот на операторот |
+| Враќање на средства | {cm['refund_days']} дена од прифаќањето |
+
+## Канали за поднесување
+
+{chr(10).join(f'- {c}' for c in cm['channels_mk'])}
+
+Секој поднесен приговор добива број. Без број приговорот не е евидентиран, што е
+најчестата причина зошто корисникот тврди дека поднел а операторот нема евиденција.
+Барајте потврда со број при поднесување преку телефон.
+
+## Оспорен износ
+
+Додека трае постапката **оспорениот дел не се наплаќа** и на него не тече затезна
+камата. Неоспорениот дел останува достасан и мора да се плати во редовниот рок.
+Суспензија на услугата поради неплатен оспорен износ не е дозволена.
+
+## Ако одговорот не е задоволителен
+
+Корисникот има право да го однесе предметот пред {reg_mk} во рок од
+{cm['escalate_to_regulator_days']} дена. Постапката пред регулаторот е бесплатна за
+корисникот. Правото на судска заштита останува независно од оваа постапка.
+
+## Што треба да содржи приговорот
+
+Име и број на корисник, број на фактура или датум на настанот, што конкретно се
+оспорува, износ ако е применливо, и барање. Приговор без наведен износ или конкретно
+барање се обработува, но одговорот е неминовно поопшт.
+""",
+    )
+    w(
+        "complaints/op-complaint-procedure-en.md",
+        front("op-prigovor-postapka", "Complaints — procedure and deadlines", "en", Y, "complaints")
+        + f"""# Complaints
+## Procedure and deadlines
+
+Any customer may file a complaint about an invoice, service quality, or the
+operator's conduct.
+
+| Step | Deadline |
+|---|---|
+| Filing a complaint | {cm['submit_within_days']} days from the invoice date or the event |
+| Operator's reply | {cm['operator_reply_days']} days from receipt |
+| Reply in complex cases | {cm['operator_reply_days_complex']} days, with written notice of the delay |
+| Escalation to {reg_en} | {cm['escalate_to_regulator_days']} days after the operator's reply |
+| Refund | {cm['refund_days']} days from the complaint being upheld |
+
+## Channels
+
+{chr(10).join(f'- {c}' for c in cm['channels_en'])}
+
+Every complaint receives a reference number. Without one it is not on record, which is
+the most common reason a customer insists they filed and the operator has no trace.
+Ask for the number when filing by phone.
+
+## Disputed amounts
+
+While the case is open the **disputed part is not collected** and no default interest
+accrues on it. The undisputed part remains due and must be paid normally. Suspending
+service over an unpaid disputed amount is not permitted.
+
+## If the reply is unsatisfactory
+
+The customer may take the case to {reg_en} within
+{cm['escalate_to_regulator_days']} days. The regulator's procedure is free for the
+customer. The right to go to court is independent of it.
+
+## What a complaint should contain
+
+Name and customer number, invoice number or date of the event, what specifically is
+disputed, the amount where applicable, and what is being asked for. A complaint with
+no stated amount or specific request is still processed, but the reply is necessarily
+more general.
+""",
+    )
+
+    # ── SLA targets
+    rows_mk = "\n".join(
+        f"| {s} | {t} | {win} | {cr}% |" for s, t, win, cr in C.SLA
+    )
+    sla_en = [
+        ("Mobile network availability", "99.5%", "monthly", 5),
+        ("Mobile data availability", "99.0%", "monthly", 5),
+        ("Fault clearance, urban", "24 hours", "from report", 10),
+        ("Fault clearance, rural", "72 hours", "from report", 10),
+        ("New SIM activation", "2 hours", "from signature", 0),
+        ("Number porting", "1 working day", "from request", 15),
+        ("Complaint response", "15 days", "from receipt", 0),
+    ]
+    rows_en = "\n".join(f"| {s} | {t} | {win} | {cr}% |" for s, t, win, cr in sla_en)
+
+    w(
+        "complaints/op-nivo-usluga-mk.md",
+        front("op-nivo-usluga", "Гарантирано ниво на услуга", "mk", Y, "complaints")
+        + f"""# Гарантирано ниво на услуга
+
+| Услуга | Цел | Мерење | Одобрение ако не е исполнето |
+|---|---|---|---|
+{rows_mk}
+
+Одобрението се изразува како процент од месечната претплата и се книжи автоматски на
+наредната фактура кога отстапувањето е евидентирано во системот на операторот.
+
+## Кога одобрението не се доделува автоматски
+
+Ако прекинот не е евидентиран, корисникот мора да го пријави. Пријавата треба да
+содржи датум, време и локација. Одобрение по пријава се доделува само ако прекинот
+може да се потврди во логовите на мрежата.
+
+## Исклучоци
+
+Планираните работи најавени најмалку 48 часа однапред не се сметаат за прекин, под
+услов да траат помалку од 6 часа и да се во периодот меѓу 01:00 и 06:00. Прекини
+поради виша сила, прекин на електрична енергија кај корисникот, или оштетување
+предизвикано од трето лице не влегуваат во пресметката.
+""",
+    )
+    w(
+        "complaints/op-service-levels-en.md",
+        front("op-nivo-usluga", "Guaranteed service levels", "en", Y, "complaints")
+        + f"""# Guaranteed service levels
+
+| Service | Target | Measurement | Credit if missed |
+|---|---|---|---|
+{rows_en}
+
+The credit is expressed as a percentage of the monthly fee and is applied
+automatically to the next invoice when the shortfall is recorded in the operator's
+systems.
+
+## When the credit is not automatic
+
+If an outage was not recorded, the customer must report it. The report should include
+date, time and location. A credit is granted on report only if the outage can be
+confirmed in the network logs.
+
+## Exclusions
+
+Planned work announced at least 48 hours in advance is not counted as an outage,
+provided it lasts under 6 hours and falls between 01:00 and 06:00. Outages caused by
+force majeure, a power cut at the customer's premises, or third-party damage are
+excluded.
+""",
+    )
+
+    # ── outage compensation table
+    rows_mk = "\n".join(
+        f"| {a} — {'над ' + str(a) if b > 1000 else b} часа | {pct}% од месечната претплата |"
+        for a, b, pct in C.OUTAGE_CREDIT
+    )
+    rows_en = "\n".join(
+        f"| {a} — {'over ' + str(a) if b > 1000 else b} hours | {pct}% of the monthly fee |"
+        for a, b, pct in C.OUTAGE_CREDIT
+    )
+    ex = C.PLANS[1]
+    w(
+        "complaints/op-nadomest-prekin-mk.md",
+        front("op-nadomest-prekin", "Надомест за прекин на услуга", "mk", Y, "complaints")
+        + f"""# Надомест за прекин на услуга
+
+| Времетраење на прекинот | Одобрение |
+|---|---|
+{rows_mk}
+
+Прекин пократок од 4 часа не носи одобрение.
+
+## Пример
+
+{ex.name}, месечна претплата {money(ex.price[Y])} {DEN}, прекин од 30 часа.
+Тоа паѓа во опсегот 24 до 72 часа, значи 40%.
+
+{money(ex.price[Y])} × 40% = **{money(round(ex.price[Y] * 0.4, 2))} {DEN}** одобрение
+на наредната фактура.
+
+## Кумулација
+
+Повеќе прекини во ист месец се собираат по времетраење, не по број. Три прекина од по
+5 часа се третираат како еден прекин од 15 часа, што дава 15%, а не три пати по 5%.
+
+Вкупното одобрение во еден месец не може да надмине 100% од месечната претплата.
+Барање над тој износ се разгледува како барање за надомест на штета и излегува од
+оваа постапка.
+""",
+    )
+    w(
+        "complaints/op-outage-compensation-en.md",
+        front("op-nadomest-prekin", "Compensation for service outages", "en", Y, "complaints")
+        + f"""# Compensation for service outages
+
+| Outage duration | Credit |
+|---|---|
+{rows_en}
+
+An outage shorter than 4 hours carries no credit.
+
+## Example
+
+{ex.name}, monthly fee {money(ex.price[Y])} MKD, a 30-hour outage. That falls in the
+24 to 72 hour band, so 40%.
+
+{money(ex.price[Y])} × 40% = **{money(round(ex.price[Y] * 0.4, 2))} MKD** credited on
+the next invoice.
+
+## Accumulation
+
+Multiple outages in one month are added by duration, not by count. Three five-hour
+outages are treated as one fifteen-hour outage, giving 15%, not three times 5%.
+
+Total credit in one month cannot exceed 100% of the monthly fee. A claim beyond that
+is treated as a damages claim and falls outside this procedure.
+""",
+    )
+
+    # ── billing dispute specifics
+    w(
+        "complaints/op-prigovor-smetka-mk.md",
+        front("op-prigovor-smetka", "Приговор на фактура", "mk", Y, "complaints")
+        + f"""# Приговор на фактура
+
+## Што се проверува
+
+Операторот е должен да ги достави податоците врз основа на кои е составена спорната
+ставка: датум, време, времетраење, мрежа и применета тарифа. Барањето за овие податоци
+е бесплатно и не е посебна постапка.
+
+## Товар на докажување
+
+Доказот дека услугата е дадена и правилно наплатена е на страна на операторот.
+Корисникот не мора да докажува дека не ја користел услугата. Ова е важно кај спорни
+роаминг ставки, каде корисникот често нема свои записи.
+
+## Најчести основани приговори
+
+| Основ | Како се потврдува |
+|---|---|
+| Наплатен роаминг во зона со наплата како дома | се проверува мрежата, не земјата |
+| Двојно наплатен додатен пакет | се бараат логовите на активација |
+| Претплата наплатена по раскинување | се проверува датумот на исклучување |
+| Наплата по MB иако опцијата не е вклучена | се проверува статусот на опцијата |
+| Рата за уред по предвремена отплата | се проверува уплатата |
+
+## Најчести неосновани приговори
+
+Прва фактура повисока од очекуваното поради претплата однапред. Роаминг во ЕУ
+наплатен затоа што македонски број нема право на „роаминг како дома" во Унијата.
+Потрошена квота поради автоматско ажурирање на апликации.
+
+Во двата случаја одговорот содржи пресметка, не само заклучок.
+""",
+    )
+    w(
+        "complaints/op-billing-dispute-en.md",
+        front("op-prigovor-smetka", "Disputing an invoice", "en", Y, "complaints")
+        + f"""# Disputing an invoice
+
+## What gets checked
+
+The operator must supply the data the disputed line was built from: date, time,
+duration, network and the tariff applied. Requesting this data is free and is not a
+separate procedure.
+
+## Burden of proof
+
+Proving that the service was delivered and correctly charged rests with the operator.
+The customer does not have to prove they did not use it. This matters for disputed
+roaming lines, where the customer usually has no records of their own.
+
+## Complaints most often upheld
+
+| Ground | How it is verified |
+|---|---|
+| Roaming charged in a domestic-rate zone | check the network, not the country |
+| Add-on charged twice | pull the activation logs |
+| Fee charged after termination | check the disconnection date |
+| Per-MB charging with the option switched off | check the option's status |
+| Device instalment after early settlement | check the payment |
+
+## Complaints most often rejected
+
+A first invoice higher than expected because the fee is billed in advance. EU roaming
+charged because a Macedonian number has no roam-like-at-home right in the Union. An
+allowance used up by automatic app updates.
+
+In each case the reply contains the calculation, not just the conclusion.
+""",
+    )
+
+
+# ────────────────────────────────────────────────────── contract terms by year
+def gen_contract_terms() -> None:
+    """Contract terms, one document per plan per year.
+
+    The values genuinely differ between years, so 'what is the early termination
+    fee' has three defensible answers and only the in_force one is correct. This
+    makes effective_date filtering testable rather than decorative: without it,
+    retrieval on topic alone will happily return the 2024 terms.
+    """
+    for plan in C.PLANS:
+        for y in C.YEARS:
+            ct = C.CONTRACT_BY_YEAR[y]
+            fee = plan.price[y]
+            rem = 10
+            early = fee * ct["early_fee_pct"] / 100 * rem
+            changed_mk, changed_en = [], []
+            if y > C.YEARS[0]:
+                prev = C.CONTRACT_BY_YEAR[y - 1]
+                for k, label_mk, label_en in (
+                    ("min_term_months", "минимален период", "minimum term"),
+                    ("notice_days", "отказен рок", "notice period"),
+                    ("early_fee_pct", "надоместок за раскинување", "early termination fee"),
+                    ("sim_lock_months", "заклучување на уред", "device lock"),
+                    ("downgrade_floor_pct", "праг за намалување", "downgrade floor"),
+                ):
+                    if prev[k] != ct[k]:
+                        changed_mk.append(f"- {label_mk}: {prev[k]} → {ct[k]}")
+                        changed_en.append(f"- {label_en}: {prev[k]} → {ct[k]}")
+            diff_mk = (
+                "\n## Изменето во однос на " + str(y - 1) + "\n\n" + "\n".join(changed_mk) + "\n"
+                if changed_mk
+                else ""
+            )
+            diff_en = (
+                "\n## Changed from " + str(y - 1) + "\n\n" + "\n".join(changed_en) + "\n"
+                if changed_en
+                else ""
+            )
+
+            w(
+                f"contract/op-dogovor-{plan.code.lower()}-{y}-mk.md",
+                front(
+                    f"op-dogovor-{plan.code.lower()}-{y}",
+                    f"Договорни услови — {plan.name} ({y})",
+                    "mk",
+                    y,
+                    "contract",
+                )
+                + f"""# Договорни услови
+## {plan.name}, договори склучени во {y}
+
+Овие услови важат за договори склучени од 1 јануари {y}. Договорите склучени порано
+остануваат под условите важечки на денот на потпис.
+
+| Услов | Вредност |
+|---|---|
+| Минимален договорен период | {ct['min_term_months']} месеци |
+| Отказен рок | {ct['notice_days']} дена |
+| Надоместок за предвремено раскинување | {ct['early_fee_pct']}% од месечната претплата по преостанат месец |
+| Право на откажување без причина | {ct['cooloff_days']} дена од потпис |
+| Праг за намалување на пакет | {ct['downgrade_floor_pct']}% од првичната претплата |
+| Заклучување на уред за мрежа | {ct['sim_lock_months']} месеци |
+| Автоматско продолжување | {'да, на неопределено време' if ct['auto_renew'] else 'не, преминува во месечен режим без обврска'} |
+{diff_mk}
+## Пример за пресметка
+
+Месечна претплата {money(fee)} {DEN}, преостануваат {rem} месеци:
+
+{money(fee)} × {ct['early_fee_pct']}% × {rem} = **{money(round(early, 2))} {DEN}**
+
+## Кога надоместокот не се наплаќа
+
+- по истек на минималниот период
+- при раскинување во рок од {ct['cooloff_days']} дена од потпис
+- при еднострана измена на условите на штета на корисникот
+- при преселба во подрачје без покриеност, со доказ
+- при смрт на корисникот
+
+Ратите за уред не се дел од овој надоместок и доспеваат одделно.
+""",
+            )
+            w(
+                f"contract/op-contract-{plan.code.lower()}-{y}-en.md",
+                front(
+                    f"op-dogovor-{plan.code.lower()}-{y}",
+                    f"Contract terms — {plan.name} ({y})",
+                    "en",
+                    y,
+                    "contract",
+                )
+                + f"""# Contract terms
+## {plan.name}, contracts signed in {y}
+
+These terms apply to contracts signed from 1 January {y}. Earlier contracts remain
+under the terms in force on the day of signature.
+
+| Term | Value |
+|---|---|
+| Minimum term | {ct['min_term_months']} months |
+| Notice period | {ct['notice_days']} days |
+| Early termination fee | {ct['early_fee_pct']}% of the monthly fee per remaining month |
+| Right of withdrawal | {ct['cooloff_days']} days from signature |
+| Downgrade floor | {ct['downgrade_floor_pct']}% of the original fee |
+| Device network lock | {ct['sim_lock_months']} months |
+| Automatic renewal | {'yes, indefinite' if ct['auto_renew'] else 'no, reverts to a monthly rolling basis'} |
+{diff_en}
+## Worked example
+
+Monthly fee {money(fee)} MKD, {rem} months remaining:
+
+{money(fee)} × {ct['early_fee_pct']}% × {rem} = **{money(round(early, 2))} MKD**
+
+## When no fee applies
+
+- after the minimum term has expired
+- on termination within {ct['cooloff_days']} days of signature
+- on a unilateral change of terms to the customer's detriment
+- on relocation to an area without coverage, with evidence
+- on the death of the customer
+
+Device instalments are not part of this fee and fall due separately.
+""",
+            )
+
+
+# ──────────────────────────────────────────────────────────────── add-on packs
+def gen_addons() -> None:
+    """Data add-ons and roaming packs, one sheet per pack per year.
+
+    Small, near-identical, numeric documents. Exactly the shape that defeats
+    retrieval on topic and rewards metadata filtering plus a structured tool,
+    which is the point being demonstrated.
+    """
+    for a in C.DATA_ADDONS:
+        for y in C.YEARS:
+            price = a["price"][y]
+            per_gb = price / a["gb"]
+            prev = (
+                f"\nЦената во {y-1} изнесуваше {money(a['price'][y-1])} {DEN}.\n"
+                if y > C.YEARS[0]
+                else "\n"
+            )
+            w(
+                f"addons/op-dodatok-{a['code'].lower()}-{y}-mk.md",
+                front(
+                    f"op-dodatok-{a['code'].lower()}-{y}",
+                    f"Додатен интернет пакет {a['gb']} GB ({y})",
+                    "mk",
+                    y,
+                    "addons",
+                )
+                + f"""# Додаток {a['gb']} GB
+## Услови за {y} година
+
+| Ставка | Вредност |
+|---|---|
+| Шифра | {a['code']} |
+| Количина | {a['gb']} GB |
+| Важност | {a['days']} дена од активација |
+| Цена | **{money(price)} {DEN}** |
+| Цена по GB | {money(round(per_gb, 2))} {DEN} |
+{prev}
+## Правила
+
+Важноста тече од моментот на активација, не од почетокот на пресметковниот период.
+Неискористениот сообраќај не се пренесува и не се рефундира.
+
+Пакетот важи само во домашна мрежа. Во роаминг се троши роаминг квота или пакет за
+роаминг, не овој додаток.
+
+Редослед на трошење: прво домашната квота од тарифниот пакет, потоа додатоците по
+редослед на истекување на важноста.
+
+Може да се активираат повеќе додатоци истовремено. Нема ограничување на бројот.
+""",
+            )
+            w(
+                f"addons/op-addon-{a['code'].lower()}-{y}-en.md",
+                front(
+                    f"op-dodatok-{a['code'].lower()}-{y}",
+                    f"Data add-on {a['gb']} GB ({y})",
+                    "en",
+                    y,
+                    "addons",
+                )
+                + f"""# {a['gb']} GB add-on
+## Terms for {y}
+
+| Item | Value |
+|---|---|
+| Code | {a['code']} |
+| Volume | {a['gb']} GB |
+| Validity | {a['days']} days from activation |
+| Price | **{money(price)} MKD** |
+| Price per GB | {money(round(per_gb, 2))} MKD |
+
+## Rules
+
+Validity runs from activation, not from the start of the billing period. Unused data
+does not carry over and is not refunded.
+
+The add-on applies in the home network only. While roaming, the roaming allowance or a
+roaming pack is used instead.
+
+Consumption order: the tariff plan's domestic allowance first, then add-ons in order of
+expiry.
+
+Several add-ons can be active at once. There is no limit on the number.
+""",
+            )
+
+    zone_by_key = {z.key: z for z in C.ZONES}
+    for pk in C.ROAMING_PACKS:
+        for y in C.YEARS:
+            price = pk["price"][y]
+            per_gb = price / pk["gb"]
+            z = zone_by_key[pk["zone"]]
+            zmk, zen = z.name_mk, z.name_en
+            w(
+                f"addons/op-roaming-paket-{pk['code'].lower()}-{y}-mk.md",
+                front(
+                    f"op-roaming-paket-{pk['code'].lower()}-{y}",
+                    f"Пакет за роаминг {pk['code']} ({y})",
+                    "mk",
+                    y,
+                    "addons",
+                )
+                + f"""# Пакет за роаминг {pk['code']}
+## Услови за {y} година
+
+| Ставка | Вредност |
+|---|---|
+| Зона | {zmk} |
+| Количина | {pk['gb']} GB |
+| Важност | {pk['days']} дена |
+| Цена | **{money(price)} {DEN}** |
+| Цена по GB | {money(round(per_gb, 2))} {DEN} |
+
+## Правила
+
+Пакетот мора да се активира **пред** почетокот на трошењето. Не се применува наназад
+на сообраќај што е веќе наплатен по стандардна тарифа. Ова е најчестата причина за
+приговор поврзан со роаминг пакети.
+
+Пакетот важи само во наведената зона. Во друга зона се наплаќа по стандардна тарифа
+дури и ако пакетот е активен.
+
+Пакетот не се однесува на зоната на Западен Балкан, каде наплатата е како во домашна
+мрежа и пакет не е потребен. Купување пакет за таа зона е непотребен трошок.
+""",
+            )
+            w(
+                f"addons/op-roaming-pack-{pk['code'].lower()}-{y}-en.md",
+                front(
+                    f"op-roaming-paket-{pk['code'].lower()}-{y}",
+                    f"Roaming pack {pk['code']} ({y})",
+                    "en",
+                    y,
+                    "addons",
+                )
+                + f"""# Roaming pack {pk['code']}
+## Terms for {y}
+
+| Item | Value |
+|---|---|
+| Zone | {zen} |
+| Volume | {pk['gb']} GB |
+| Validity | {pk['days']} days |
+| Price | **{money(price)} MKD** |
+| Price per GB | {money(round(per_gb, 2))} MKD |
+
+## Rules
+
+The pack must be activated **before** usage begins. It is not applied retrospectively
+to traffic already charged at the standard rate. This is the most common ground for a
+roaming-pack complaint.
+
+The pack applies only in the stated zone. In another zone the standard tariff applies
+even while the pack is active.
+
+The pack does not apply to the Western Balkans zone, where charging is at domestic
+rates and no pack is needed. Buying one for that zone is wasted money.
+""",
+            )
 
 if __name__ == "__main__":
     for fn in (
@@ -2054,6 +3670,11 @@ if __name__ == "__main__":
         gen_points_programme,
         gen_device_specs,
         gen_full_specs,
+        gen_prepaid,
+        gen_billing,
+        gen_complaints,
+        gen_contract_terms,
+        gen_addons,
     ):
         fn()
 

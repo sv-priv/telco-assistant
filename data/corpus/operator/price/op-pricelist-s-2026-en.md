@@ -1,5 +1,5 @@
 ---
-doc_id: op-pricelist-s-2026
+doc_id: op-cenovnik-s-2026
 title: Price list — Вардар Мобилен S (2026)
 source: operator
 authority: operator

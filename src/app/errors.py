@@ -11,7 +11,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 
 class AppError(Exception):
-    """Application error that serialises to an RFC 9457 problem document."""
+    """RFC 9457 problem details error."""
 
     def __init__(
         self,

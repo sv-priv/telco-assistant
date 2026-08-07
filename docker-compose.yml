@@ -1,22 +1,20 @@
-# Postgres 16 with the pgvector extension (vector store wiring comes in Phase 1).
-
 services:
   postgres:
     image: pgvector/pgvector:pg16
     environment:
-      POSTGRES_USER: telco
-      POSTGRES_PASSWORD: telco
-      POSTGRES_DB: telco
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "5433:5432"
+      - '5433:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./docker/init-pgvector.sql:/docker-entrypoint-initdb.d/01-pgvector.sql:ro
     healthcheck:
       test:
         [
-          "CMD-SHELL",
-          "pg_isready -U telco -d telco && psql -U telco -d telco -tAc \"SELECT 1 FROM pg_extension WHERE extname='vector'\" | grep -q 1",
+          'CMD-SHELL',
+          'pg_isready -U telco -d telco && psql -U telco -d telco -tAc "SELECT 1 FROM pg_extension WHERE extname=''vector''" | grep -q 1',
         ]
       interval: 5s
       timeout: 5s

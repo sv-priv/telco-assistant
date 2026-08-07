@@ -1,23 +1,30 @@
-"""Application settings.
-
-Local development reads environment variables and an optional `.env` file.
-In production, set `SECRETS_MANAGER_SECRET_ID` to overlay values from AWS
-Secrets Manager (IAM role; no secrets in the image or repository).
-"""
+"""App settings from env / `.env`, optional AWS Secrets Manager overlay."""
 
 from __future__ import annotations
 
 import json
 import logging
 from functools import lru_cache
-from typing import Any, Literal
+from typing import Any, Literal, Self
+from urllib.parse import quote_plus
 
-from pydantic import Field
+from pydantic import Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 logger = logging.getLogger(__name__)
 
 VectorBackend = Literal["pgvector", "memory"]
+
+
+def build_postgres_dsn(
+    *,
+    user: str,
+    password: str,
+    host: str,
+    port: int,
+    db: str,
+) -> str:
+    return f"postgresql://{quote_plus(user)}:{quote_plus(password)}@{host}:{port}/{db}"
 
 
 class Settings(BaseSettings):
@@ -30,8 +37,12 @@ class Settings(BaseSettings):
     app_name: str = "telco-assistant"
     environment: str = "local"
 
-    # Host port 5433 maps to container 5432 (see docker-compose.yml).
-    postgres_dsn: str = "postgresql://telco:telco@localhost:5433/telco"
+    postgres_user: str = "telco"
+    postgres_password: str = "telco"
+    postgres_host: str = "localhost"
+    postgres_port: int = 5433  # host; container is 5432
+    postgres_db: str = "telco"
+    postgres_dsn: str = ""  # if set, overrides the fields above
 
     vector_backend: VectorBackend = "pgvector"
 
@@ -39,8 +50,23 @@ class Settings(BaseSettings):
     secrets_manager_secret_id: str | None = None
 
     openai_api_key: str = ""
+    embedding_model: str = "text-embedding-3-small"
+    embedding_dimensions: int = 1536
 
     api_keys: dict[str, str] = Field(default_factory=dict)
+
+    @model_validator(mode="after")
+    def _resolve_postgres_dsn(self) -> Self:
+        if self.postgres_dsn:
+            return self
+        self.postgres_dsn = build_postgres_dsn(
+            user=self.postgres_user,
+            password=self.postgres_password,
+            host=self.postgres_host,
+            port=self.postgres_port,
+            db=self.postgres_db,
+        )
+        return self
 
 
 def _load_from_secrets_manager(secret_id: str, region: str) -> dict[str, Any]:
@@ -53,9 +79,18 @@ def _load_from_secrets_manager(secret_id: str, region: str) -> dict[str, Any]:
     return data
 
 
+_PART_FIELDS = (
+    "postgres_user",
+    "postgres_password",
+    "postgres_host",
+    "postgres_port",
+    "postgres_db",
+)
+
+
 @lru_cache
 def get_settings() -> Settings:
-    """Return cached settings, optionally overlaid from Secrets Manager."""
+    """Cached settings."""
     base = Settings()
     if not base.secrets_manager_secret_id:
         return base
@@ -70,6 +105,16 @@ def get_settings() -> Settings:
     key_map = {
         "postgres_dsn": "postgres_dsn",
         "POSTGRES_DSN": "postgres_dsn",
+        "postgres_user": "postgres_user",
+        "POSTGRES_USER": "postgres_user",
+        "postgres_password": "postgres_password",
+        "POSTGRES_PASSWORD": "postgres_password",
+        "postgres_host": "postgres_host",
+        "POSTGRES_HOST": "postgres_host",
+        "postgres_port": "postgres_port",
+        "POSTGRES_PORT": "postgres_port",
+        "postgres_db": "postgres_db",
+        "POSTGRES_DB": "postgres_db",
         "openai_api_key": "openai_api_key",
         "OPENAI_API_KEY": "openai_api_key",
         "vector_backend": "vector_backend",
@@ -81,4 +126,18 @@ def get_settings() -> Settings:
 
     if not overlays:
         return base
-    return base.model_copy(update=overlays)
+
+    updated = base.model_copy(update=overlays)
+    if "postgres_dsn" not in overlays and any(k in overlays for k in _PART_FIELDS):
+        updated = updated.model_copy(
+            update={
+                "postgres_dsn": build_postgres_dsn(
+                    user=updated.postgres_user,
+                    password=updated.postgres_password,
+                    host=updated.postgres_host,
+                    port=int(updated.postgres_port),
+                    db=updated.postgres_db,
+                )
+            }
+        )
+    return updated

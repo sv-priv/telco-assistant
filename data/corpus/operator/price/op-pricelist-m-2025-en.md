@@ -1,5 +1,5 @@
 ---
-doc_id: op-pricelist-m-2025
+doc_id: op-cenovnik-m-2025
 title: Price list — Вардар Мобилен M (2025)
 source: operator
 authority: operator
