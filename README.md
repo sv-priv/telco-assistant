@@ -61,20 +61,23 @@ data/scripts/      operator corpus generator
 docker-compose.yml local Postgres + pgvector
 ```
 
-## Search
+## Search / chat
 
 ```bash
 uv run uvicorn app.main:app --app-dir src --reload --port 8000
+
 curl -s http://localhost:8000/v1/search -H 'content-type: application/json' \
   -d '{"query":"роаминг во Турција","limit":5,"language":"mk"}' | jq
 
-# or CLI
+curl -s http://localhost:8000/v1/chat -H 'content-type: application/json' \
+  -d '{"question":"роаминг во Турција","language":"mk"}' | jq
+
 uv run python -m app.retrieve "роаминг во Турција" --lang mk
 ```
 
 ## Status
 
-Ingest + vector search work. Next: hybrid retrieval / eval, then chat.
+Ingest, vector search, and grounded chat API work. Next: UI / eval / hybrid.
 
 ## License
 
