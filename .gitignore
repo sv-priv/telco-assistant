@@ -30,3 +30,11 @@ data/corpus_chunk_inspect.json
 .idea/
 .vscode/
 .DS_Store
+
+# Next.js
+web/node_modules/
+web/.next/
+web/out/
+web/.env.local
+web/.env
+!web/.env.example

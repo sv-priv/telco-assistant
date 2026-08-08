@@ -7,7 +7,7 @@ from typing import Annotated, Literal
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel, Field
 
-from app.chat.llm import ChatClient, OpenAIChatClient
+from app.chat.llm import ChatClient, ChatMessage, OpenAIChatClient
 from app.chat.service import ChatService
 from app.config import get_settings
 from app.errors import AppError
@@ -20,11 +20,17 @@ from app.retrieve.service import Retriever
 router = APIRouter(tags=["chat"])
 
 
+class HistoryMessage(BaseModel):
+    role: Literal["user", "assistant"]
+    content: str = Field(min_length=1)
+
+
 class ChatRequest(BaseModel):
     question: str = Field(min_length=1)
-    limit: int = Field(default=5, ge=1, le=20)
+    limit: int = Field(default=8, ge=1, le=20)
     language: str | None = None
     source: Literal["operator", "eu", "wb6"] | None = None
+    history: list[HistoryMessage] = Field(default_factory=list, max_length=16)
 
 
 class CitationOut(BaseModel):
@@ -67,6 +73,7 @@ async def chat(
         limit=body.limit,
         language=body.language,
         source=body.source,
+        history=[ChatMessage(role=m.role, content=m.content) for m in body.history],
     )
     return ChatResponse(
         question=result.question,

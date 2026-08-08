@@ -2,9 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Protocol, runtime_checkable
+from dataclasses import dataclass
+from typing import Literal, Protocol, runtime_checkable
 
 from openai import AsyncOpenAI
+
+
+@dataclass(frozen=True)
+class ChatMessage:
+    role: Literal["user", "assistant"]
+    content: str
 
 
 @runtime_checkable

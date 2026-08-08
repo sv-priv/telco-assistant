@@ -7,8 +7,8 @@ from pathlib import Path
 
 import pytest
 
-from app.chat.llm import FakeChatClient
-from app.chat.service import ChatService
+from app.chat.llm import ChatMessage, FakeChatClient
+from app.chat.service import ChatService, _search_query
 from app.ingest.embeddings import FakeEmbeddingClient
 from app.ingest.models import Chunk
 from app.ingest.store import InMemoryVectorStore
@@ -50,6 +50,60 @@ async def test_ask_returns_answer_and_citations() -> None:
     assert result.citations[0].doc_id == "op-roaming-2026"
     assert llm.last_user is not None
     assert "op-roaming-2026" in llm.last_user
+
+
+def test_fallback_search_query_keeps_prior_topic() -> None:
+    history = [
+        ChatMessage(role="user", content="What is included in the XL plan?"),
+        ChatMessage(role="assistant", content="XL includes…"),
+    ]
+    q = _search_query("a vo L", history)
+    assert "a vo L" in q
+    assert "XL plan" in q
+
+
+@pytest.mark.asyncio
+async def test_ask_rewrites_followup_then_answers() -> None:
+    store = InMemoryVectorStore()
+    embedder = FakeEmbeddingClient(dimensions=32)
+    await store.setup()
+    # Include rewrite terms so FakeEmbeddingClient can retrieve the chunk.
+    chunks = [
+        _chunk(
+            "Што има во тарифен план L: 50GB and costs 1299 den.",
+            doc_id="op-cenovnik-l",
+        )
+    ]
+    vectors = await embedder.embed_texts([c.text for c in chunks])
+    await store.upsert(chunks, vectors)
+
+    # Fake LLM returns rewrite first, then the grounded answer.
+    llm = FakeChatClient()
+    replies = iter(
+        [
+            "Што има во тарифен план L",
+            "L има 50GB [op-cenovnik-l].",
+        ]
+    )
+
+    async def sequenced(*, system: str, user: str) -> str:
+        llm.last_system = system
+        llm.last_user = user
+        return next(replies)
+
+    llm.complete = sequenced  # type: ignore[method-assign]
+
+    service = ChatService(Retriever(store, embedder), llm)
+    result = await service.ask(
+        "a vo L?",
+        history=[
+            ChatMessage(role="user", content="What is in XL?"),
+            ChatMessage(role="assistant", content="XL has 150GB."),
+        ],
+    )
+    assert "50GB" in result.answer or "op-cenovnik-l" in result.answer
+    assert llm.last_user is not None
+    assert "Conversation so far" in llm.last_user
 
 
 @pytest.mark.asyncio
