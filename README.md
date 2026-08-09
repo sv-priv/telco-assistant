@@ -120,26 +120,46 @@ for `CORS_ORIGINS`, rate limits, and optional AWS Secrets Manager.
 
 ## Deploy (Render)
 
-Blueprint: [`render.yaml`](render.yaml) — free Postgres + free API + free Next.js
-(web services sleep after ~15 min idle; free DB expires after **30 days**).
+Blueprint: [`render.yaml`](render.yaml) — free Postgres + free API + free Next.js.
 
-1. Push this repo to GitHub.
-2. [Render Dashboard](https://dashboard.render.com) → **New** → **Blueprint** →
-   select the repo (confirm instance type **Free** if prompted).
-3. When prompted, set:
+**Free-tier gotchas (this is why chat broke):**
+
+- Free web services **cannot receive private-network traffic**. The web app must
+  call the API over its **public** `*.onrender.com` URL (the Blueprint does this
+  via `RENDER_EXTERNAL_HOSTNAME`).
+- Free services have **no Shell** — run ingest from your laptop (below).
+- Services sleep after ~15 min idle (~1 min cold start). Free DB expires in 30 days.
+
+### Deploy
+
+1. Push + [Render](https://dashboard.render.com) → **New** → **Blueprint**.
+2. Set secrets when prompted:
    - `OPENAI_API_KEY`
-   - `API_KEYS` — e.g. `demo:<long-random-secret>`
-   - `TELCO_API_KEY` — the **same secret** after the colon (not the `demo:` prefix)
-4. Wait for `telco-api` and `telco-web` to go live (first request after sleep can take ~1 min).
-5. **Ingest embeddings** (Shell on `telco-api`):
+   - `API_KEYS` = `demo:<long-secret>`
+   - `TELCO_API_KEY` = `<long-secret>` (same value, no `demo:` prefix)
+3. Open **telco-api** → copy its public URL (e.g. `https://telco-api-xxxx.onrender.com`).
+   Hit `/v1/health` once and wait until it returns JSON (wakes the service).
+
+### Immediate fix if chat returns empty/500
+
+On **telco-web** → Environment, set `TELCO_API_URL` to the API’s **full public URL**
+(`https://telco-api-….onrender.com`), then **Manual Deploy**.
+
+### Ingest (from your laptop — required)
+
+Free API has no Shell. Use the DB’s **External** connection string from the
+Render dashboard (`telco-db` → Connect):
 
 ```bash
+# in repo root, with your OpenAI key in .env
+export DATABASE_URL='postgresql://…'   # External URL from Render (add ?sslmode=require if needed)
+export ENVIRONMENT=local               # allow running without forcing prod API_KEYS dance
 uv run python -m app.ingest --embed --source operator
 ```
 
-Open the `telco-web` URL. Chat needs ingest to finish first.
+Then retry [the chat UI](https://telco-web-s3p2.onrender.com/chat).
 
-OpenAI usage is still billed by OpenAI (embeddings + chat), separate from Render.
+OpenAI usage is billed by OpenAI separately from Render.
 
 ## Development
 

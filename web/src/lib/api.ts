@@ -93,22 +93,42 @@ export type EvalCatalog = {
 /** Browser calls same-origin Next proxies — API key stays on the server. */
 const PROXY = "";
 
+async function readBodyText(res: Response): Promise<string> {
+  try {
+    return (await res.text()).trim();
+  } catch {
+    return "";
+  }
+}
+
 async function readProblem(res: Response): Promise<string> {
-  const data = (await res.json()) as { detail?: string; title?: string };
-  return data.detail || data.title || `Request failed (${res.status})`;
+  const text = await readBodyText(res);
+  if (!text) {
+    return `Request failed (${res.status || "network"}) — empty response from API`;
+  }
+  try {
+    const data = JSON.parse(text) as { detail?: string; title?: string };
+    return data.detail || data.title || `Request failed (${res.status})`;
+  } catch {
+    return text.slice(0, 200) || `Request failed (${res.status})`;
+  }
 }
 
 export async function fetchEvalCatalog(): Promise<EvalCatalog> {
   const res = await fetch(`${PROXY}/api/eval/catalog`);
   if (!res.ok) throw new Error(await readProblem(res));
-  return (await res.json()) as EvalCatalog;
+  const text = await readBodyText(res);
+  if (!text) throw new Error("Empty eval catalog response");
+  return JSON.parse(text) as EvalCatalog;
 }
 
 export async function fetchEvalLatest(): Promise<EvalReport | null> {
   const res = await fetch(`${PROXY}/api/eval/latest`);
   if (res.status === 404) return null;
   if (!res.ok) throw new Error(await readProblem(res));
-  return (await res.json()) as EvalReport;
+  const text = await readBodyText(res);
+  if (!text) return null;
+  return JSON.parse(text) as EvalReport;
 }
 
 export async function askChat(input: {
@@ -131,5 +151,11 @@ export async function askChat(input: {
   });
 
   if (!res.ok) throw new Error(await readProblem(res));
-  return (await res.json()) as AskResponse;
+  const text = await readBodyText(res);
+  if (!text) {
+    throw new Error(
+      "Empty response from API (service may be waking up — retry in ~30s)",
+    );
+  }
+  return JSON.parse(text) as AskResponse;
 }

@@ -1,6 +1,9 @@
-# Render Blueprint — free-tier demo (spins down when idle; free DB expires in 30 days).
-# https://dashboard.render.com → New → Blueprint
-# After first API deploy, run ingest (see README).
+# Render Blueprint — free-tier demo
+# Important free limits:
+# - Web services sleep after ~15 min idle (~1 min wake)
+# - Free web services CANNOT receive private-network traffic → use public HTTPS URLs
+# - Free services have NO Shell / one-off jobs → ingest from your laptop (see README)
+# - Free Postgres expires after 30 days
 
 databases:
   - name: telco-db
@@ -27,11 +30,12 @@ services:
         fromDatabase:
           name: telco-db
           property: connectionString
+      # Public hostname (free services cannot receive private-network calls)
       - key: CORS_ORIGINS
         fromService:
           name: telco-web
           type: web
-          property: host
+          envVarKey: RENDER_EXTERNAL_HOSTNAME
       - key: OPENAI_API_KEY
         sync: false
       - key: API_KEYS
@@ -55,10 +59,11 @@ services:
     envVars:
       - key: NODE_VERSION
         value: "22"
+      # Must be the PUBLIC API host — free APIs ignore private-network requests
       - key: TELCO_API_URL
         fromService:
           name: telco-api
           type: web
-          property: host
+          envVarKey: RENDER_EXTERNAL_HOSTNAME
       - key: TELCO_API_KEY
         sync: false
