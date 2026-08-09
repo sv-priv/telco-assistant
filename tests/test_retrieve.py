@@ -65,3 +65,17 @@ async def test_retrieve_language_filter() -> None:
     result = await Retriever(store, embedder).retrieve("same topic", language="en")
     assert len(result.hits) == 1
     assert result.hits[0].language == "en"
+
+
+@pytest.mark.asyncio
+async def test_retrieve_language_fallback_when_empty() -> None:
+    store = InMemoryVectorStore()
+    embedder = FakeEmbeddingClient(dimensions=32)
+    await store.setup()
+    chunks = [_chunk("same topic mk", doc_id="d", language="mk")]
+    vectors = await embedder.embed_texts([c.text for c in chunks])
+    await store.upsert(chunks, vectors)
+
+    result = await Retriever(store, embedder).retrieve("same topic", language="en")
+    assert len(result.hits) == 1
+    assert result.hits[0].language == "mk"

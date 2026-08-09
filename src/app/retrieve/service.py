@@ -42,8 +42,8 @@ class Retriever:
             language=language,
             source=source,
         )
-        # UI language is answer preference — if that slice is empty/weak, search both.
-        if language is not None and _needs_language_fallback(hits, limit=limit):
+        # UI language is answer preference — if that slice is empty, search both.
+        if language is not None and _needs_language_fallback(hits):
             broader = await self._store.search(
                 vectors[0],
                 limit=fetch_limit,
@@ -55,12 +55,8 @@ class Retriever:
         return RetrieveResult(query=text, hits=hits)
 
 
-def _needs_language_fallback(hits: list[StoredChunk], *, limit: int) -> bool:
-    if not hits:
-        return True
-    # Very weak top hit → try the other language slice too.
-    top = hits[0].score
-    return top is not None and top < 0.35 and len(hits) < limit
+def _needs_language_fallback(hits: list[StoredChunk]) -> bool:
+    return not hits
 
 
 def _merge_hits(
