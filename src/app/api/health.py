@@ -27,26 +27,42 @@ class HealthResponse(BaseModel):
     dependencies: dict[str, DependencyHealth]
 
 
-async def _check_postgres(dsn: str) -> DependencyHealth:
+def _safe_detail(exc: BaseException, *, expose: bool) -> str | None:
+    """Avoid leaking host/credentials from driver errors in non-local envs."""
+    if not expose:
+        return None
+    return str(exc)
+
+
+async def _check_postgres(dsn: str, *, expose_detail: bool) -> DependencyHealth:
     try:
         conn = await asyncio.wait_for(asyncpg.connect(dsn), timeout=2.0)
     except Exception as exc:  # noqa: BLE001
-        return DependencyHealth(status="down", detail=str(exc))
+        return DependencyHealth(
+            status="down",
+            detail=_safe_detail(exc, expose=expose_detail),
+        )
     try:
         await conn.fetchval("SELECT 1")
     except Exception as exc:  # noqa: BLE001
-        return DependencyHealth(status="down", detail=str(exc))
+        return DependencyHealth(
+            status="down",
+            detail=_safe_detail(exc, expose=expose_detail),
+        )
     finally:
         await conn.close()
     return DependencyHealth(status="up")
 
 
-async def _check_pgvector(dsn: str) -> DependencyHealth:
+async def _check_pgvector(dsn: str, *, expose_detail: bool) -> DependencyHealth:
     """Return up when the Postgres `vector` extension is installed."""
     try:
         conn = await asyncio.wait_for(asyncpg.connect(dsn), timeout=2.0)
     except Exception as exc:  # noqa: BLE001
-        return DependencyHealth(status="down", detail=str(exc))
+        return DependencyHealth(
+            status="down",
+            detail=_safe_detail(exc, expose=expose_detail),
+        )
     try:
         present = await conn.fetchval("SELECT 1 FROM pg_extension WHERE extname = 'vector'")
         if present is None:
@@ -55,7 +71,10 @@ async def _check_pgvector(dsn: str) -> DependencyHealth:
                 detail="extension 'vector' not installed",
             )
     except Exception as exc:  # noqa: BLE001
-        return DependencyHealth(status="down", detail=str(exc))
+        return DependencyHealth(
+            status="down",
+            detail=_safe_detail(exc, expose=expose_detail),
+        )
     finally:
         await conn.close()
     return DependencyHealth(status="up")
@@ -64,9 +83,10 @@ async def _check_pgvector(dsn: str) -> DependencyHealth:
 @router.get("/v1/health", response_model=HealthResponse)
 async def health() -> HealthResponse:
     settings = get_settings()
+    expose = settings.is_local
     postgres, pgvector = await asyncio.gather(
-        _check_postgres(settings.postgres_dsn),
-        _check_pgvector(settings.postgres_dsn),
+        _check_postgres(settings.postgres_dsn, expose_detail=expose),
+        _check_pgvector(settings.postgres_dsn, expose_detail=expose),
     )
     dependencies = {"postgres": postgres, "pgvector": pgvector}
     degraded = any(dep.status == "down" for dep in dependencies.values())

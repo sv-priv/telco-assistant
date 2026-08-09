@@ -7,19 +7,21 @@ from typing import Annotated, Literal
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel, Field
 
+from app.auth import require_api_key
 from app.ingest.embeddings import EmbeddingClient
 from app.ingest.models import Source
 from app.ingest.store import VectorStore
+from app.language import AppLanguage
 from app.retrieve.deps import get_embedder, get_store
 from app.retrieve.service import Retriever
 
-router = APIRouter(tags=["search"])
+router = APIRouter(tags=["search"], dependencies=[Depends(require_api_key)])
 
 
 class SearchRequest(BaseModel):
     query: str = Field(min_length=1)
     limit: int = Field(default=5, ge=1, le=50)
-    language: str | None = None
+    language: AppLanguage | None = None
     source: Literal["operator", "eu", "wb6"] | None = None
 
 

@@ -7,6 +7,7 @@ from typing import Annotated, Literal
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel, Field
 
+from app.auth import require_api_key
 from app.chat.llm import ChatClient, ChatMessage, OpenAIChatClient
 from app.chat.service import ChatService
 from app.config import get_settings
@@ -14,10 +15,11 @@ from app.errors import AppError
 from app.ingest.embeddings import EmbeddingClient
 from app.ingest.models import Source
 from app.ingest.store import VectorStore
+from app.language import AppLanguage
 from app.retrieve.deps import get_embedder, get_store
 from app.retrieve.service import Retriever
 
-router = APIRouter(tags=["chat"])
+router = APIRouter(tags=["chat"], dependencies=[Depends(require_api_key)])
 
 
 class HistoryMessage(BaseModel):
@@ -28,7 +30,7 @@ class HistoryMessage(BaseModel):
 class ChatRequest(BaseModel):
     question: str = Field(min_length=1)
     limit: int = Field(default=8, ge=1, le=20)
-    language: str | None = None
+    language: AppLanguage | None = None
     source: Literal["operator", "eu", "wb6"] | None = None
     history: list[HistoryMessage] = Field(default_factory=list, max_length=16)
 

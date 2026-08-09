@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { LogoMark } from "@/components/LogoMark";
+import { BrandWordmark } from "@/components/LogoMark";
 import { NetworkCanvas } from "@/components/NetworkCanvas";
 
 const TOPICS = [
   {
     title: "Plans & pricing",
-    body: "S, M, L, and XL — what’s included, monthly price, speed, and fair-use limits.",
+    body: "S, M, L, and XL: what’s included, monthly price, speed, and fair-use limits.",
   },
   {
     title: "Roaming",
@@ -25,11 +25,8 @@ export default function HomePage() {
   return (
     <div className="landing relative min-h-dvh bg-[#fefefc] text-[#0a0a0a]">
       <nav className="relative z-20 mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 sm:px-10">
-        <Link href="/" className="flex items-center gap-2.5">
-          <LogoMark />
-          <span className="text-[13px] font-medium tracking-tight">
-            Vardar Mobile
-          </span>
+        <Link href="/" className="inline-flex items-center">
+          <BrandWordmark size={18} />
         </Link>
         <div className="flex items-center gap-6 text-[13px]">
           <a
@@ -38,6 +35,9 @@ export default function HomePage() {
           >
             Coverage
           </a>
+          <Link href="/eval" className="link-quiet hidden text-[#68655e] sm:inline">
+            Scoreboard
+          </Link>
           <Link href="/chat" className="link-quiet font-medium text-[#0a0a0a]">
             Open chat
           </Link>
@@ -55,13 +55,13 @@ export default function HomePage() {
           <div className="relative z-10 mx-auto w-full max-w-6xl px-6 py-16 sm:px-10 sm:py-20">
             <div className="max-w-xl">
               <h1 className="font-display text-[clamp(2.75rem,7vw,4.75rem)] font-normal leading-[0.95] tracking-[-0.02em]">
-                <span className="block text-[#0a0a0a]">Vardar Mobile</span>
+                <span className="block text-[#0a0a0a]">Ask me.</span>
                 <span className="mt-2 block text-[#68655e]">
-                  Ask the network. Get the source.
+                  Find out what you need.
                 </span>
               </h1>
               <p className="mt-7 max-w-md text-[16px] leading-[1.55] tracking-[-0.01em] text-[#68655e]">
-                Plans, roaming, bills — answered from operator docs, with
+                Plans, roaming, bills: answered from operator docs, with
                 citations you can open and check.
               </p>
               <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
@@ -125,7 +125,7 @@ export default function HomePage() {
             </h2>
             <p className="mt-4 max-w-[36ch] text-[15px] leading-relaxed tracking-[-0.01em] text-[#68655e]">
               Every reply shows the documents it used. If the docs don’t cover
-              the question, it says so — instead of inventing a price.
+              the question, it says so instead of inventing a price.
             </p>
             <div className="mt-8">
               <Link
@@ -143,13 +143,9 @@ export default function HomePage() {
 
         <footer className="border-t border-[#e1dfda]">
           <div className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-7 text-[12px] text-[#8f8d8a] sm:flex-row sm:items-center sm:justify-between sm:px-10">
-            <span className="flex items-center gap-2 text-[#0a0a0a]">
-              <LogoMark size={16} />
-              Vardar Mobile
-            </span>
+            <BrandWordmark size={16} />
             <p className="max-w-md text-[11px] leading-relaxed sm:text-right">
-              Fictional / synthetic demo operator — not a real carrier. For
-              portfolio and local use only.
+              Demo operator with synthetic product data.
             </p>
           </div>
         </footer>

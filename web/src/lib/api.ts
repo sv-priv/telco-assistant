@@ -13,38 +13,123 @@ export type HistoryMessage = {
   content: string;
 };
 
+export type RunnerMode = "custom" | "llamaindex" | "langchain";
+
 export type ChatResponse = {
   question: string;
   answer: string;
   citations: Citation[];
 };
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+export type AskResponse = {
+  mode: RunnerMode;
+  question: string;
+  answer: string;
+  citations: Citation[];
+  trace: Record<string, unknown>[];
+  latency_ms: number;
+};
+
+export type EvalModeSummary = {
+  n: number;
+  passed: number;
+  pass_rate: number;
+  citation_acc: number | null;
+  refusal_acc: number | null;
+  contain_acc: number | null;
+  p50_latency_ms: number | null;
+  p95_latency_ms: number | null;
+  avg_tool_calls: number | null;
+};
+
+export type EvalCaseModeScore = {
+  passed: boolean;
+  latency_ms: number;
+  cited_doc_ids: string[];
+  tool_calls: number;
+  answer_preview: string;
+  error: string | null;
+};
+
+export type EvalCaseRow = {
+  id: string;
+  category?: string;
+  tags: string[];
+  q: string;
+  modes: Partial<Record<RunnerMode, EvalCaseModeScore>>;
+};
+
+export type EvalReport = {
+  generated_at: string;
+  golden_path: string;
+  modes: Partial<Record<RunnerMode, EvalModeSummary>>;
+  by_category?: Record<
+    string,
+    Partial<Record<RunnerMode, { n: number; passed: number; pass_rate: number }>>
+  >;
+  retrieval: {
+    n: number;
+    k: number;
+    recall_at_k: number | null;
+    mrr: number | null;
+  } | null;
+  cases: EvalCaseRow[];
+};
+
+export type EvalCatalog = {
+  golden_path: string;
+  n: number;
+  categories: Array<{ id: string; n: number }>;
+  cases: Array<{
+    id: string;
+    category: string;
+    tags: string[];
+    q: string;
+    language: string | null;
+    must_refuse: boolean;
+  }>;
+};
+
+/** Browser calls same-origin Next proxies — API key stays on the server. */
+const PROXY = "";
+
+async function readProblem(res: Response): Promise<string> {
+  const data = (await res.json()) as { detail?: string; title?: string };
+  return data.detail || data.title || `Request failed (${res.status})`;
+}
+
+export async function fetchEvalCatalog(): Promise<EvalCatalog> {
+  const res = await fetch(`${PROXY}/api/eval/catalog`);
+  if (!res.ok) throw new Error(await readProblem(res));
+  return (await res.json()) as EvalCatalog;
+}
+
+export async function fetchEvalLatest(): Promise<EvalReport | null> {
+  const res = await fetch(`${PROXY}/api/eval/latest`);
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(await readProblem(res));
+  return (await res.json()) as EvalReport;
+}
 
 export async function askChat(input: {
   question: string;
   language?: string;
   limit?: number;
   history?: HistoryMessage[];
-}): Promise<ChatResponse> {
-  const res = await fetch(`${API_URL}/v1/chat`, {
+  mode?: RunnerMode;
+}): Promise<AskResponse> {
+  const res = await fetch(`${PROXY}/api/ask`, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({
       question: input.question,
+      mode: input.mode ?? "custom",
       language: input.language || undefined,
       limit: input.limit ?? 8,
       history: input.history ?? [],
     }),
   });
 
-  const data = (await res.json()) as ChatResponse & {
-    detail?: string;
-    title?: string;
-  };
-
-  if (!res.ok) {
-    throw new Error(data.detail || data.title || `Request failed (${res.status})`);
-  }
-  return data;
+  if (!res.ok) throw new Error(await readProblem(res));
+  return (await res.json()) as AskResponse;
 }

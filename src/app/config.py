@@ -5,11 +5,11 @@ from __future__ import annotations
 import json
 import logging
 from functools import lru_cache
-from typing import Any, Literal, Self
+from typing import Annotated, Any, Literal, Self
 from urllib.parse import quote_plus
 
-from pydantic import Field, model_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import Field, field_validator, model_validator
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 logger = logging.getLogger(__name__)
 
@@ -54,7 +54,67 @@ class Settings(BaseSettings):
     embedding_dimensions: int = 1536
     chat_model: str = "gpt-4o-mini"
 
-    api_keys: dict[str, str] = Field(default_factory=dict)
+    # name → secret. Env: JSON object or "demo:secret,ci:other" / bare "secret".
+    # NoDecode: pydantic-settings would otherwise json.loads before our validator.
+    api_keys: Annotated[dict[str, str], NoDecode] = Field(default_factory=dict)
+    rate_limit_per_minute: int = 60
+    # Comma-separated or JSON list. Browser origins allowed for CORS.
+    cors_origins: Annotated[list[str], NoDecode] = Field(
+        default_factory=lambda: [
+            "http://localhost:3000",
+            "http://127.0.0.1:3000",
+        ]
+    )
+    # Only trust X-Forwarded-For when True (behind a known reverse proxy).
+    trust_proxy: bool = False
+
+    @field_validator("api_keys", mode="before")
+    @classmethod
+    def _parse_api_keys(cls, value: Any) -> dict[str, str]:
+        if value is None or value == "":
+            return {}
+        if isinstance(value, dict):
+            return {str(k): str(v) for k, v in value.items() if str(v)}
+        if isinstance(value, str):
+            text = value.strip()
+            if not text:
+                return {}
+            if text.startswith("{"):
+                parsed = json.loads(text)
+                if not isinstance(parsed, dict):
+                    raise ValueError("API_KEYS JSON must be an object")
+                return {str(k): str(v) for k, v in parsed.items() if str(v)}
+            out: dict[str, str] = {}
+            for part in text.split(","):
+                item = part.strip()
+                if not item:
+                    continue
+                if ":" in item:
+                    name, secret = item.split(":", 1)
+                    name, secret = name.strip(), secret.strip()
+                    if name and secret:
+                        out[name] = secret
+                else:
+                    out[item] = item
+            return out
+        raise TypeError("API_KEYS must be a dict, JSON object, or name:key list")
+
+    @field_validator("cors_origins", mode="before")
+    @classmethod
+    def _parse_cors_origins(cls, value: Any) -> list[str]:
+        if value is None or value == "":
+            return ["http://localhost:3000", "http://127.0.0.1:3000"]
+        if isinstance(value, list):
+            return [str(v).strip() for v in value if str(v).strip()]
+        if isinstance(value, str):
+            text = value.strip()
+            if text.startswith("["):
+                parsed = json.loads(text)
+                if not isinstance(parsed, list):
+                    raise ValueError("CORS_ORIGINS JSON must be a list")
+                return [str(v).strip() for v in parsed if str(v).strip()]
+            return [part.strip() for part in text.split(",") if part.strip()]
+        raise TypeError("CORS_ORIGINS must be a list or comma-separated string")
 
     @model_validator(mode="after")
     def _resolve_postgres_dsn(self) -> Self:
@@ -68,6 +128,17 @@ class Settings(BaseSettings):
             db=self.postgres_db,
         )
         return self
+
+    @model_validator(mode="after")
+    def _require_api_keys_outside_local(self) -> Self:
+        env = self.environment.strip().lower()
+        if env not in ("local", "dev", "test", "ci") and not self.api_keys:
+            raise ValueError("API_KEYS must be set when ENVIRONMENT is not local/dev/test/ci")
+        return self
+
+    @property
+    def is_local(self) -> bool:
+        return self.environment.strip().lower() in ("local", "dev", "test", "ci")
 
 
 def _load_from_secrets_manager(secret_id: str, region: str) -> dict[str, Any]:
@@ -120,6 +191,10 @@ def get_settings() -> Settings:
         "OPENAI_API_KEY": "openai_api_key",
         "vector_backend": "vector_backend",
         "VECTOR_BACKEND": "vector_backend",
+        "api_keys": "api_keys",
+        "API_KEYS": "api_keys",
+        "rate_limit_per_minute": "rate_limit_per_minute",
+        "RATE_LIMIT_PER_MINUTE": "rate_limit_per_minute",
     }
     for secret_key, field_name in key_map.items():
         if secret_key in secret and secret[secret_key]:

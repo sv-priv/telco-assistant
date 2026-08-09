@@ -19,9 +19,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vardar Mobile assistant (demo)",
+  title: "Vardar Mobile assistant",
   description:
-    "Fictional demo: grounded assistant for a synthetic Macedonian operator. Not a real carrier. Ask about plans, roaming, and bills in Macedonian or English.",
+    "Grounded assistant for Vardar Mobile: plans, roaming, and bills in Macedonian or English. Demo operator with synthetic product data.",
 };
 
 export default function RootLayout({

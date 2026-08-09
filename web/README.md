@@ -8,4 +8,10 @@ npm install
 npm run dev
 ```
 
-Requires the API on `NEXT_PUBLIC_API_URL` (default `http://localhost:8000`).
+Set server-only env (never `NEXT_PUBLIC_` for secrets):
+
+- `TELCO_API_URL` — FastAPI base URL (default `http://localhost:8000`)
+- `TELCO_API_KEY` — must match a value in backend `API_KEYS`
+
+The browser calls same-origin `/api/*`; the Next server proxies to FastAPI with
+`X-API-Key`.

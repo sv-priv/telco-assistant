@@ -25,6 +25,11 @@ htmlcov/
 # Local / generated inspection dumps
 data/corpus_load_inspect.json
 data/corpus_chunk_inspect.json
+data/eval/latest.json
+
+# Next.js agent scaffolding (recreated by `next dev`; do not ship)
+web/AGENTS.md
+web/CLAUDE.md
 
 # Editors / OS
 .idea/

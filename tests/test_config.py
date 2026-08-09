@@ -69,3 +69,27 @@ def test_settings_overlay_from_secrets_manager(monkeypatch: pytest.MonkeyPatch) 
     settings = get_settings()
     assert settings.openai_api_key == "sk-from-sm"
     assert settings.postgres_dsn == "postgresql://sm:sm@db:5432/telco"
+
+
+def test_production_requires_api_keys(monkeypatch: pytest.MonkeyPatch) -> None:
+    from pydantic import ValidationError
+
+    monkeypatch.setenv("ENVIRONMENT", "production")
+    monkeypatch.setenv("API_KEYS", "")
+    monkeypatch.delenv("SECRETS_MANAGER_SECRET_ID", raising=False)
+
+    with pytest.raises(ValidationError):
+        Settings()
+
+
+def test_cors_origins_csv(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("CORS_ORIGINS", "https://app.example,https://www.example")
+    monkeypatch.delenv("SECRETS_MANAGER_SECRET_ID", raising=False)
+    monkeypatch.setenv("API_KEYS", "")
+    monkeypatch.setenv("ENVIRONMENT", "local")
+
+    settings = Settings()
+    assert settings.cors_origins == [
+        "https://app.example",
+        "https://www.example",
+    ]

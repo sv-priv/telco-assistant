@@ -13,9 +13,9 @@ status: in_force
 
 **What is Vardar Mobile?**
 
-Vardar Mobile (Вардар Мобилен) is a mobile operator in North Macedonia. It offers
-mobile plans, roaming, data add-ons, devices, and customer support. This is a
-synthetic / demo operator built for training the assistant.
+Vardar Mobile (Вардар Мобилен) is a synthetic mobile operator in North
+Macedonia, for demo and portfolio use. It offers mobile plans, roaming, data
+add-ons, devices, and customer support.
 
 **What do you offer?**
 

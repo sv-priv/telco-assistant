@@ -7,26 +7,8 @@ from dataclasses import dataclass
 from app.chat.llm import ChatClient, ChatMessage
 from app.ingest.models import Source
 from app.ingest.store import StoredChunk
+from app.language import grounding_system_prompt, no_hit_answer
 from app.retrieve.service import Retriever
-
-SYSTEM_PROMPT = """\
-You are a support assistant for Vardar Mobile (Вардар Мобиле), a fictional \
-Macedonian mobile operator. Answer using ONLY the provided context snippets.
-
-Rules:
-- Resolve follow-ups using the conversation history (e.g. "and in L?" means \
-the L plan after discussing XL).
-- If the user asks broadly about Vardar Mobile / the operator and the context \
-has product or FAQ snippets, give a short grounded overview of what those \
-docs cover (plans, roaming, support). Do not invent company history, HQ, \
-ownership, or unstated marketing claims.
-- If the context is insufficient for the specific ask, say you don't have \
-enough information and suggest a more concrete question (plans, roaming, bills).
-- Do not invent prices, policies, or legal text.
-- Prefer the customer's language when clear from the question.
-- Cite sources inline like [doc_id] using the doc_id from each snippet.
-- When context includes superseded/repealed law, prefer in-force sources.
-"""
 
 REWRITE_PROMPT = """\
 Rewrite the latest user message as a standalone search query for a telecom \
@@ -87,13 +69,16 @@ class ChatService:
         if not hits:
             return ChatResult(
                 question=question,
-                answer=("I don't have enough information in the knowledge base to answer that."),
+                answer=no_hit_answer(language),
                 citations=[],
                 hits=[],
             )
 
         user_prompt = _build_user_prompt(question, hits, history)
-        answer = await self._llm.complete(system=SYSTEM_PROMPT, user=user_prompt)
+        answer = await self._llm.complete(
+            system=grounding_system_prompt(language),
+            user=user_prompt,
+        )
         citations = [
             Citation(
                 doc_id=hit.doc_id,

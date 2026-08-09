@@ -33,6 +33,17 @@ def _chunk(text: str, *, doc_id: str) -> Chunk:
 
 
 @pytest.mark.asyncio
+async def test_ask_no_hits_uses_mk_copy() -> None:
+    store = InMemoryVectorStore()
+    embedder = FakeEmbeddingClient(dimensions=32)
+    await store.setup()
+    service = ChatService(Retriever(store, embedder), FakeChatClient())
+    result = await service.ask("непознато прашање xyz", language="mk")
+    assert "Немам" in result.answer
+    assert result.citations == []
+
+
+@pytest.mark.asyncio
 async def test_ask_returns_answer_and_citations() -> None:
     store = InMemoryVectorStore()
     embedder = FakeEmbeddingClient(dimensions=32)

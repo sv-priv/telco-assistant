@@ -1,0 +1,88 @@
+# Categories: plan | refuse | roaming | billing | about | followup | network | devices | contract | security | addon | support
+# See data/eval/CATEGORIES.md
+
+# --- plan ---
+{"id":"plan_xl_inclusions_mk","category":"plan","q":"Што вклучува тарифниот план XL?","lang":"mk","tags":["xl","inclusions"],"expect_doc_ids":["op-cenovnik-xl-2026"],"must_contain":["150"]}
+{"id":"plan_xl_price_mk","category":"plan","q":"Колку чини месечната претплата за XL?","lang":"mk","tags":["xl","price"],"expect_doc_ids":["op-cenovnik-xl-2026"],"must_contain":["1799"]}
+{"id":"plan_xl_paket_colloquial","category":"plan","q":"Што има во XL пакетот?","lang":"mk","tags":["xl","colloquial"],"expect_doc_ids":["op-cenovnik-xl-2026"]}
+{"id":"plan_xl_fup_mk","category":"plan","q":"Колкав е FUP лимитот на XL?","lang":"mk","tags":["xl","fup"],"expect_doc_ids":["op-cenovnik-xl-2026"],"must_contain":["150"]}
+{"id":"plan_xl_speed_mk","category":"plan","q":"Која е максималната брзина на XL?","lang":"mk","tags":["xl","speed"],"expect_doc_ids":["op-cenovnik-xl-2026"],"must_contain":["500"]}
+{"id":"plan_xl_inclusions_en","category":"plan","q":"What is included in the XL plan?","lang":"en","tags":["xl","en"],"expect_doc_ids":["op-cenovnik-xl-2026"]}
+{"id":"plan_l_inclusions_mk","category":"plan","q":"Што вклучува тарифниот план L?","lang":"mk","tags":["l"],"expect_doc_ids":["op-cenovnik-l-2026"],"must_contain":["50"]}
+{"id":"plan_l_price_mk","category":"plan","q":"Колку чини планот L месечно?","lang":"mk","tags":["l","price"],"expect_doc_ids":["op-cenovnik-l-2026"],"must_contain":["1299"]}
+{"id":"plan_m_inclusions_mk","category":"plan","q":"Што вклучува тарифниот план M?","lang":"mk","tags":["m"],"expect_doc_ids":["op-cenovnik-m-2026"],"must_contain":["20"]}
+{"id":"plan_m_price_mk","category":"plan","q":"Колку чини M пакетот?","lang":"mk","tags":["m","price"],"expect_doc_ids":["op-cenovnik-m-2026"],"must_contain":["899"]}
+{"id":"plan_s_inclusions_mk","category":"plan","q":"Што вклучува тарифниот план S?","lang":"mk","tags":["s"],"expect_doc_ids":["op-cenovnik-s-2026"],"must_contain":["5"]}
+{"id":"plan_s_price_mk","category":"plan","q":"Колку чини S планот?","lang":"mk","tags":["s","price"],"expect_doc_ids":["op-cenovnik-s-2026"],"must_contain":["599"]}
+{"id":"plan_compare_l_xl","category":"plan","q":"Која е разликата помеѓу L и XL?","lang":"mk","tags":["compare"],"expect_doc_ids":["op-cenovnik-l-2026","op-cenovnik-xl-2026"]}
+{"id":"plan_compare_s_m","category":"plan","q":"Што е подобро S или M?","lang":"mk","tags":["compare"],"expect_doc_ids":["op-cenovnik-s-2026","op-cenovnik-m-2026"]}
+{"id":"plan_list_mk","category":"plan","q":"Кои тарифни планови ги нудите?","lang":"mk","tags":["overview"],"expect_doc_ids":["op-faq-plans"]}
+{"id":"plan_list_en","category":"plan","q":"Which mobile plans do you offer?","lang":"en","tags":["overview","en"],"expect_doc_ids":["op-faq-plans"]}
+
+# --- refuse ---
+{"id":"refuse_xxl_mk","category":"refuse","q":"Што има во XXL планот?","lang":"mk","tags":["xxl"],"must_refuse":true,"must_not_cite":["op-cenovnik-xl-2026","op-cenovnik-xl-2025","op-cenovnik-xl-2024"],"must_not_contain":["1.799","1799 ден"]}
+{"id":"refuse_xxl_en","category":"refuse","q":"Tell me about the XXL plan","lang":"en","tags":["xxl","en"],"must_refuse":true,"must_not_cite":["op-cenovnik-xl-2026","op-cenovnik-xl-2025","op-cenovnik-xl-2024"]}
+{"id":"refuse_xs_mk","category":"refuse","q":"Колку чини XS пакетот?","lang":"mk","tags":["xs"],"must_refuse":true,"must_not_cite":["op-cenovnik-s-2026","op-cenovnik-s-2025","op-cenovnik-s-2024"]}
+{"id":"refuse_xxxl_mk","category":"refuse","q":"Имате ли XXXL пакет?","lang":"mk","tags":["xxxl"],"must_refuse":true,"must_not_cite":["op-cenovnik-xl-2026"]}
+{"id":"refuse_premium_mk","category":"refuse","q":"Што вклучува Premium планот?","lang":"mk","tags":["premium"],"must_refuse":true,"must_not_cite":["op-cenovnik-xl-2026","op-cenovnik-l-2026"]}
+{"id":"refuse_gold_en","category":"refuse","q":"How much is the Gold tariff?","lang":"en","tags":["gold","en"],"must_refuse":true,"must_not_cite":["op-cenovnik-xl-2026"]}
+
+# --- roaming ---
+{"id":"roaming_turkey_mk","category":"roaming","q":"Колку чини роаминг во Турција?","lang":"mk","tags":["turkey","zone3"],"expect_doc_ids":["op-roaming-2026","op-country-tr"]}
+{"id":"roaming_turkey_en","category":"roaming","q":"How much is roaming in Turkey?","lang":"en","tags":["turkey","en"],"expect_doc_ids":["op-roaming-2026","op-country-tr"]}
+{"id":"roaming_eu_mk","category":"roaming","q":"Како работи роамингот во ЕУ?","lang":"mk","tags":["eu"],"expect_doc_ids":["op-roaming-2026","op-faq-roaming"]}
+{"id":"roaming_germany_mk","category":"roaming","q":"Колку чини интернет роаминг во Германија?","lang":"mk","tags":["germany","zone2"],"expect_doc_ids":["op-country-de","op-roaming-2026"],"must_contain":["0,90"]}
+{"id":"roaming_serbia_mk","category":"roaming","q":"Дали роамингот во Србија е како дома?","lang":"mk","tags":["serbia","wb6"],"expect_doc_ids":["op-roaming-2026","op-country-rs"]}
+{"id":"roaming_packs_mk","category":"roaming","q":"Кои роаминг пакети ги имате за ЕУ?","lang":"mk","tags":["packs","eu"],"expect_doc_ids":["op-roaming-2026","op-roaming-paket-rm-eu-5-2026","op-roaming-paket-rm-eu-1-2026"]}
+{"id":"roaming_zones_mk","category":"roaming","q":"Кои се роаминг зоните?","lang":"mk","tags":["zones"],"expect_doc_ids":["op-roaming-2026"]}
+{"id":"roaming_uk_mk","category":"roaming","q":"Во која зона е Обединетото Кралство за роаминг?","lang":"mk","tags":["uk","zone3"],"expect_doc_ids":["op-roaming-2026","op-country-gb"]}
+{"id":"roaming_faq_mk","category":"roaming","q":"Како да активирам роаминг пакет?","lang":"mk","tags":["faq"],"expect_doc_ids":["op-faq-roaming","op-roaming-2026"]}
+
+# --- billing ---
+{"id":"billing_where_mk","category":"billing","q":"Каде ја гледам сметката?","lang":"mk","tags":["faq"],"expect_doc_ids":["op-faq-billing"]}
+{"id":"billing_fup_mk","category":"billing","q":"Што се случува на сметката кога ќе ја достигнам квотата?","lang":"mk","tags":["fup"],"expect_doc_ids":["op-smetka-fup"],"must_contain":["64"]}
+{"id":"billing_quota_check_mk","category":"billing","q":"Како ја проверувам квотата?","lang":"mk","tags":["quota"],"expect_doc_ids":["op-faq-account"],"must_contain":["123"]}
+{"id":"billing_plan_change_mk","category":"billing","q":"Како изгледа промената од XL на L на сметката?","lang":"mk","tags":["plan_change"],"expect_doc_ids":["op-smetka-promena-paket-xl-l","op-smetka-promena-paket-l-xl"]}
+{"id":"billing_faq_en","category":"billing","q":"Where can I see my bill?","lang":"en","tags":["faq","en"],"expect_doc_ids":["op-faq-billing"]}
+
+# --- about ---
+{"id":"about_mk","category":"about","q":"Што е Вардар Мобилен?","lang":"mk","tags":["overview"],"expect_doc_ids":["op-faq-about"]}
+{"id":"about_en","category":"about","q":"Tell me about Vardar Mobile","lang":"en","tags":["overview","en"],"expect_doc_ids":["op-faq-about"]}
+{"id":"about_services_mk","category":"about","q":"Кажете ми повеќе за операторот и услугите","lang":"mk","tags":["overview"],"expect_doc_ids":["op-faq-about"]}
+
+# --- followup ---
+{"id":"followup_l_after_xl","category":"followup","q":"а во L?","lang":"mk","tags":["plan"],"expect_doc_ids":["op-cenovnik-l-2026"],"history":[{"role":"user","content":"Што вклучува тарифниот план XL?"},{"role":"assistant","content":"XL вклучува неограничен интернет со ФУП 150 GB [op-cenovnik-xl-2026]."}]}
+{"id":"followup_m_after_l","category":"followup","q":"а за M?","lang":"mk","tags":["plan"],"expect_doc_ids":["op-cenovnik-m-2026"],"history":[{"role":"user","content":"Што вклучува тарифниот план L?"},{"role":"assistant","content":"L има месечна претплата и интернет квота [op-cenovnik-l-2026]."}]}
+{"id":"followup_price_after_xl","category":"followup","q":"а цената?","lang":"mk","tags":["plan","price"],"expect_doc_ids":["op-cenovnik-xl-2026"],"must_contain":["1799"],"history":[{"role":"user","content":"Што вклучува XL?"},{"role":"assistant","content":"XL има ФУП 150 GB и брзина до 500 Mbps [op-cenovnik-xl-2026]."}]}
+{"id":"followup_s_after_m_en","category":"followup","q":"and S?","lang":"en","tags":["plan","en"],"expect_doc_ids":["op-cenovnik-s-2026"],"history":[{"role":"user","content":"What is included in the M plan?"},{"role":"assistant","content":"M includes 20 GB [op-cenovnik-m-2026]."}]}
+
+# --- network ---
+{"id":"network_5g_faq_mk","category":"network","q":"Дали имате 5G покриеност?","lang":"mk","tags":["5g","faq"],"expect_doc_ids":["op-faq-network","op-network-2026"]}
+{"id":"network_skopje_mk","category":"network","q":"Каква е 5G покриеноста во Скопје?","lang":"mk","tags":["coverage","skopje"],"expect_doc_ids":["op-coverage-skopje"],"must_contain":["88"]}
+{"id":"network_2026_mk","category":"network","q":"Кои мрежи ги нуди Вардар Мобилен?","lang":"mk","tags":["overview"],"expect_doc_ids":["op-network-2026","op-faq-network"]}
+
+# --- devices ---
+{"id":"devices_faq_mk","category":"devices","q":"Кои телефони ги нудите?","lang":"mk","tags":["faq"],"expect_doc_ids":["op-faq-devices"]}
+{"id":"devices_faq_en","category":"devices","q":"Which phones do you sell?","lang":"en","tags":["faq","en"],"expect_doc_ids":["op-faq-devices"]}
+{"id":"devices_compare_mk","category":"devices","q":"Како да споредам телефони кај вас?","lang":"mk","tags":["compare"],"expect_doc_ids":["op-compare-phone","op-faq-devices"]}
+
+# --- contract ---
+{"id":"contract_cancel_mk","category":"contract","q":"Како да го раскинам договорот?","lang":"mk","tags":["cancel"],"expect_doc_ids":["op-faq-contract"]}
+{"id":"contract_portability_mk","category":"contract","q":"Како да го пренесам бројот кај друг оператор?","lang":"mk","tags":["portability"],"expect_doc_ids":["op-portability-2026"],"must_contain":["работен"]}
+{"id":"contract_faq_en","category":"contract","q":"How do I cancel my contract?","lang":"en","tags":["cancel","en"],"expect_doc_ids":["op-faq-contract"]}
+
+# --- security ---
+{"id":"security_lost_sim_mk","category":"security","q":"Што да правам ако ја изгубам SIM картичката?","lang":"mk","tags":["lost_sim"],"expect_doc_ids":["op-sec-lost-sim"],"must_contain":["1300"]}
+{"id":"security_fraud_mk","category":"security","q":"Како да пријавам измама или сомнителен повик?","lang":"mk","tags":["fraud"],"expect_doc_ids":["op-sec-fraud"]}
+{"id":"security_lost_sim_en","category":"security","q":"I lost my SIM card, what should I do?","lang":"en","tags":["lost_sim","en"],"expect_doc_ids":["op-sec-lost-sim"]}
+
+# --- addon ---
+{"id":"addon_5gb_mk","category":"addon","q":"Колку чини додатокот 5 GB?","lang":"mk","tags":["ad-5"],"expect_doc_ids":["op-dodatok-ad-5-2026"],"must_contain":["399"]}
+{"id":"addon_1gb_mk","category":"addon","q":"Имате ли додатен пакет од 1 GB?","lang":"mk","tags":["ad-1"],"expect_doc_ids":["op-dodatok-ad-1-2026","op-dodatok-ad-1-2025"]}
+{"id":"addon_extra_data_mk","category":"addon","q":"Како да купам дополнителен интернет?","lang":"mk","tags":["overview"],"expect_doc_ids":["op-dodatok-ad-5-2026","op-faq-plans"]}
+
+# --- support ---
+{"id":"support_sim_activate_mk","category":"support","q":"Како да ја активирам SIM картичката?","lang":"mk","tags":["sim"],"expect_doc_ids":["op-faq-sim"]}
+{"id":"support_apn_mk","category":"support","q":"Кои се APN поставките?","lang":"mk","tags":["apn"],"expect_doc_ids":["op-proc-apn"]}
+{"id":"support_no_calls_mk","category":"support","q":"Не можам да се јавувам, што да проверам?","lang":"mk","tags":["troubleshooting"],"expect_doc_ids":["op-ts-no-calls"]}
+{"id":"support_sim_en","category":"support","q":"How do I activate my SIM?","lang":"en","tags":["sim","en"],"expect_doc_ids":["op-faq-sim"]}
