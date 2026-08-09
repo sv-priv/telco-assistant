@@ -93,3 +93,28 @@ def test_cors_origins_csv(monkeypatch: pytest.MonkeyPatch) -> None:
         "https://app.example",
         "https://www.example",
     ]
+
+
+def test_database_url_from_render(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv(
+        "DATABASE_URL",
+        "postgres://u:p@dpg-xxx-a.oregon-postgres.render.com/telco?sslmode=require",
+    )
+    monkeypatch.delenv("POSTGRES_DSN", raising=False)
+    monkeypatch.delenv("SECRETS_MANAGER_SECRET_ID", raising=False)
+    monkeypatch.setenv("ENVIRONMENT", "local")
+    monkeypatch.setenv("API_KEYS", "")
+
+    settings = Settings()
+    assert settings.postgres_dsn.startswith("postgresql://u:p@")
+    assert "sslmode" not in settings.postgres_dsn
+
+
+def test_cors_origin_host_gets_https(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("CORS_ORIGINS", "telco-web.onrender.com")
+    monkeypatch.delenv("SECRETS_MANAGER_SECRET_ID", raising=False)
+    monkeypatch.setenv("ENVIRONMENT", "local")
+    monkeypatch.setenv("API_KEYS", "")
+
+    settings = Settings()
+    assert settings.cors_origins == ["https://telco-web.onrender.com"]

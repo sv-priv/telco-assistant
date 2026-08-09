@@ -3,11 +3,15 @@
 const DEFAULT_API_URL = "http://localhost:8000";
 
 export function backendBaseUrl(): string {
-  return (
+  const raw =
     process.env.TELCO_API_URL?.replace(/\/$/, "") ||
     process.env.API_URL?.replace(/\/$/, "") ||
-    DEFAULT_API_URL
-  );
+    DEFAULT_API_URL;
+  if (raw.startsWith("http://") || raw.startsWith("https://")) {
+    return raw;
+  }
+  // Render fromService `host` is hostname-only.
+  return `https://${raw}`;
 }
 
 export function backendHeaders(

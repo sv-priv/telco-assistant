@@ -11,6 +11,8 @@ from urllib.parse import quote_plus
 from pydantic import Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
+from app.db import normalize_postgres_dsn
+
 logger = logging.getLogger(__name__)
 
 VectorBackend = Literal["pgvector", "memory"]
@@ -43,6 +45,8 @@ class Settings(BaseSettings):
     postgres_port: int = 5433  # host; container is 5432
     postgres_db: str = "telco"
     postgres_dsn: str = ""  # if set, overrides the fields above
+    # Render (and many hosts) provide DATABASE_URL; folded into postgres_dsn.
+    database_url: str = ""
 
     vector_backend: VectorBackend = "pgvector"
 
@@ -119,14 +123,36 @@ class Settings(BaseSettings):
     @model_validator(mode="after")
     def _resolve_postgres_dsn(self) -> Self:
         if self.postgres_dsn:
+            self.postgres_dsn = normalize_postgres_dsn(self.postgres_dsn)
             return self
-        self.postgres_dsn = build_postgres_dsn(
-            user=self.postgres_user,
-            password=self.postgres_password,
-            host=self.postgres_host,
-            port=self.postgres_port,
-            db=self.postgres_db,
+        if self.database_url:
+            self.postgres_dsn = normalize_postgres_dsn(self.database_url)
+            return self
+        self.postgres_dsn = normalize_postgres_dsn(
+            build_postgres_dsn(
+                user=self.postgres_user,
+                password=self.postgres_password,
+                host=self.postgres_host,
+                port=self.postgres_port,
+                db=self.postgres_db,
+            )
         )
+        return self
+
+    @model_validator(mode="after")
+    def _normalize_cors_origins(self) -> Self:
+        # Render fromService host has no scheme; browsers need a full origin.
+        fixed: list[str] = []
+        for origin in self.cors_origins:
+            value = origin.strip().rstrip("/")
+            if value and not value.startswith(("http://", "https://")):
+                value = f"https://{value}"
+            if value:
+                fixed.append(value)
+        self.cors_origins = fixed or [
+            "http://localhost:3000",
+            "http://127.0.0.1:3000",
+        ]
         return self
 
     @model_validator(mode="after")
@@ -177,6 +203,8 @@ def get_settings() -> Settings:
     key_map = {
         "postgres_dsn": "postgres_dsn",
         "POSTGRES_DSN": "postgres_dsn",
+        "database_url": "database_url",
+        "DATABASE_URL": "database_url",
         "postgres_user": "postgres_user",
         "POSTGRES_USER": "postgres_user",
         "postgres_password": "postgres_password",
@@ -195,6 +223,8 @@ def get_settings() -> Settings:
         "API_KEYS": "api_keys",
         "rate_limit_per_minute": "rate_limit_per_minute",
         "RATE_LIMIT_PER_MINUTE": "rate_limit_per_minute",
+        "cors_origins": "cors_origins",
+        "CORS_ORIGINS": "cors_origins",
     }
     for secret_key, field_name in key_map.items():
         if secret_key in secret and secret[secret_key]:
@@ -204,16 +234,26 @@ def get_settings() -> Settings:
         return base
 
     updated = base.model_copy(update=overlays)
-    if "postgres_dsn" not in overlays and any(k in overlays for k in _PART_FIELDS):
+    if (
+        "postgres_dsn" not in overlays
+        and "database_url" not in overlays
+        and any(k in overlays for k in _PART_FIELDS)
+    ):
         updated = updated.model_copy(
             update={
-                "postgres_dsn": build_postgres_dsn(
-                    user=updated.postgres_user,
-                    password=updated.postgres_password,
-                    host=updated.postgres_host,
-                    port=int(updated.postgres_port),
-                    db=updated.postgres_db,
+                "postgres_dsn": normalize_postgres_dsn(
+                    build_postgres_dsn(
+                        user=updated.postgres_user,
+                        password=updated.postgres_password,
+                        host=updated.postgres_host,
+                        port=int(updated.postgres_port),
+                        db=updated.postgres_db,
+                    )
                 )
             }
+        )
+    elif "database_url" in overlays and "postgres_dsn" not in overlays:
+        updated = updated.model_copy(
+            update={"postgres_dsn": normalize_postgres_dsn(str(overlays["database_url"]))}
         )
     return updated

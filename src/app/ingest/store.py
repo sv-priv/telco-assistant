@@ -8,6 +8,7 @@ from typing import Protocol, runtime_checkable
 
 import asyncpg
 
+from app.db import asyncpg_connect_kwargs
 from app.ingest.models import Chunk, Source
 
 
@@ -134,7 +135,11 @@ class PgVectorStore:
 
     async def connect(self) -> None:
         if self._pool is None:
-            self._pool = await asyncpg.create_pool(self._dsn, min_size=1, max_size=5)
+            self._pool = await asyncpg.create_pool(
+                min_size=1,
+                max_size=5,
+                **asyncpg_connect_kwargs(self._dsn),
+            )
 
     async def close(self) -> None:
         if self._pool is not None:

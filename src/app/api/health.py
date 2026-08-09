@@ -10,6 +10,7 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 
 from app.config import get_settings
+from app.db import asyncpg_connect_kwargs
 
 router = APIRouter(tags=["health"])
 
@@ -36,7 +37,10 @@ def _safe_detail(exc: BaseException, *, expose: bool) -> str | None:
 
 async def _check_postgres(dsn: str, *, expose_detail: bool) -> DependencyHealth:
     try:
-        conn = await asyncio.wait_for(asyncpg.connect(dsn), timeout=2.0)
+        conn = await asyncio.wait_for(
+            asyncpg.connect(**asyncpg_connect_kwargs(dsn)),
+            timeout=2.0,
+        )
     except Exception as exc:  # noqa: BLE001
         return DependencyHealth(
             status="down",
@@ -57,7 +61,10 @@ async def _check_postgres(dsn: str, *, expose_detail: bool) -> DependencyHealth:
 async def _check_pgvector(dsn: str, *, expose_detail: bool) -> DependencyHealth:
     """Return up when the Postgres `vector` extension is installed."""
     try:
-        conn = await asyncio.wait_for(asyncpg.connect(dsn), timeout=2.0)
+        conn = await asyncio.wait_for(
+            asyncpg.connect(**asyncpg_connect_kwargs(dsn)),
+            timeout=2.0,
+        )
     except Exception as exc:  # noqa: BLE001
         return DependencyHealth(
             status="down",

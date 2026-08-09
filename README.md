@@ -118,6 +118,29 @@ key (`TELCO_API_KEY` — never `NEXT_PUBLIC_`).
 See [`.env.example`](.env.example) and [`web/.env.example`](web/.env.example)
 for `CORS_ORIGINS`, rate limits, and optional AWS Secrets Manager.
 
+## Deploy (Render)
+
+Blueprint: [`render.yaml`](render.yaml) — Postgres (pgvector), API (Docker),
+Next.js UI.
+
+1. Push this repo to GitHub.
+2. [Render Dashboard](https://dashboard.render.com) → **New** → **Blueprint** →
+   select the repo.
+3. When prompted, set:
+   - `OPENAI_API_KEY`
+   - `API_KEYS` — e.g. `demo:<long-random-secret>`
+   - `TELCO_API_KEY` — the **same secret** after the colon (not the `demo:` prefix)
+4. Wait for `telco-api` and `telco-web` to go live.
+5. **Ingest embeddings** (one-off Shell on `telco-api`, after the first deploy):
+
+```bash
+uv run python -m app.ingest --embed --source operator
+# optional regulation layer:
+# uv run python -m app.ingest --embed --source eu --source wb6 --lang en
+```
+
+Open the `telco-web` URL. Chat will fail until ingest finishes.
+
 ## Development
 
 ```bash

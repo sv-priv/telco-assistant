@@ -1,0 +1,64 @@
+# Render Blueprint — https://dashboard.render.com → New → Blueprint
+# After first API deploy, run a one-off ingest (see README).
+
+databases:
+  - name: telco-db
+    plan: basic-256mb
+    databaseName: telco
+    postgresMajorVersion: "16"
+    ipAllowList: [] # private network only
+
+services:
+  - type: web
+    name: telco-api
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /v1/health
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: TRUST_PROXY
+        value: "true"
+      - key: VECTOR_BACKEND
+        value: pgvector
+      - key: DATABASE_URL
+        fromDatabase:
+          name: telco-db
+          property: connectionString
+      - key: CORS_ORIGINS
+        fromService:
+          name: telco-web
+          type: web
+          property: host
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: API_KEYS
+        sync: false
+      - key: RATE_LIMIT_PER_MINUTE
+        value: "60"
+      - key: CHAT_MODEL
+        value: gpt-4o-mini
+      - key: EMBEDDING_MODEL
+        value: text-embedding-3-small
+      - key: EMBEDDING_DIMENSIONS
+        value: "1536"
+
+  - type: web
+    name: telco-web
+    runtime: node
+    plan: starter
+    rootDir: web
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start -- --hostname 0.0.0.0 --port $PORT
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: TELCO_API_URL
+        fromService:
+          name: telco-api
+          type: web
+          property: host
+      - key: TELCO_API_KEY
+        sync: false
