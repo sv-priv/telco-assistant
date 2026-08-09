@@ -25,7 +25,7 @@ htmlcov/
 # Local / generated inspection dumps
 data/corpus_load_inspect.json
 data/corpus_chunk_inspect.json
-data/eval/latest.json
+# Keep data/eval/latest.json tracked so the scoreboard works on deploy.
 
 # Next.js agent scaffolding (recreated by `next dev`; do not ship)
 web/AGENTS.md

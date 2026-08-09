@@ -1,0 +1,5501 @@
+{
+  "generated_at": "2026-08-09T20:32:02.394182+00:00",
+  "golden_path": "data/eval/golden.jsonl",
+  "modes": {
+    "custom": {
+      "n": 62,
+      "passed": 43,
+      "pass_rate": 0.6935483870967742,
+      "citation_acc": 0.7678571428571429,
+      "refusal_acc": 0.0,
+      "contain_acc": 1.0,
+      "p50_latency_ms": 2263.939354510512,
+      "p95_latency_ms": 3753.1212500762194,
+      "avg_tool_calls": 0.0
+    },
+    "llamaindex": {
+      "n": 62,
+      "passed": 43,
+      "pass_rate": 0.6935483870967742,
+      "citation_acc": 0.7678571428571429,
+      "refusal_acc": 0.0,
+      "contain_acc": 1.0,
+      "p50_latency_ms": 3621.5391459991224,
+      "p95_latency_ms": 7488.86149993632,
+      "avg_tool_calls": 0.0
+    },
+    "langchain": {
+      "n": 62,
+      "passed": 47,
+      "pass_rate": 0.7580645161290323,
+      "citation_acc": 0.75,
+      "refusal_acc": 1.0,
+      "contain_acc": 0.9444444444444444,
+      "p50_latency_ms": 3240.9737085108645,
+      "p95_latency_ms": 5155.965207959525,
+      "avg_tool_calls": 0.9838709677419355
+    }
+  },
+  "by_category": {
+    "about": {
+      "custom": {
+        "n": 3,
+        "passed": 3,
+        "pass_rate": 1.0
+      },
+      "llamaindex": {
+        "n": 3,
+        "passed": 3,
+        "pass_rate": 1.0
+      },
+      "langchain": {
+        "n": 3,
+        "passed": 1,
+        "pass_rate": 0.3333333333333333
+      }
+    },
+    "addon": {
+      "custom": {
+        "n": 3,
+        "passed": 3,
+        "pass_rate": 1.0
+      },
+      "llamaindex": {
+        "n": 3,
+        "passed": 3,
+        "pass_rate": 1.0
+      },
+      "langchain": {
+        "n": 3,
+        "passed": 1,
+        "pass_rate": 0.3333333333333333
+      }
+    },
+    "billing": {
+      "custom": {
+        "n": 5,
+        "passed": 5,
+        "pass_rate": 1.0
+      },
+      "llamaindex": {
+        "n": 5,
+        "passed": 5,
+        "pass_rate": 1.0
+      },
+      "langchain": {
+        "n": 5,
+        "passed": 4,
+        "pass_rate": 0.8
+      }
+    },
+    "contract": {
+      "custom": {
+        "n": 3,
+        "passed": 2,
+        "pass_rate": 0.6666666666666666
+      },
+      "llamaindex": {
+        "n": 3,
+        "passed": 2,
+        "pass_rate": 0.6666666666666666
+      },
+      "langchain": {
+        "n": 3,
+        "passed": 2,
+        "pass_rate": 0.6666666666666666
+      }
+    },
+    "devices": {
+      "custom": {
+        "n": 3,
+        "passed": 1,
+        "pass_rate": 0.3333333333333333
+      },
+      "llamaindex": {
+        "n": 3,
+        "passed": 1,
+        "pass_rate": 0.3333333333333333
+      },
+      "langchain": {
+        "n": 3,
+        "passed": 1,
+        "pass_rate": 0.3333333333333333
+      }
+    },
+    "followup": {
+      "custom": {
+        "n": 4,
+        "passed": 4,
+        "pass_rate": 1.0
+      },
+      "llamaindex": {
+        "n": 4,
+        "passed": 4,
+        "pass_rate": 1.0
+      },
+      "langchain": {
+        "n": 4,
+        "passed": 4,
+        "pass_rate": 1.0
+      }
+    },
+    "network": {
+      "custom": {
+        "n": 3,
+        "passed": 1,
+        "pass_rate": 0.3333333333333333
+      },
+      "llamaindex": {
+        "n": 3,
+        "passed": 1,
+        "pass_rate": 0.3333333333333333
+      },
+      "langchain": {
+        "n": 3,
+        "passed": 1,
+        "pass_rate": 0.3333333333333333
+      }
+    },
+    "plan": {
+      "custom": {
+        "n": 16,
+        "passed": 14,
+        "pass_rate": 0.875
+      },
+      "llamaindex": {
+        "n": 16,
+        "passed": 14,
+        "pass_rate": 0.875
+      },
+      "langchain": {
+        "n": 16,
+        "passed": 15,
+        "pass_rate": 0.9375
+      }
+    },
+    "refuse": {
+      "custom": {
+        "n": 6,
+        "passed": 0,
+        "pass_rate": 0.0
+      },
+      "llamaindex": {
+        "n": 6,
+        "passed": 0,
+        "pass_rate": 0.0
+      },
+      "langchain": {
+        "n": 6,
+        "passed": 6,
+        "pass_rate": 1.0
+      }
+    },
+    "roaming": {
+      "custom": {
+        "n": 9,
+        "passed": 4,
+        "pass_rate": 0.4444444444444444
+      },
+      "llamaindex": {
+        "n": 9,
+        "passed": 4,
+        "pass_rate": 0.4444444444444444
+      },
+      "langchain": {
+        "n": 9,
+        "passed": 5,
+        "pass_rate": 0.5555555555555556
+      }
+    },
+    "security": {
+      "custom": {
+        "n": 3,
+        "passed": 3,
+        "pass_rate": 1.0
+      },
+      "llamaindex": {
+        "n": 3,
+        "passed": 3,
+        "pass_rate": 1.0
+      },
+      "langchain": {
+        "n": 3,
+        "passed": 3,
+        "pass_rate": 1.0
+      }
+    },
+    "support": {
+      "custom": {
+        "n": 4,
+        "passed": 3,
+        "pass_rate": 0.75
+      },
+      "llamaindex": {
+        "n": 4,
+        "passed": 3,
+        "pass_rate": 0.75
+      },
+      "langchain": {
+        "n": 4,
+        "passed": 4,
+        "pass_rate": 1.0
+      }
+    }
+  },
+  "retrieval": {
+    "n": 56,
+    "k": 8,
+    "recall_at_k": 0.7142857142857143,
+    "mrr": 0.5617772108843537
+  },
+  "cases": [
+    {
+      "id": "plan_xl_inclusions_mk",
+      "category": "plan",
+      "tags": [
+        "xl",
+        "inclusions"
+      ],
+      "q": "Што вклучува тарифниот план XL?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 3501.7,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-s-2026",
+            "op-smetka-proracun-aktivacija-xl",
+            "op-dogovor-xl-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план XL вклучува: - Месечна претплата: **1.799 ден.** - Интернет во домашна мрежа: неограничен со ФУП од 150 GB - Разговори кон домашни мрежи: неограничени - SMS кон д…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 4502.5,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-s-2026",
+            "op-smetka-proracun-aktivacija-xl",
+            "op-dogovor-xl-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план XL (Вардар Мобилен XL) вклучува: - Месечна претплата: **1.799 ден.** - Интернет во домашна мрежа: неограничен со ФУП од 150 GB - Разговори кон домашни мрежи: неог…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 4774.6,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план XL на Вардар Мобилен вклучува: - **Месечна претплата**: 1.799 ден. - **Интернет во домашна мрежа**: неограничен со ФУП од 150 GB. - **Разговори кон домашни мрежи*…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "plan_xl_price_mk",
+      "category": "plan",
+      "tags": [
+        "xl",
+        "price"
+      ],
+      "q": "Колку чини месечната претплата за XL?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 1850.9,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-faq-plans",
+            "op-nadomest-prekin",
+            "op-smetka-proracun-aktivacija-xl",
+            "op-dogovor-xl-2026",
+            "op-dogovor-xl-2025",
+            "op-device-nova-x6-pro",
+            "op-smetka-dodatok"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Месечната претплата за тарифниот пакет XL изнесува **1.799 ден.** [1]",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 2869.1,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-faq-plans",
+            "op-nadomest-prekin",
+            "op-smetka-proracun-aktivacija-xl",
+            "op-dogovor-xl-2026",
+            "op-dogovor-xl-2025",
+            "op-device-nova-x6-pro",
+            "op-smetka-dodatok"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Месечната претплата за тарифниот пакет XL (Вардар Мобилен XL) изнесува **1.799 ден.**",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 3315.9,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Месечната претплата за тарифниот план XL изнесува **1.799 ден.** за 2026 година. Овој план вклучува неограничен интернет во домашна мрежа со ФУП од 150 GB, неограничени разговор…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "plan_xl_paket_colloquial",
+      "category": "plan",
+      "tags": [
+        "xl",
+        "colloquial"
+      ],
+      "q": "Што има во XL пакетот?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2808.2,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-s-2026",
+            "op-smetka-proracun-aktivacija-xl",
+            "op-smetka-promena-paket-l-xl"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Пакетот Вардар Мобилен XL вклучува: - Месечна претплата: **1.799 ден.** - Интернет во домашна мрежа: неограничен со ФУП од 150 GB - Разговори кон домашни мрежи: неограничени - S…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 5122.2,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-s-2026",
+            "op-smetka-proracun-aktivacija-xl",
+            "op-smetka-promena-paket-l-xl"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "XL пакетот на Вардар Мобилен вклучува следните ставки: - **Месечна претплата:** 1.799 ден. - **Интернет во домашна мрежа:** неограничен со ФУП од 150 GB. - **Разговори кон домаш…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 4023.9,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Пакетот XL на Вардар Мобилен вклучува: - **Месечна претплата**: 1.799 ден. - **Интернет во домашна мрежа**: неограничен со ФУП од 150 GB. - **Разговори кон домашни мрежи**: неог…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "plan_xl_fup_mk",
+      "category": "plan",
+      "tags": [
+        "xl",
+        "fup"
+      ],
+      "q": "Колкав е FUP лимитот на XL?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 1680.9,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-xl-2024",
+            "op-network-2026",
+            "op-smetka-promena-paket-l-xl",
+            "op-campaign-proleten-2026",
+            "op-dodatok-ad-5-2024",
+            "op-smetka-fup"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "FUP лимитот на Вардар Мобилен XL е 150 GB. По потрошената квота, брзината се намалува на 64 kbps до крајот на пресметковниот период [1].",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 3298.6,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-xl-2024",
+            "op-network-2026",
+            "op-smetka-promena-paket-l-xl",
+            "op-campaign-proleten-2026",
+            "op-dodatok-ad-5-2024",
+            "op-smetka-fup"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "FUP лимитот на тарифниот пакет Вардар Мобилен XL е 150 GB. По потрошувањето на оваа квота, брзината се намалува на 64 kbps до крајот на пресметковниот период.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 2869.6,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "FUP лимитот на тарифниот пакет XL е 150 GB. По потрошувањето на квотата, брзината се намалува на 64 kbps до крајот на пресметковниот период [op-cenovnik-xl-2026].",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "plan_xl_speed_mk",
+      "category": "plan",
+      "tags": [
+        "xl",
+        "speed"
+      ],
+      "q": "Која е максималната брзина на XL?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 1812.0,
+          "cited_doc_ids": [
+            "op-faq-network",
+            "op-network-2026",
+            "op-spec-google-pixel-9-pro-xl",
+            "op-spec-apple-iphone-16-pro-max",
+            "op-cenovnik-xl-2026",
+            "op-smetka-fup",
+            "op-ts-slow-data",
+            "op-faq-plans"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Максималната брзина на тарифниот пакет XL е до 500 Mbps [5].",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 2434.2,
+          "cited_doc_ids": [
+            "op-faq-network",
+            "op-network-2026",
+            "op-spec-google-pixel-9-pro-xl",
+            "op-spec-apple-iphone-16-pro-max",
+            "op-cenovnik-xl-2026",
+            "op-smetka-fup",
+            "op-ts-slow-data",
+            "op-faq-plans"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Максималната брзина на тарифниот пакет Вардар Мобилен XL е до 500 Mbps.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 2865.2,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Максималната брзина на тарифниот план XL е до 500 Mbps. По потрошена квота, брзината се намалува на 64 kbps до крајот на пресметковниот период [op-cenovnik-xl-2026].",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "plan_xl_inclusions_en",
+      "category": "plan",
+      "tags": [
+        "xl",
+        "en"
+      ],
+      "q": "What is included in the XL plan?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2495.2,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-xl-2024",
+            "op-smetka-promena-paket-l-xl",
+            "op-dogovor-xl-2024",
+            "op-dogovor-xl-2025",
+            "op-dogovor-xl-2026",
+            "op-cenovnik-l-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "The Вардар Мобилен XL plan includes the following: - Monthly fee: **1.799 MKD** - Domestic data: unlimited, with a fair use policy of 150 GB - Calls to domestic networks: unlimi…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 3462.6,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-xl-2024",
+            "op-smetka-promena-paket-l-xl",
+            "op-dogovor-xl-2024",
+            "op-dogovor-xl-2025",
+            "op-dogovor-xl-2026",
+            "op-cenovnik-l-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "The Вардар Мобилен XL plan includes the following: - Monthly fee: **1.799 MKD** - Domestic data: unlimited, with a fair use policy of 150 GB - Calls to domestic networks: unlimi…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 3684.6,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-xl-2024"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "The XL plan from Vardar Mobile includes the following: - **Monthly Fee**: 1,799 MKD (effective from January 1, 2026) - **Domestic Data**: Unlimited, with a fair use policy of 15…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "plan_l_inclusions_mk",
+      "category": "plan",
+      "tags": [
+        "l"
+      ],
+      "q": "Што вклучува тарифниот план L?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2870.6,
+          "cited_doc_ids": [
+            "op-cenovnik-l-2026",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-xl-2026",
+            "op-smetka-proracun-aktivacija-l",
+            "op-smetka-proracun-aktivacija-xl"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план L на Вардар Мобилен вклучува: - Месечна претплата: **1.299 ден.** - Интернет во домашна мрежа: 50 GB - Разговори кон домашни мрежи: неограничени - SMS кон домашни…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 4559.7,
+          "cited_doc_ids": [
+            "op-cenovnik-l-2026",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-xl-2026",
+            "op-smetka-proracun-aktivacija-l",
+            "op-smetka-proracun-aktivacija-xl"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план L (Вардар Мобилен L) вклучува: - Месечна претплата: **1.299 ден.** - Интернет во домашна мрежа: 50 GB - Разговори кон домашни мрежи: неограничени - SMS кон домашн…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 4202.5,
+          "cited_doc_ids": [
+            "op-cenovnik-l-2026",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-l-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план L на Вардар Мобилен вклучува: - **Месечна претплата:** 1.299 ден. - **Интернет во домашна мрежа:** 50 GB - **Разговори кон домашни мрежи:** неограничени - **SMS к…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "plan_l_price_mk",
+      "category": "plan",
+      "tags": [
+        "l",
+        "price"
+      ],
+      "q": "Колку чини планот L месечно?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 1974.8,
+          "cited_doc_ids": [
+            "op-cenovnik-l-2026",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-xl-2026",
+            "op-smetka-proracun-aktivacija-l",
+            "op-smetka-proracun-aktivacija-xl"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Планот L чини **1.299 ден.** месечно за 2026 година [1].",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 2687.5,
+          "cited_doc_ids": [
+            "op-cenovnik-l-2026",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-xl-2026",
+            "op-smetka-proracun-aktivacija-l",
+            "op-smetka-proracun-aktivacija-xl"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Планот L чини **1.299 ден.** месечно.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 3082.5,
+          "cited_doc_ids": [
+            "op-cenovnik-l-2026",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-l-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Планот L на Вардар Мобилен чини **1.299 денари** месечно. Вклучува 50 GB интернет во домашна мрежа, неограничени разговори и SMS кон домашни мрежи, со максимална брзина до 300 M…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "plan_m_inclusions_mk",
+      "category": "plan",
+      "tags": [
+        "m"
+      ],
+      "q": "Што вклучува тарифниот план M?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 3056.9,
+          "cited_doc_ids": [
+            "op-cenovnik-m-2026",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-m-2025",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2026",
+            "op-smetka-proracun-aktivacija-m",
+            "op-dogovor-m-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план M на Вардар Мобилен вклучува: - Месечна претплата: **899 ден.** - Интернет во домашна мрежа: 20 GB - Разговори кон домашни мрежи: неограничени - SMS кон домашни м…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 5365.7,
+          "cited_doc_ids": [
+            "op-cenovnik-m-2026",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-m-2025",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2026",
+            "op-smetka-proracun-aktivacija-m",
+            "op-dogovor-m-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план M (Вардар Мобилен M) вклучува: - Месечна претплата: **899 ден.** - Интернет во домашна мрежа: 20 GB - Разговори кон домашни мрежи: неограничени - SMS кон домашни …",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 4090.1,
+          "cited_doc_ids": [
+            "op-cenovnik-m-2026",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-m-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план M на Вардар Мобилен вклучува: - **Месечна претплата:** 899 ден. - **Интернет во домашна мрежа:** 20 GB - **Разговори кон домашни мрежи:** неограничени - **SMS кон…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "plan_m_price_mk",
+      "category": "plan",
+      "tags": [
+        "m",
+        "price"
+      ],
+      "q": "Колку чини M пакетот?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 1923.9,
+          "cited_doc_ids": [
+            "op-cenovnik-m-2026",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-m-2025",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2026",
+            "op-smetka-proracun-aktivacija-m",
+            "op-dogovor-m-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Месечната претплата за M пакетот (Вардар Мобилен M) изнесува **899 ден.** за 2026 година [1].",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 3377.0,
+          "cited_doc_ids": [
+            "op-cenovnik-m-2026",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-m-2025",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2026",
+            "op-smetka-proracun-aktivacija-m",
+            "op-dogovor-m-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "M пакетот (Вардар Мобилен M) чини **899 ден.** месечно, со вклучен ДДВ. Ова важи од 1 јануари 2026 година.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 2958.4,
+          "cited_doc_ids": [
+            "op-cenovnik-m-2026",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-m-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Месечната претплата за пакетот M изнесува **899 ден.** и вклучува 20 GB интернет во домашна мрежа, неограничени разговори и SMS кон домашни мрежи, со максимална брзина до 150 Mb…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "plan_s_inclusions_mk",
+      "category": "plan",
+      "tags": [
+        "s"
+      ],
+      "q": "Што вклучува тарифниот план S?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 3411.7,
+          "cited_doc_ids": [
+            "op-cenovnik-s-2026",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2026",
+            "op-smetka-proracun-aktivacija-s",
+            "op-dogovor-s-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план S вклучува: - Месечна претплата: **599 ден.** - Интернет во домашна мрежа: 5 GB - Разговори кон домашни мрежи: 200 - SMS кон домашни мрежи: 200 - Максимална брзин…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 4272.9,
+          "cited_doc_ids": [
+            "op-cenovnik-s-2026",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2026",
+            "op-smetka-proracun-aktivacija-s",
+            "op-dogovor-s-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план S (Вардар Мобилен S) вклучува следните услуги: - Месечна претплата: **599 ден.** - Интернет во домашна мрежа: 5 GB - Разговори кон домашни мрежи: 200 - SMS кон до…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 4098.4,
+          "cited_doc_ids": [
+            "op-cenovnik-s-2026",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-s-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план S на Вардар Мобилен вклучува: - **Месечна претплата:** 599 ден. - **Интернет во домашна мрежа:** 5 GB - **Разговори кон домашни мрежи:** 200 минути - **SMS кон до…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "plan_s_price_mk",
+      "category": "plan",
+      "tags": [
+        "s",
+        "price"
+      ],
+      "q": "Колку чини S планот?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 1822.5,
+          "cited_doc_ids": [
+            "op-cenovnik-s-2026",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2026",
+            "op-smetka-proracun-aktivacija-s",
+            "op-dogovor-s-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "S планот (Вардар Мобилен S) чини **599 ден.** месечно за 2026 година [1].",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 4126.3,
+          "cited_doc_ids": [
+            "op-cenovnik-s-2026",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2026",
+            "op-smetka-proracun-aktivacija-s",
+            "op-dogovor-s-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "S планот (Вардар Мобилен S) чини **599 ден.** месечно, со вклучен ДДВ. Ова важи од 1 јануари 2026 година.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 3377.6,
+          "cited_doc_ids": [
+            "op-cenovnik-s-2026",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-s-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "С планот на Вардар Мобилен чини **599 ден.** месечно. Вклучува 5 GB интернет во домашна мрежа, 200 разговори и 200 SMS кон домашни мрежи, со максимална брзина до 100 Mbps [doc_i…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "plan_compare_l_xl",
+      "category": "plan",
+      "tags": [
+        "compare"
+      ],
+      "q": "Која е разликата помеѓу L и XL?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 3753.1,
+          "cited_doc_ids": [
+            "op-spec-google-pixel-9-pro-xl",
+            "op-smetka-promena-paket-l-xl",
+            "op-compare-phone",
+            "op-cenovnik-xl-2026",
+            "op-faq-plans",
+            "op-spec-apple-iphone-16-pro-max",
+            "op-katalog-apple-iphone-16-pro-max",
+            "op-spec-apple-iphone-16-plus"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Разликата помеѓу тарифните пакети L и XL во Вардар Мобилен е во месечната претплата и услугите што ги нудат: - **L пакет**: - Месечна претплата: 1.299 ден. - Интернет во домашна…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 7805.4,
+          "cited_doc_ids": [
+            "op-spec-google-pixel-9-pro-xl",
+            "op-smetka-promena-paket-l-xl",
+            "op-compare-phone",
+            "op-cenovnik-xl-2026",
+            "op-faq-plans",
+            "op-spec-apple-iphone-16-pro-max",
+            "op-katalog-apple-iphone-16-pro-max",
+            "op-spec-apple-iphone-16-plus"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Разликата помеѓу пакетите Вардар Мобилен L и XL е во цената и услугите што ги нудат. Пакетот XL е зголемен пакет во однос на L, што значи дека нуди повеќе услуги или поволности.…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 10551.1,
+          "cited_doc_ids": [
+            "op-cenovnik-l-2026",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025"
+          ],
+          "tool_calls": 2,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Разликата помеѓу тарифните планови L и XL на Вардар Мобилен е следната: ### План L - **Месечна претплата**: 1.299 ден. - **Интернет во домашна мрежа**: 50 GB - **Разговори кон д…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "plan_compare_s_m",
+      "category": "plan",
+      "tags": [
+        "compare"
+      ],
+      "q": "Што е подобро S или M?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 2276.6,
+          "cited_doc_ids": [
+            "op-spec-samsung-galaxy-s24",
+            "op-spec-samsung-galaxy-s25plus",
+            "op-spec-samsung-galaxy-s25",
+            "op-spec-samsung-galaxy-tab-s10plus",
+            "op-katalog-samsung-galaxy-s25",
+            "op-nivo-usluga",
+            "op-spec-samsung-galaxy-tab-s10-ultra",
+            "op-spec-samsung-galaxy-s24-ultra"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-cenovnik-s-2026', 'op-cenovnik-m-2026']; cited=['op-spec-samsung-galaxy-s24', 'op-spec-samsung-galaxy-s25plus', 'op-spec-samsung-galaxy-s25', 'op-spec-samsung-galaxy-tab-s10plus', 'op-katalog-samsung-galaxy-s25', 'op-nivo-usluga', 'op-spec-samsung-galaxy-tab-s10-ultra', 'op-spec-samsung-galaxy-s24-ultra']"
+            }
+          ],
+          "answer_preview": "Не имам доволно информации за да одговорам на вашето прашање. Ве молам, поставете конкретно прашање за плановите, роамингот или сметките.",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 2843.9,
+          "cited_doc_ids": [
+            "op-spec-samsung-galaxy-s24",
+            "op-spec-samsung-galaxy-s25plus",
+            "op-spec-samsung-galaxy-s25",
+            "op-spec-samsung-galaxy-tab-s10plus",
+            "op-katalog-samsung-galaxy-s25",
+            "op-nivo-usluga",
+            "op-spec-samsung-galaxy-tab-s10-ultra",
+            "op-spec-samsung-galaxy-s24-ultra"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-cenovnik-s-2026', 'op-cenovnik-m-2026']; cited=['op-spec-samsung-galaxy-s24', 'op-spec-samsung-galaxy-s25plus', 'op-spec-samsung-galaxy-s25', 'op-spec-samsung-galaxy-tab-s10plus', 'op-katalog-samsung-galaxy-s25', 'op-nivo-usluga', 'op-spec-samsung-galaxy-tab-s10-ultra', 'op-spec-samsung-galaxy-s24-ultra']"
+            }
+          ],
+          "answer_preview": "Не имам доволно информации за да одговорам на вашето прашање. Можете да поставите по-конкретно прашање во врска со плановите, роамингот или сметките.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 4711.0,
+          "cited_doc_ids": [
+            "op-cenovnik-s-2026",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-m-2025"
+          ],
+          "tool_calls": 2,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Еве ги деталите за тарифните планови S и M: ### План S - **Месечна претплата**: 599 ден. - **Интернет во домашна мрежа**: 5 GB - **Разговори кон домашни мрежи**: 200 минути - **…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "plan_list_mk",
+      "category": "plan",
+      "tags": [
+        "overview"
+      ],
+      "q": "Кои тарифни планови ги нудите?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 5016.6,
+          "cited_doc_ids": [
+            "op-cenovnik-s-2026",
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-m-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-plans']; cited=['op-cenovnik-s-2026', 'op-cenovnik-xl-2026', 'op-cenovnik-m-2026', 'op-cenovnik-l-2026', 'op-cenovnik-xl-2024', 'op-cenovnik-xl-2025', 'op-cenovnik-s-2025', 'op-cenovnik-m-2025']"
+            }
+          ],
+          "answer_preview": "Вардар Мобилен нуди следниве тарифни планови за 2026 година: 1. **Тарифен план S**: - Месечна претплата: 599 ден. - Интернет: 5 GB - Разговори: 200 кон домашни мрежи - SMS: 200 …",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 9521.4,
+          "cited_doc_ids": [
+            "op-cenovnik-s-2026",
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-m-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-plans']; cited=['op-cenovnik-s-2026', 'op-cenovnik-xl-2026', 'op-cenovnik-m-2026', 'op-cenovnik-l-2026', 'op-cenovnik-xl-2024', 'op-cenovnik-xl-2025', 'op-cenovnik-s-2025', 'op-cenovnik-m-2025']"
+            }
+          ],
+          "answer_preview": "Вардар Мобилен нуди следниве тарифни планови за 2025 година: 1. **Вардар Мобилен S** - Месечна претплата: 579 ден. - Интернет во домашна мрежа: 4 GB - Разговори кон домашни мреж…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 5156.0,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-m-2026",
+            "op-faq-plans",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-s-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Вардар Мобиле нуди следниве тарифни планови: 1. **S**: - Месечна претплата: 599 ден. - Интернет: 5 GB - Разговори кон домашни мрежи: 200 - SMS кон домашни мрежи: 200 - Максималн…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "plan_list_en",
+      "category": "plan",
+      "tags": [
+        "overview",
+        "en"
+      ],
+      "q": "Which mobile plans do you offer?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2578.6,
+          "cited_doc_ids": [
+            "op-faq-about",
+            "op-campaign-student-2026",
+            "op-faq-plans",
+            "op-campaign-nova-2026",
+            "op-campaign-proleten-2026",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-l-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Vardar Mobile offers the following mobile plans: 1. **Plan S**: Monthly fee of 579 MKD, 4 GB of domestic data, 200 calls and 200 SMS to domestic networks. 2. **Plan M**: Details…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 3993.3,
+          "cited_doc_ids": [
+            "op-faq-about",
+            "op-campaign-student-2026",
+            "op-faq-plans",
+            "op-campaign-nova-2026",
+            "op-campaign-proleten-2026",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-l-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Vardar Mobile offers the following mobile plans: 1. **Plan S** - Monthly fee: 579 MKD - Domestic data: 4 GB - Calls to domestic networks: 200 - SMS to domestic networks: 200 - M…",
+          "error": null
+        },
+        "langchain": {
+          "passed": false,
+          "latency_ms": 4774.1,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-m-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-plans']; cited=['op-cenovnik-xl-2026', 'op-cenovnik-m-2026', 'op-cenovnik-s-2026', 'op-cenovnik-l-2026', 'op-cenovnik-xl-2025', 'op-cenovnik-xl-2024', 'op-cenovnik-l-2025', 'op-cenovnik-m-2025']"
+            }
+          ],
+          "answer_preview": "Vardar Mobile offers the following mobile plans: 1. **Plan S** - Monthly Fee: **599 MKD** - Domestic Data: 5 GB - Calls to Domestic Networks: Unlimited (200 minutes) - SMS to Do…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "refuse_xxl_mk",
+      "category": "refuse",
+      "tags": [
+        "xxl"
+      ],
+      "q": "Што има во XXL планот?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 2746.7,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-l-2024"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": false,
+              "detail": "forbidden cited: ['op-cenovnik-xl-2026', 'op-cenovnik-xl-2025', 'op-cenovnik-xl-2024']"
+            },
+            {
+              "name": "refusal",
+              "passed": false,
+              "detail": "no refusal marker in answer"
+            },
+            {
+              "name": "must_not_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Немам доволно информации за XXL планот. Можеш да поставиш конкретно прашање за другите планови, роаминг или сметки.",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 3892.1,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-l-2024"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": false,
+              "detail": "forbidden cited: ['op-cenovnik-xl-2026', 'op-cenovnik-xl-2025', 'op-cenovnik-xl-2024']"
+            },
+            {
+              "name": "refusal",
+              "passed": false,
+              "detail": "no refusal marker in answer"
+            },
+            {
+              "name": "must_not_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Немам доволно информации за XXL планот. Можеш да поставиш по-конкретно прашање за плановите, роаминг или сметки.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 1741.2,
+          "cited_doc_ids": [],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "refusal",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_not_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Планот 'XXL' не е понуден. Достапни планови се: S, M, L, XL.",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "refuse_xxl_en",
+      "category": "refuse",
+      "tags": [
+        "xxl",
+        "en"
+      ],
+      "q": "Tell me about the XXL plan",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 615.3,
+          "cited_doc_ids": [],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "refusal",
+              "passed": false,
+              "detail": "no refusal marker in answer"
+            }
+          ],
+          "answer_preview": "I don't have enough information in the knowledge base to answer that. Try a more concrete question about plans, roaming, or bills.",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 711.6,
+          "cited_doc_ids": [],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "refusal",
+              "passed": false,
+              "detail": "no refusal marker in answer"
+            }
+          ],
+          "answer_preview": "I don't have enough information in the knowledge base to answer that. Try a more concrete question about plans, roaming, or bills.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 1386.1,
+          "cited_doc_ids": [],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "refusal",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "The 'XXL' plan is not offered. The available plans are S, M, L, and XL.",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "refuse_xs_mk",
+      "category": "refuse",
+      "tags": [
+        "xs"
+      ],
+      "q": "Колку чини XS пакетот?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 1620.5,
+          "cited_doc_ids": [
+            "op-faq-plans",
+            "op-cenovnik-xl-2026",
+            "op-campaign-biznis-2026",
+            "op-roaming-paket-rm-eu-5-2026",
+            "op-roaming-paket-rm-eu-5-2025",
+            "op-roaming-paket-rm-eu-5-2024",
+            "op-pripejd-pp-1000-2026",
+            "op-roaming-paket-rm-eu-1-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "refusal",
+              "passed": false,
+              "detail": "no refusal marker in answer"
+            }
+          ],
+          "answer_preview": "Немам доволно информации за XS пакетот. Можеш да поставиш конкретно прашање за другите пакети или услуги.",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 3084.1,
+          "cited_doc_ids": [
+            "op-faq-plans",
+            "op-cenovnik-xl-2026",
+            "op-campaign-biznis-2026",
+            "op-roaming-paket-rm-eu-5-2026",
+            "op-roaming-paket-rm-eu-5-2025",
+            "op-roaming-paket-rm-eu-5-2024",
+            "op-pripejd-pp-1000-2026",
+            "op-roaming-paket-rm-eu-1-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "refusal",
+              "passed": false,
+              "detail": "no refusal marker in answer"
+            }
+          ],
+          "answer_preview": "Немам доволно информации за XS пакетот. Можете да поставите по-конкретно прашање за тарифни планови, роаминг или сметки.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 1482.4,
+          "cited_doc_ids": [],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "refusal",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Пакетот XS не е понуден. Достапни пакети се: S, M, L, XL.",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "refuse_xxxl_mk",
+      "category": "refuse",
+      "tags": [
+        "xxxl"
+      ],
+      "q": "Имате ли XXXL пакет?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 1450.6,
+          "cited_doc_ids": [
+            "op-faq-plans",
+            "op-cenovnik-xl-2026",
+            "op-smetka-promena-paket-l-xl",
+            "op-smetka-dodatok",
+            "op-dodatok-ad-5-2024",
+            "op-faq-billing",
+            "op-dodatok-ad-20-2024",
+            "op-dodatok-ad-20-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": false,
+              "detail": "forbidden cited: ['op-cenovnik-xl-2026']"
+            },
+            {
+              "name": "refusal",
+              "passed": false,
+              "detail": "no refusal marker in answer"
+            }
+          ],
+          "answer_preview": "Немам доволно информации за пакет со име XXXL. Можете да прашате за конкретни пакети како S, M, L или XL.",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 2970.4,
+          "cited_doc_ids": [
+            "op-faq-plans",
+            "op-cenovnik-xl-2026",
+            "op-smetka-promena-paket-l-xl",
+            "op-smetka-dodatok",
+            "op-dodatok-ad-5-2024",
+            "op-faq-billing",
+            "op-dodatok-ad-20-2024",
+            "op-dodatok-ad-20-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": false,
+              "detail": "forbidden cited: ['op-cenovnik-xl-2026']"
+            },
+            {
+              "name": "refusal",
+              "passed": false,
+              "detail": "no refusal marker in answer"
+            }
+          ],
+          "answer_preview": "Не, немаме XXXL пакет. Нудиме пакети S, M, L и XL. За повеќе информации за тарифните планови, слободно прашајте!",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 1724.4,
+          "cited_doc_ids": [],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "refusal",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Пакетот 'XXXL' не е понуден. Достапни пакети се: S, M, L, XL.",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "refuse_premium_mk",
+      "category": "refuse",
+      "tags": [
+        "premium"
+      ],
+      "q": "Што вклучува Premium планот?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 1839.9,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-m-2025",
+            "op-cenovnik-s-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": false,
+              "detail": "forbidden cited: ['op-cenovnik-xl-2026', 'op-cenovnik-l-2026']"
+            },
+            {
+              "name": "refusal",
+              "passed": false,
+              "detail": "no refusal marker in answer"
+            }
+          ],
+          "answer_preview": "Немам доволно информации за Premium планот. Можеш да поставиш конкретно прашање за плановите, роамингот или сметките.",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 2860.8,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-m-2025",
+            "op-cenovnik-s-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": false,
+              "detail": "forbidden cited: ['op-cenovnik-xl-2026', 'op-cenovnik-l-2026']"
+            },
+            {
+              "name": "refusal",
+              "passed": false,
+              "detail": "no refusal marker in answer"
+            }
+          ],
+          "answer_preview": "Немам доволно информации за Premium планот. Можеш да поставиш по-конкретно прашање за тарифните планови, роаминг или сметки.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 1963.8,
+          "cited_doc_ids": [],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "refusal",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Планот \"Premium\" не е понуден. Достапни планови се: S, M, L, и XL.",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "refuse_gold_en",
+      "category": "refuse",
+      "tags": [
+        "gold",
+        "en"
+      ],
+      "q": "How much is the Gold tariff?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 603.7,
+          "cited_doc_ids": [],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "refusal",
+              "passed": false,
+              "detail": "no refusal marker in answer"
+            }
+          ],
+          "answer_preview": "I don't have enough information in the knowledge base to answer that. Try a more concrete question about plans, roaming, or bills.",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 606.0,
+          "cited_doc_ids": [],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "refusal",
+              "passed": false,
+              "detail": "no refusal marker in answer"
+            }
+          ],
+          "answer_preview": "I don't have enough information in the knowledge base to answer that. Try a more concrete question about plans, roaming, or bills.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 1499.0,
+          "cited_doc_ids": [],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "must_not_cite",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "refusal",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "The \"Gold\" tariff is not offered. The available plans are S, M, L, and XL.",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "roaming_turkey_mk",
+      "category": "roaming",
+      "tags": [
+        "turkey",
+        "zone3"
+      ],
+      "q": "Колку чини роаминг во Турција?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2572.7,
+          "cited_doc_ids": [
+            "op-country-tr",
+            "op-faq-roaming",
+            "op-smetka-roaming-svet",
+            "op-country-ro",
+            "op-country-rs",
+            "op-country-me",
+            "op-country-gr",
+            "op-country-ba"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Роамингот во Турција се наплаќа по стандардни меѓународни цени. Цените се следниве: - Интернет по MB: 9,90 ден. - Интернет по GB (пресметковно): 10137,60 ден. - Појдовна минута:…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 5126.2,
+          "cited_doc_ids": [
+            "op-country-tr",
+            "op-faq-roaming",
+            "op-smetka-roaming-svet",
+            "op-country-ro",
+            "op-country-rs",
+            "op-country-me",
+            "op-country-gr",
+            "op-country-ba"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Роамингот во Турција чини: - Интернет по MB: 9,90 ден. - Интернет по GB (пресметковно): 10137,60 ден. - Појдовна минута: 89,90 ден. - Дојдовна минута: 39,90 ден. - SMS: 19,90 де…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 3720.3,
+          "cited_doc_ids": [
+            "op-country-tr",
+            "op-smetka-roaming-svet",
+            "op-country-rs",
+            "op-country-ba",
+            "op-country-me",
+            "op-country-al",
+            "op-country-ae",
+            "op-country-gr"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Роамингот во Турција се наплаќа по стандардни меѓународни цени. Еве ги цените: - **Интернет по MB**: 9,90 ден. - **Појдовна минута**: 89,90 ден. - **Дојдовна минута**: 39,90 ден…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "roaming_turkey_en",
+      "category": "roaming",
+      "tags": [
+        "turkey",
+        "en"
+      ],
+      "q": "How much is roaming in Turkey?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 624.8,
+          "cited_doc_ids": [],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-roaming-2026', 'op-country-tr']; cited=[]"
+            }
+          ],
+          "answer_preview": "I don't have enough information in the knowledge base to answer that. Try a more concrete question about plans, roaming, or bills.",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 603.0,
+          "cited_doc_ids": [],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-roaming-2026', 'op-country-tr']; cited=[]"
+            }
+          ],
+          "answer_preview": "I don't have enough information in the knowledge base to answer that. Try a more concrete question about plans, roaming, or bills.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 3273.6,
+          "cited_doc_ids": [
+            "op-country-tr",
+            "op-smetka-roaming-svet",
+            "op-country-cy",
+            "op-country-al",
+            "op-country-gr",
+            "op-country-it",
+            "op-country-es",
+            "op-country-ba"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Roaming in Turkey incurs the following standard international rates: - **Data per MB**: 9.90 MKD - **Outgoing minute**: 89.90 MKD - **Incoming minute**: 39.90 MKD - **SMS**: 19.…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "roaming_eu_mk",
+      "category": "roaming",
+      "tags": [
+        "eu"
+      ],
+      "q": "Како работи роамингот во ЕУ?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 3004.9,
+          "cited_doc_ids": [
+            "op-country-ro",
+            "op-roaming-paket-rm-eu-1-2026",
+            "op-roaming-paket-rm-eu-1-2025",
+            "op-roaming-paket-rm-eu-1-2024",
+            "op-roaming-paket-rm-eu-5-2026",
+            "op-roaming-paket-rm-eu-5-2024",
+            "op-roaming-paket-rm-eu-5-2025",
+            "op-pripejd-roaming-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-roaming-2026', 'op-faq-roaming']; cited=['op-country-ro', 'op-roaming-paket-rm-eu-1-2026', 'op-roaming-paket-rm-eu-1-2025', 'op-roaming-paket-rm-eu-1-2024', 'op-roaming-paket-rm-eu-5-2026', 'op-roaming-paket-rm-eu-5-2024', 'op-roaming-paket-rm-eu-5-2025', 'op-pripejd-roaming-2025']"
+            }
+          ],
+          "answer_preview": "Роамингот во ЕУ функционира со ограничени цени, што значи дека не е како дома. За користење на интернет, повици и СМС во Романија, цените се следниве: - Интернет по MB: 0,90 ден…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 7488.9,
+          "cited_doc_ids": [
+            "op-country-ro",
+            "op-roaming-paket-rm-eu-1-2026",
+            "op-roaming-paket-rm-eu-1-2025",
+            "op-roaming-paket-rm-eu-1-2024",
+            "op-roaming-paket-rm-eu-5-2026",
+            "op-roaming-paket-rm-eu-5-2024",
+            "op-roaming-paket-rm-eu-5-2025",
+            "op-pripejd-roaming-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-roaming-2026', 'op-faq-roaming']; cited=['op-country-ro', 'op-roaming-paket-rm-eu-1-2026', 'op-roaming-paket-rm-eu-1-2025', 'op-roaming-paket-rm-eu-1-2024', 'op-roaming-paket-rm-eu-5-2026', 'op-roaming-paket-rm-eu-5-2024', 'op-roaming-paket-rm-eu-5-2025', 'op-pripejd-roaming-2025']"
+            }
+          ],
+          "answer_preview": "Роамингот во Европската унија (ЕУ) и Европската економска област (ЕЕА) за корисниците на Вардар Мобиле функционира со ограничени цени, но не е исто како роамингот дома. Од 1 окт…",
+          "error": null
+        },
+        "langchain": {
+          "passed": false,
+          "latency_ms": 5017.9,
+          "cited_doc_ids": [
+            "op-pripejd-roaming-2025",
+            "op-roaming-paket-rm-eu-1-2026",
+            "op-roaming-paket-rm-eu-1-2025",
+            "op-pripejd-roaming-2026",
+            "op-pripejd-roaming-2024",
+            "op-roaming-paket-rm-eu-1-2024",
+            "op-roaming-paket-rm-eu-5-2024",
+            "op-roaming-paket-rm-eu-5-2026"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-roaming-2026', 'op-faq-roaming']; cited=['op-pripejd-roaming-2025', 'op-roaming-paket-rm-eu-1-2026', 'op-roaming-paket-rm-eu-1-2025', 'op-pripejd-roaming-2026', 'op-pripejd-roaming-2024', 'op-roaming-paket-rm-eu-1-2024', 'op-roaming-paket-rm-eu-5-2024', 'op-roaming-paket-rm-eu-5-2026']"
+            }
+          ],
+          "answer_preview": "Роамингот во Европската унија (ЕУ) за корисниците на Вардaр Мобиле функционира на следниов начин: 1. **Припејд корисници**: Роамингот е достапен само ако имате кредит од најмалк…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "roaming_germany_mk",
+      "category": "roaming",
+      "tags": [
+        "germany",
+        "zone2"
+      ],
+      "q": "Колку чини интернет роаминг во Германија?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2107.3,
+          "cited_doc_ids": [
+            "op-country-de",
+            "op-country-at",
+            "op-country-ro",
+            "op-country-fr",
+            "op-country-gr",
+            "op-country-lu",
+            "op-country-gb",
+            "op-country-hu"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Интернет роаминг во Германија чини 0,90 ден. по MB, а 1 GB чини околу 921,60 ден. Достапни се и роаминг пакети: 1 GB за 299 ден. (важи 7 дена) и 5 GB за 999 ден. (важи 30 дена) …",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 3070.1,
+          "cited_doc_ids": [
+            "op-country-de",
+            "op-country-at",
+            "op-country-ro",
+            "op-country-fr",
+            "op-country-gr",
+            "op-country-lu",
+            "op-country-gb",
+            "op-country-hu"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Интернет роаминг во Германија чини 0,90 ден. по MB, а 1 GB чини околу 921,60 ден.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 3277.6,
+          "cited_doc_ids": [
+            "op-country-de",
+            "op-country-at",
+            "op-country-gr",
+            "op-country-ba",
+            "op-country-lu",
+            "op-country-fr",
+            "op-country-ro",
+            "op-country-hr"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Цените за интернет роаминг во Германија се следниве: - **Интернет по MB**: 0,90 ден. - **Интернет по GB (пресметковно)**: 921,60 ден. Достапни се и роаминг пакети: - **RM-EU-1**…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "roaming_serbia_mk",
+      "category": "roaming",
+      "tags": [
+        "serbia",
+        "wb6"
+      ],
+      "q": "Дали роамингот во Србија е како дома?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 1629.4,
+          "cited_doc_ids": [
+            "op-country-rs",
+            "op-country-ba",
+            "op-country-me",
+            "op-country-al",
+            "op-country-ro",
+            "op-country-be",
+            "op-country-si",
+            "op-country-us"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Да, роамингот во Србија е како дома, без доплата. Сите услуги, вклучувајќи интернет, повици и СМС, се бесплатни во рамките на домашната квота [1].",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 3585.9,
+          "cited_doc_ids": [
+            "op-country-rs",
+            "op-country-ba",
+            "op-country-me",
+            "op-country-al",
+            "op-country-ro",
+            "op-country-be",
+            "op-country-si",
+            "op-country-us"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Да, роамингот во Србија е како дома, без доплата. Ова е во согласност со Регионалниот договор за роаминг за Западен Балкан, кој е во примена од 1 јули 2021.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 3253.5,
+          "cited_doc_ids": [
+            "op-country-rs",
+            "op-country-ba",
+            "op-country-me",
+            "op-country-si",
+            "op-smetka-roaming-wb6",
+            "op-country-be",
+            "op-country-sk",
+            "op-country-es"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Да, роамингот во Србија е како дома. Тоа значи дека не се наплаќа дополнително за користење на услуги, а домашната квота важи автоматски. Сите услуги, вклучувајќи интернет, пови…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "roaming_packs_mk",
+      "category": "roaming",
+      "tags": [
+        "packs",
+        "eu"
+      ],
+      "q": "Кои роаминг пакети ги имате за ЕУ?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 2033.0,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-s-2024"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-roaming-2026', 'op-roaming-paket-rm-eu-5-2026', 'op-roaming-paket-rm-eu-1-2026']; cited=['op-cenovnik-xl-2026', 'op-cenovnik-s-2026', 'op-cenovnik-m-2026', 'op-cenovnik-l-2026', 'op-cenovnik-xl-2024', 'op-cenovnik-xl-2025', 'op-cenovnik-s-2025', 'op-cenovnik-s-2024']"
+            }
+          ],
+          "answer_preview": "Немам доволно информации за роаминг пакетите за ЕУ. Можеш да поставиш конкретно прашање за плановите, сметките или другите услуги.",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 3169.9,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-s-2024"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-roaming-2026', 'op-roaming-paket-rm-eu-5-2026', 'op-roaming-paket-rm-eu-1-2026']; cited=['op-cenovnik-xl-2026', 'op-cenovnik-s-2026', 'op-cenovnik-m-2026', 'op-cenovnik-l-2026', 'op-cenovnik-xl-2024', 'op-cenovnik-xl-2025', 'op-cenovnik-s-2025', 'op-cenovnik-s-2024']"
+            }
+          ],
+          "answer_preview": "Немам доволно информации за роаминг пакетите за ЕУ. Ве молам поставете по-конкретно прашање за тарифни планови, сметки или слично.",
+          "error": null
+        },
+        "langchain": {
+          "passed": false,
+          "latency_ms": 2789.2,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-s-2024"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-roaming-2026', 'op-roaming-paket-rm-eu-5-2026', 'op-roaming-paket-rm-eu-1-2026']; cited=['op-cenovnik-xl-2026', 'op-cenovnik-s-2026', 'op-cenovnik-m-2026', 'op-cenovnik-l-2026', 'op-cenovnik-xl-2024', 'op-cenovnik-xl-2025', 'op-cenovnik-l-2024', 'op-cenovnik-s-2024']"
+            }
+          ],
+          "answer_preview": "Не можам да најдам конкретни информации за роаминг пакетите за ЕУ. За дополнителни детали, ве молам да се обратите на веб-страницата на Вардар Мобилен или во најблиската продавн…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "roaming_zones_mk",
+      "category": "roaming",
+      "tags": [
+        "zones"
+      ],
+      "q": "Кои се роаминг зоните?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 2498.2,
+          "cited_doc_ids": [
+            "op-country-ro",
+            "op-roaming-paket-rm-eu-1-2026",
+            "op-roaming-paket-rm-eu-1-2024",
+            "op-roaming-paket-rm-ww-05-2026",
+            "op-roaming-paket-rm-eu-1-2025",
+            "op-country-me",
+            "op-roaming-paket-rm-ww-2-2026",
+            "op-roaming-paket-rm-ww-05-2024"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-roaming-2026']; cited=['op-country-ro', 'op-roaming-paket-rm-eu-1-2026', 'op-roaming-paket-rm-eu-1-2024', 'op-roaming-paket-rm-ww-05-2026', 'op-roaming-paket-rm-eu-1-2025', 'op-country-me', 'op-roaming-paket-rm-ww-2-2026', 'op-roaming-paket-rm-ww-05-2024']"
+            }
+          ],
+          "answer_preview": "Роаминг зоните за Вардaр Мобиле се: 1. **Западен Балкан** - Роаминг како дома, без доплата (пример: Црна Гора) [6]. 2. **Европска унија и ЕЕА** - Ограничени цени, не е роаминг к…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 4096.8,
+          "cited_doc_ids": [
+            "op-country-ro",
+            "op-roaming-paket-rm-eu-1-2026",
+            "op-roaming-paket-rm-eu-1-2024",
+            "op-roaming-paket-rm-ww-05-2026",
+            "op-roaming-paket-rm-eu-1-2025",
+            "op-country-me",
+            "op-roaming-paket-rm-ww-2-2026",
+            "op-roaming-paket-rm-ww-05-2024"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-roaming-2026']; cited=['op-country-ro', 'op-roaming-paket-rm-eu-1-2026', 'op-roaming-paket-rm-eu-1-2024', 'op-roaming-paket-rm-ww-05-2026', 'op-roaming-paket-rm-eu-1-2025', 'op-country-me', 'op-roaming-paket-rm-ww-2-2026', 'op-roaming-paket-rm-ww-05-2024']"
+            }
+          ],
+          "answer_preview": "Роаминг зоните се следниве: 1. **Зона 1** — Западен Балкан (на пример, Црна Гора) 2. **Зона 2** — Европска унија и ЕЕА (на пример, Романија) Во Западен Балкан, роамингот е како …",
+          "error": null
+        },
+        "langchain": {
+          "passed": false,
+          "latency_ms": 4094.0,
+          "cited_doc_ids": [
+            "op-country-me",
+            "op-country-us",
+            "op-roaming-paket-rm-ww-05-2026",
+            "op-country-ba",
+            "op-roaming-paket-rm-ww-05-2025",
+            "op-roaming-paket-rm-ww-05-2024",
+            "op-roaming-paket-rm-ww-2-2026",
+            "op-roaming-paket-rm-eu-1-2026"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-roaming-2026']; cited=['op-country-me', 'op-country-us', 'op-roaming-paket-rm-ww-05-2026', 'op-country-ba', 'op-roaming-paket-rm-ww-05-2025', 'op-roaming-paket-rm-ww-05-2024', 'op-roaming-paket-rm-ww-2-2026', 'op-roaming-paket-rm-eu-1-2026']"
+            }
+          ],
+          "answer_preview": "Роаминг зоните за Вардaр Мобиле се следниве: 1. **Западен Балкан** (вклучува Црна Гора и Босна и Херцеговина): - Режим: роаминг како дома, без доплата. - Цени: Интернет, повици …",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "roaming_uk_mk",
+      "category": "roaming",
+      "tags": [
+        "uk",
+        "zone3"
+      ],
+      "q": "Во која зона е Обединетото Кралство за роаминг?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2081.5,
+          "cited_doc_ids": [
+            "op-country-gb",
+            "op-roaming-paket-rm-eu-1-2026",
+            "op-roaming-paket-rm-eu-1-2025",
+            "op-roaming-paket-rm-eu-1-2024",
+            "op-roaming-paket-rm-eu-5-2026",
+            "op-roaming-paket-rm-eu-5-2024",
+            "op-roaming-paket-rm-eu-5-2025",
+            "op-roaming-paket-rm-ww-05-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Обединетото Кралство е во Зона 3 — Останат свет за роаминг [1].",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 2721.8,
+          "cited_doc_ids": [
+            "op-country-gb",
+            "op-roaming-paket-rm-eu-1-2026",
+            "op-roaming-paket-rm-eu-1-2025",
+            "op-roaming-paket-rm-eu-1-2024",
+            "op-roaming-paket-rm-eu-5-2026",
+            "op-roaming-paket-rm-eu-5-2024",
+            "op-roaming-paket-rm-eu-5-2025",
+            "op-roaming-paket-rm-ww-05-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Обединетото Кралство е во Зона 3 — Останат свет за роаминг.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 4458.6,
+          "cited_doc_ids": [
+            "op-country-gb",
+            "op-country-ro",
+            "op-roaming-paket-rm-eu-1-2026",
+            "op-roaming-paket-rm-eu-1-2024",
+            "op-roaming-paket-rm-eu-1-2025",
+            "op-roaming-paket-rm-eu-5-2026",
+            "op-roaming-paket-rm-eu-5-2024",
+            "op-country-me"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Обединетото Кралство е во **Зона 3 — Останат свет** за роаминг. За услуги во оваа зона важат стандардни меѓународни цени. Цените за роаминг во Обединетото Кралство се следни: - …",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "roaming_faq_mk",
+      "category": "roaming",
+      "tags": [
+        "faq"
+      ],
+      "q": "Како да активирам роаминг пакет?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 1763.6,
+          "cited_doc_ids": [
+            "op-roaming-paket-rm-ww-2-2026",
+            "op-roaming-paket-rm-ww-2-2024",
+            "op-roaming-paket-rm-ww-2-2025",
+            "op-roaming-paket-rm-ww-05-2024",
+            "op-roaming-paket-rm-ww-05-2026",
+            "op-roaming-paket-rm-ww-05-2025",
+            "op-roaming-paket-rm-eu-1-2025",
+            "op-roaming-paket-rm-eu-1-2024"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-roaming', 'op-roaming-2026']; cited=['op-roaming-paket-rm-ww-2-2026', 'op-roaming-paket-rm-ww-2-2024', 'op-roaming-paket-rm-ww-2-2025', 'op-roaming-paket-rm-ww-05-2024', 'op-roaming-paket-rm-ww-05-2026', 'op-roaming-paket-rm-ww-05-2025', 'op-roaming-paket-rm-eu-1-2025', 'op-roaming-paket-rm-eu-1-2024']"
+            }
+          ],
+          "answer_preview": "Не имам доволно информации за конкретниот начин на активирање на роаминг пакет. Можеш да поставиш по-конкретно прашање за пакетите или услугите на Вардaр Мобиле.",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 4650.6,
+          "cited_doc_ids": [
+            "op-roaming-paket-rm-ww-2-2026",
+            "op-roaming-paket-rm-ww-2-2024",
+            "op-roaming-paket-rm-ww-2-2025",
+            "op-roaming-paket-rm-ww-05-2024",
+            "op-roaming-paket-rm-ww-05-2026",
+            "op-roaming-paket-rm-ww-05-2025",
+            "op-roaming-paket-rm-eu-1-2025",
+            "op-roaming-paket-rm-eu-1-2024"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-roaming', 'op-roaming-2026']; cited=['op-roaming-paket-rm-ww-2-2026', 'op-roaming-paket-rm-ww-2-2024', 'op-roaming-paket-rm-ww-2-2025', 'op-roaming-paket-rm-ww-05-2024', 'op-roaming-paket-rm-ww-05-2026', 'op-roaming-paket-rm-ww-05-2025', 'op-roaming-paket-rm-eu-1-2025', 'op-roaming-paket-rm-eu-1-2024']"
+            }
+          ],
+          "answer_preview": "Пакетот за роаминг мора да се активира **пред** почетокот на трошењето. Не се применува наназад на сообраќај што е веќе наплатен по стандардна тарифа. За активирање на пакетот, …",
+          "error": null
+        },
+        "langchain": {
+          "passed": false,
+          "latency_ms": 4351.3,
+          "cited_doc_ids": [
+            "op-roaming-paket-rm-ww-05-2025",
+            "op-roaming-paket-rm-ww-05-2026",
+            "op-roaming-paket-rm-ww-05-2024",
+            "op-roaming-paket-rm-ww-2-2025",
+            "op-roaming-paket-rm-ww-2-2026",
+            "op-roaming-paket-rm-ww-2-2024",
+            "op-roaming-paket-rm-eu-1-2025",
+            "op-roaming-paket-rm-eu-5-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-roaming', 'op-roaming-2026']; cited=['op-roaming-paket-rm-ww-05-2025', 'op-roaming-paket-rm-ww-05-2026', 'op-roaming-paket-rm-ww-05-2024', 'op-roaming-paket-rm-ww-2-2025', 'op-roaming-paket-rm-ww-2-2026', 'op-roaming-paket-rm-ww-2-2024', 'op-roaming-paket-rm-eu-1-2025', 'op-roaming-paket-rm-eu-5-2025']"
+            }
+          ],
+          "answer_preview": "За да активирате роаминг пакет, треба да следите неколку чекори: 1. **Изберете пакет**: Ве молам изберете еден од достапните роаминг пакети. На пример: - RM-EU-1: 1 GB за 349 де…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "billing_where_mk",
+      "category": "billing",
+      "tags": [
+        "faq"
+      ],
+      "q": "Каде ја гледам сметката?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 1561.8,
+          "cited_doc_ids": [
+            "op-faq-account",
+            "op-faq-billing",
+            "op-faq-devices",
+            "op-smetka-ddv",
+            "op-billing-2026",
+            "op-coverage-kavadarci",
+            "op-smetka-promena-paket-m-l",
+            "op-bulletin-2026-02"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Можете да ја проверите вашата сметка преку услугата \"Мој Вардар\" или со повик на `*123#` [1].",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 2869.0,
+          "cited_doc_ids": [
+            "op-faq-account",
+            "op-faq-billing",
+            "op-faq-devices",
+            "op-smetka-ddv",
+            "op-billing-2026",
+            "op-coverage-kavadarci",
+            "op-smetka-promena-paket-m-l",
+            "op-bulletin-2026-02"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Сметката можете да ја видите во апликацијата Мој Вардар или со повик на `*123#` [op-faq-account].",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 2765.2,
+          "cited_doc_ids": [
+            "op-faq-account",
+            "op-faq-billing",
+            "op-billing-2026",
+            "op-smetka-promena-paket-m-l",
+            "op-smetka-promena-paket-s-m",
+            "op-smetka-promena-paket-xl-l",
+            "op-smetka-promena-paket-l-xl",
+            "op-smetka-odobrenie"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Сметката можете да ја проверите преку апликацијата \"Мој Вардар\", каде што можете да добиете детална спецификација за последните 6 месеци бесплатно. Сметките се издаваат до 8-ми …",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "billing_fup_mk",
+      "category": "billing",
+      "tags": [
+        "fup"
+      ],
+      "q": "Што се случува на сметката кога ќе ја достигнам квотата?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2251.3,
+          "cited_doc_ids": [
+            "op-faq-account",
+            "op-faq-billing",
+            "op-smetka-fup",
+            "op-billing-2026",
+            "op-smetka-promena-paket-m-l",
+            "op-smetka-promena-paket-s-m",
+            "op-faq-devices",
+            "op-smetka-promena-paket-xl-l"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Кога ќе ја достигнете квотата, брзината на интернетот се намалува на 64 kbps до крајот на периодот. Не се наплаќа ништо дополнително, освен ако не активирате опцијата „Продолжи …",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 3173.2,
+          "cited_doc_ids": [
+            "op-faq-account",
+            "op-faq-billing",
+            "op-smetka-fup",
+            "op-billing-2026",
+            "op-smetka-promena-paket-m-l",
+            "op-smetka-promena-paket-s-m",
+            "op-faq-devices",
+            "op-smetka-promena-paket-xl-l"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Кога ќе ја достигнете квотата, брзината на интернетот се намалува на 64 kbps до крајот на периодот. Не се наплаќа ништо дополнително, а на фактурата нема ставка за пречекорување…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 3228.5,
+          "cited_doc_ids": [
+            "op-faq-account",
+            "op-faq-billing",
+            "op-billing-2026",
+            "op-smetka-promena-paket-m-l",
+            "op-smetka-fup",
+            "op-smetka-promena-paket-s-m",
+            "op-smetka-promena-paket-xl-l",
+            "op-smetka-promena-paket-l-xl"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Кога ќе ја достигнете квотата за интернет, вашата брзина ќе се намали на 64 kbps до крајот на пресметковниот период. Не се наплаќа ништо дополнително за пречекорување на квотата…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "billing_quota_check_mk",
+      "category": "billing",
+      "tags": [
+        "quota"
+      ],
+      "q": "Како ја проверувам квотата?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 1537.2,
+          "cited_doc_ids": [
+            "op-faq-account",
+            "op-smetka-kako-se-cita",
+            "op-ts-slow-data",
+            "op-country-xk",
+            "op-kb-e-33-zenith-fold",
+            "op-ts-no-data",
+            "op-ts-no-service",
+            "op-ts-no-calls"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Можете да ја проверите квотата со кодот `*123#` или преку апликацијата Мој Вардар [1].",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 2570.8,
+          "cited_doc_ids": [
+            "op-faq-account",
+            "op-smetka-kako-se-cita",
+            "op-ts-slow-data",
+            "op-country-xk",
+            "op-kb-e-33-zenith-fold",
+            "op-ts-no-data",
+            "op-ts-no-service",
+            "op-ts-no-calls"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Можете да ја проверите квотата со кодот `*123#` или преку апликацијата Мој Вардар.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 2658.7,
+          "cited_doc_ids": [
+            "op-faq-account",
+            "op-ts-slow-data",
+            "op-smetka-kako-se-cita",
+            "op-ts-no-calls",
+            "op-kb-e-33-zenith-fold",
+            "op-ts-no-data",
+            "op-proc-compatibility",
+            "op-ts-no-service"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "За да ја проверите квотата, можете да користите следниве опции: 1. Дозволете да повикате `*123#` на вашиот мобилен телефон. 2. Или, можете да ја проверите квотата преку апликаци…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "billing_plan_change_mk",
+      "category": "billing",
+      "tags": [
+        "plan_change"
+      ],
+      "q": "Како изгледа промената од XL на L на сметката?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2940.3,
+          "cited_doc_ids": [
+            "op-smetka-promena-paket-l-xl",
+            "op-smetka-promena-paket-m-l",
+            "op-smetka-promena-paket-xl-l",
+            "op-smetka-promena-paket-s-m",
+            "op-faq-billing",
+            "op-faq-plans",
+            "op-spec-google-pixel-9-pro-xl",
+            "op-smetka-ddv"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Промената од Вардар Мобилен XL во Вардар Мобилен L на сметката изгледа вака: Промената е побарана на 12-ти. Преостануваат 19 од 30 дена. | Ставка | Пресметка | Износ | |---|---|…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 6134.1,
+          "cited_doc_ids": [
+            "op-smetka-promena-paket-l-xl",
+            "op-smetka-promena-paket-m-l",
+            "op-smetka-promena-paket-xl-l",
+            "op-smetka-promena-paket-s-m",
+            "op-faq-billing",
+            "op-faq-plans",
+            "op-spec-google-pixel-9-pro-xl",
+            "op-smetka-ddv"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Промената од Вардар Мобилен XL во Вардар Мобилен L на сметката изгледа вака: Промената е побарана на 12-ти. Преостануваат 19 од 30 дена. | Ставка | Пресметка | Износ | |---|---|…",
+          "error": null
+        },
+        "langchain": {
+          "passed": false,
+          "latency_ms": 5586.6,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-l-2025"
+          ],
+          "tool_calls": 2,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-smetka-promena-paket-xl-l', 'op-smetka-promena-paket-l-xl']; cited=['op-cenovnik-xl-2026', 'op-cenovnik-xl-2024', 'op-cenovnik-xl-2025', 'op-cenovnik-l-2026', 'op-cenovnik-l-2024', 'op-cenovnik-l-2025']"
+            }
+          ],
+          "answer_preview": "Промената од тарифниот пакет XL на L на сметката вклучува следните разлики: ### XL План - **Месечна претплата:** 1.799 ден. - **Интернет во домашна мрежа:** неограничен со ФУП о…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "billing_faq_en",
+      "category": "billing",
+      "tags": [
+        "faq",
+        "en"
+      ],
+      "q": "Where can I see my bill?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 1321.8,
+          "cited_doc_ids": [
+            "op-billing-2026",
+            "op-smetka-kako-se-cita",
+            "op-faq-billing",
+            "op-prigovor-smetka",
+            "op-smetka-proracun-aktivacija-xl",
+            "op-smetka-proracun-aktivacija-s",
+            "op-smetka-proracun-aktivacija-m",
+            "op-smetka-rata-uredj"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "You can view your bill in the My Vardar app, where you can also access itemised details for the last 6 months for free [1].",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 2007.8,
+          "cited_doc_ids": [
+            "op-billing-2026",
+            "op-smetka-kako-se-cita",
+            "op-faq-billing",
+            "op-prigovor-smetka",
+            "op-smetka-proracun-aktivacija-xl",
+            "op-smetka-proracun-aktivacija-s",
+            "op-smetka-proracun-aktivacija-m",
+            "op-smetka-rata-uredj"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "You can see your bill in the My Vardar app, where you can access itemised details for the last 6 months for free [doc_id: op-billing-2026].",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 2758.6,
+          "cited_doc_ids": [
+            "op-smetka-kako-se-cita",
+            "op-billing-2026",
+            "op-prigovor-smetka",
+            "op-smetka-rata-uredj",
+            "op-faq-billing",
+            "op-smetka-ddv",
+            "op-smetka-proracun-aktivacija-m",
+            "op-smetka-proracun-aktivacija-s"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "You can view your bill in the \"My Vardar\" app, where itemized details are available for the last 6 months. Invoices are issued by the 8th of the following month, covering a cale…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "about_mk",
+      "category": "about",
+      "tags": [
+        "overview"
+      ],
+      "q": "Што е Вардар Мобилен?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2175.7,
+          "cited_doc_ids": [
+            "op-faq-about",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-m-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Вардар Мобиле (Вардар Мобилен) е синтетички мобилен оператор во Северна Македонија, кој нуди мобилни тарифни планови, роаминг, додатоци за интернет, уреди и корисничка поддршка.…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 6285.6,
+          "cited_doc_ids": [
+            "op-faq-about",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-m-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Вардар Мобиле (Вардар Мобилен) е синтетички мобилен оператор во Северна Македонија, за демо и портфолио. Нуди мобилни тарифни планови, роаминг, додатоци за интернет, уреди и кор…",
+          "error": null
+        },
+        "langchain": {
+          "passed": false,
+          "latency_ms": 1194.4,
+          "cited_doc_ids": [],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-about']; cited=[]"
+            }
+          ],
+          "answer_preview": "Вардар Мобиле е македонски мобилен оператор кој нуди различни услуги за мобилна телефонија, вклучувајќи планови за разговори, интернет и текстуални пораки. Операторот се фокусир…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "about_en",
+      "category": "about",
+      "tags": [
+        "overview",
+        "en"
+      ],
+      "q": "Tell me about Vardar Mobile",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2146.5,
+          "cited_doc_ids": [
+            "op-faq-about",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-s-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Vardar Mobile (Вардар Мобилен) is a mobile operator in North Macedonia that offers a variety of services including mobile plans, roaming options, data add-ons, devices, and cust…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 2610.7,
+          "cited_doc_ids": [
+            "op-faq-about",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-s-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Vardar Mobile (Вардар Мобилен) is a synthetic mobile operator in North Macedonia, designed for demo and portfolio use. It offers a variety of services including mobile plans, ro…",
+          "error": null
+        },
+        "langchain": {
+          "passed": false,
+          "latency_ms": 826.0,
+          "cited_doc_ids": [],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-about']; cited=[]"
+            }
+          ],
+          "answer_preview": "I don't have enough information to provide details about Vardar Mobile. Please specify what aspects you would like to know, such as plans, services, or policies.",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "about_services_mk",
+      "category": "about",
+      "tags": [
+        "overview"
+      ],
+      "q": "Кажете ми повеќе за операторот и услугите",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 3295.4,
+          "cited_doc_ids": [
+            "op-faq-about",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-m-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Вардар Мобиле нуди различни мобилни тарифни планови, вклучувајќи S, M, L и XL, со месечна претплата, интернет, повици и SMS. Исто така, нудат роаминг во ЕУ и светски зони, како …",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 5499.2,
+          "cited_doc_ids": [
+            "op-faq-about",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-m-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Вардар Мобиле (Вардар Мобилен) е синтетички мобилен оператор во Северна Македонија, кој нуди различни услуги, вклучувајќи мобилни тарифни планови, роаминг, додатоци за интернет,…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 4531.0,
+          "cited_doc_ids": [
+            "op-faq-about",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-xl-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Вардар Мобиле е мобилен оператор во Северна Македонија, кој нуди различни услуги, вклучувајќи: - **Тарифни планови**: S, M, L и XL, кои вклучуваат месечна претплата, интернет, п…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "followup_l_after_xl",
+      "category": "followup",
+      "tags": [
+        "plan"
+      ],
+      "q": "а во L?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 3029.8,
+          "cited_doc_ids": [
+            "op-cenovnik-l-2026",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-xl-2026",
+            "op-smetka-proracun-aktivacija-l",
+            "op-smetka-proracun-aktivacija-xl"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план L вклучува: - Месечна претплата: 1.299 ден. - Интернет во домашна мрежа: 50 GB - Разговори кон домашни мрежи: неограничени - SMS кон домашни мрежи: неограничени -…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 4896.5,
+          "cited_doc_ids": [
+            "op-cenovnik-l-2026",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-xl-2026",
+            "op-smetka-proracun-aktivacija-l",
+            "op-smetka-proracun-aktivacija-xl"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план L (Вардар Мобилен L) вклучува: - Месечна претплата: **1.299 ден.** - Интернет во домашна мрежа: 50 GB - Разговори кон домашни мрежи: неограничени - SMS кон домашн…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 3284.0,
+          "cited_doc_ids": [
+            "op-cenovnik-l-2026",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-l-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план L вклучува: - Месечна претплата: **1.299 ден.** - Интернет во домашна мрежа: 50 GB - Разговори кон домашни мрежи: неограничени - SMS кон домашни мрежи: неограниче…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "followup_m_after_l",
+      "category": "followup",
+      "tags": [
+        "plan"
+      ],
+      "q": "а за M?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 4340.6,
+          "cited_doc_ids": [
+            "op-cenovnik-m-2026",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-m-2025",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2026",
+            "op-smetka-proracun-aktivacija-m",
+            "op-dogovor-m-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план M вклучува: - Месечна претплата: 899 ден. - Интернет во домашна мрежа: 20 GB - Разговори кон домашни мрежи: неограничени - SMS кон домашни мрежи: неограничени - М…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 4635.7,
+          "cited_doc_ids": [
+            "op-cenovnik-m-2026",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-m-2025",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-l-2026",
+            "op-cenovnik-xl-2026",
+            "op-smetka-proracun-aktivacija-m",
+            "op-dogovor-m-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план M (Вардар Мобилен M) вклучува: - Месечна претплата: **899 ден.** - Интернет во домашна мрежа: 20 GB - Разговори кон домашни мрежи: неограничени - SMS кон домашни …",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 3779.5,
+          "cited_doc_ids": [
+            "op-cenovnik-m-2026",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-m-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Тарифниот план M вклучува: - **Месечна претплата:** 899 ден. - **Интернет во домашна мрежа:** 20 GB - **Разговори кон домашни мрежи:** неограничени - **SMS кон домашни мрежи:** …",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "followup_price_after_xl",
+      "category": "followup",
+      "tags": [
+        "plan",
+        "price"
+      ],
+      "q": "а цената?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2354.9,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-xl-2024",
+            "op-faq-plans",
+            "op-cenovnik-l-2026",
+            "op-smetka-promena-paket-l-xl",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-m-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Цената на планот XL е 1.799 денари месечно [1].",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 3657.2,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-xl-2024",
+            "op-faq-plans",
+            "op-cenovnik-l-2026",
+            "op-smetka-promena-paket-l-xl",
+            "op-cenovnik-s-2026",
+            "op-cenovnik-m-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Цената на тарифниот план XL (Вардар Мобилен XL) е **1.799 ден.** месечно.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 2682.3,
+          "cited_doc_ids": [
+            "op-cenovnik-xl-2026",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-xl-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Цената на тарифниот пакет XL е **1.799 денари** месечно [op-cenovnik-xl-2026].",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "followup_s_after_m_en",
+      "category": "followup",
+      "tags": [
+        "plan",
+        "en"
+      ],
+      "q": "and S?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2356.1,
+          "cited_doc_ids": [
+            "op-cenovnik-s-2026",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-s-2025",
+            "op-campaign-student-2026",
+            "op-campaign-skolo-2025",
+            "op-campaign-leto-2025",
+            "op-campaign-proleten-2026",
+            "op-smetka-promena-paket-s-m"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "The S plan includes 5 GB of domestic data, 200 calls to domestic networks, and 200 SMS to domestic networks. The maximum speed is up to 100 Mbps, and the monthly fee is 599 MKD …",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 4662.7,
+          "cited_doc_ids": [
+            "op-cenovnik-s-2026",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-s-2025",
+            "op-campaign-student-2026",
+            "op-campaign-skolo-2025",
+            "op-campaign-leto-2025",
+            "op-campaign-proleten-2026",
+            "op-smetka-promena-paket-s-m"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "The Вардар Мобилен S plan includes the following features: - **Monthly fee**: 599 MKD - **Domestic data**: 5 GB - **Calls to domestic networks**: 200 minutes - **SMS to domestic…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 2952.6,
+          "cited_doc_ids": [
+            "op-cenovnik-s-2026",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-s-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "The S plan includes: - **Monthly fee**: 599 MKD - **Domestic data**: 5 GB - **Calls to domestic networks**: 200 - **SMS to domestic networks**: 200 - **Maximum speed**: up to 10…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "network_5g_faq_mk",
+      "category": "network",
+      "tags": [
+        "5g",
+        "faq"
+      ],
+      "q": "Дали имате 5G покриеност?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 2290.9,
+          "cited_doc_ids": [
+            "op-coverage-kriva-palanka",
+            "op-coverage-sveti-nikole",
+            "op-coverage-struga",
+            "op-coverage-demir-hisar",
+            "op-coverage-gevgelija",
+            "op-coverage-tetovo",
+            "op-coverage-radovis",
+            "op-coverage-gostivar"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-network', 'op-network-2026']; cited=['op-coverage-kriva-palanka', 'op-coverage-sveti-nikole', 'op-coverage-struga', 'op-coverage-demir-hisar', 'op-coverage-gevgelija', 'op-coverage-tetovo', 'op-coverage-radovis', 'op-coverage-gostivar']"
+            }
+          ],
+          "answer_preview": "Да, Вардaр Мобиле има 5G покриеност во неколку градови. На пример, во Крива Паланка покриеноста е 37%, во Свети Николе 34%, во Струга 49%, во Демир Хисар 10%, во Гевгелија 43%, …",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 3731.9,
+          "cited_doc_ids": [
+            "op-coverage-kriva-palanka",
+            "op-coverage-sveti-nikole",
+            "op-coverage-struga",
+            "op-coverage-demir-hisar",
+            "op-coverage-gevgelija",
+            "op-coverage-tetovo",
+            "op-coverage-radovis",
+            "op-coverage-gostivar"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-network', 'op-network-2026']; cited=['op-coverage-kriva-palanka', 'op-coverage-sveti-nikole', 'op-coverage-struga', 'op-coverage-demir-hisar', 'op-coverage-gevgelija', 'op-coverage-tetovo', 'op-coverage-radovis', 'op-coverage-gostivar']"
+            }
+          ],
+          "answer_preview": "Да, имаме 5G покриеност во неколку градови. На пример, во Радовиш покриеноста е 46%.",
+          "error": null
+        },
+        "langchain": {
+          "passed": false,
+          "latency_ms": 3173.9,
+          "cited_doc_ids": [
+            "op-coverage-kriva-palanka",
+            "op-coverage-kratovo",
+            "op-coverage-sveti-nikole",
+            "op-coverage-tetovo",
+            "op-coverage-struga",
+            "op-coverage-krusevo",
+            "op-coverage-skopje",
+            "op-coverage-demir-hisar"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-network', 'op-network-2026']; cited=['op-coverage-kriva-palanka', 'op-coverage-kratovo', 'op-coverage-sveti-nikole', 'op-coverage-tetovo', 'op-coverage-struga', 'op-coverage-krusevo', 'op-coverage-skopje', 'op-coverage-demir-hisar']"
+            }
+          ],
+          "answer_preview": "Да, Вардaр Мобиле има 5G покриеност во некои области. На пример: - **Скопје**: 88% покриеност - **Тетово**: 76% покриеност - **Струга**: 49% покриеност - **Крива Паланка**: 37% …",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "network_skopje_mk",
+      "category": "network",
+      "tags": [
+        "coverage",
+        "skopje"
+      ],
+      "q": "Каква е 5G покриеноста во Скопје?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 1904.2,
+          "cited_doc_ids": [
+            "op-coverage-skopje",
+            "op-bulletin-2025-09",
+            "op-bulletin-2026-04",
+            "op-coverage-krusevo",
+            "op-coverage-prilep",
+            "op-bulletin-2025-01",
+            "op-coverage-kicevo",
+            "op-coverage-probistip"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "5G покриеноста во Скопје е 88% од населението, а 5G е достапно во централните делови на градот. Просечната брзина на 5G во Скопје е 150 Mbps [1].",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 2561.0,
+          "cited_doc_ids": [
+            "op-coverage-skopje",
+            "op-bulletin-2025-09",
+            "op-bulletin-2026-04",
+            "op-coverage-krusevo",
+            "op-coverage-prilep",
+            "op-bulletin-2025-01",
+            "op-coverage-kicevo",
+            "op-coverage-probistip"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "5G покриеноста во Скопје е 88% од населението, а 5G е достапно во централните делови на градот.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 3173.5,
+          "cited_doc_ids": [
+            "op-coverage-skopje",
+            "op-coverage-krusevo",
+            "op-bulletin-2025-09",
+            "op-bulletin-2026-04",
+            "op-coverage-prilep",
+            "op-coverage-kratovo",
+            "op-bulletin-2025-01",
+            "op-coverage-tetovo"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Покриеноста со 5G во Скопје е 88%. Оваа технологија е достапна во централните делови на градот, а просечната брзина на 5G е 150 Mbps. За подобрување на сигналот во внатрешноста,…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "network_2026_mk",
+      "category": "network",
+      "tags": [
+        "overview"
+      ],
+      "q": "Кои мрежи ги нуди Вардар Мобилен?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 1944.7,
+          "cited_doc_ids": [
+            "op-faq-about",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-l-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-network-2026', 'op-faq-network']; cited=['op-faq-about', 'op-cenovnik-s-2024', 'op-cenovnik-m-2024', 'op-cenovnik-l-2024', 'op-cenovnik-xl-2024', 'op-cenovnik-s-2025', 'op-cenovnik-xl-2025', 'op-cenovnik-l-2025']"
+            }
+          ],
+          "answer_preview": "Немам доволно информации за конкретно прашање за мрежите што ги нуди Вардар Мобилен. Можеш да прашаш за тарифни планови, роаминг или сметки.",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 3353.6,
+          "cited_doc_ids": [
+            "op-faq-about",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-s-2025",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-l-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-network-2026', 'op-faq-network']; cited=['op-faq-about', 'op-cenovnik-s-2024', 'op-cenovnik-m-2024', 'op-cenovnik-l-2024', 'op-cenovnik-xl-2024', 'op-cenovnik-s-2025', 'op-cenovnik-xl-2025', 'op-cenovnik-l-2025']"
+            }
+          ],
+          "answer_preview": "Вардар Мобилен нуди мобилни тарифни планови, роаминг, додатоци за интернет, уреди и корисничка поддршка. За конкретни детали за мрежите, можеш да се обратиш на ценовникот или FA…",
+          "error": null
+        },
+        "langchain": {
+          "passed": false,
+          "latency_ms": 3380.5,
+          "cited_doc_ids": [
+            "op-faq-about",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-xl-2025",
+            "op-cenovnik-l-2025",
+            "op-cenovnik-s-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-network-2026', 'op-faq-network']; cited=['op-faq-about', 'op-cenovnik-s-2024', 'op-cenovnik-l-2024', 'op-cenovnik-xl-2024', 'op-cenovnik-m-2024', 'op-cenovnik-xl-2025', 'op-cenovnik-l-2025', 'op-cenovnik-s-2025']"
+            }
+          ],
+          "answer_preview": "Вардар Мобилен нуди следниве мрежи и услуги: - Мобилни тарифни планови: S, M, L и XL - Роаминг во ЕУ и светски зони - Додатоци за интернет - Уреди и SIM картички За повеќе инфор…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "devices_faq_mk",
+      "category": "devices",
+      "tags": [
+        "faq"
+      ],
+      "q": "Кои телефони ги нудите?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 3587.4,
+          "cited_doc_ids": [
+            "op-compare-phone",
+            "op-spec-nothing-phone-3",
+            "op-katalog-nothing-phone-3",
+            "op-spec-nothing-phone-3a-pro",
+            "op-compare-router",
+            "op-spec-zte-nubia-neo-3",
+            "op-proc-compatibility",
+            "op-faq-sim"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-devices']; cited=['op-compare-phone', 'op-spec-nothing-phone-3', 'op-katalog-nothing-phone-3', 'op-spec-nothing-phone-3a-pro', 'op-compare-router', 'op-spec-zte-nubia-neo-3', 'op-proc-compatibility', 'op-faq-sim']"
+            }
+          ],
+          "answer_preview": "Вардар Мобиле нуди различни модели на мобилни телефони. Еве некои од нив: 1. **Samsung Galaxy Z Fold 6** - 119.990 ден. 2. **Apple iPhone 16 Pro Max** - 94.990 ден. 3. **Samsung…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 6198.5,
+          "cited_doc_ids": [
+            "op-compare-phone",
+            "op-spec-nothing-phone-3",
+            "op-katalog-nothing-phone-3",
+            "op-spec-nothing-phone-3a-pro",
+            "op-compare-router",
+            "op-spec-zte-nubia-neo-3",
+            "op-proc-compatibility",
+            "op-faq-sim"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-devices']; cited=['op-compare-phone', 'op-spec-nothing-phone-3', 'op-katalog-nothing-phone-3', 'op-spec-nothing-phone-3a-pro', 'op-compare-router', 'op-spec-zte-nubia-neo-3', 'op-proc-compatibility', 'op-faq-sim']"
+            }
+          ],
+          "answer_preview": "Вардар Мобиле нуди различни модели на мобилни телефони. Еве список на некои од нив: 1. **Nothing Phone 3** - 44.990 ден. 2. **Nothing Phone 3a Pro** - 26.990 ден. 3. **ZTE nubia…",
+          "error": null
+        },
+        "langchain": {
+          "passed": false,
+          "latency_ms": 1023.3,
+          "cited_doc_ids": [],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-devices']; cited=[]"
+            }
+          ],
+          "answer_preview": "Немам доволно информации за да одговорам на вашето прашање. Ве молам, проверете на веб-страницата на Вардaр Мобиле или контактирајте со нивната поддршка за информации за телефони.",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "devices_faq_en",
+      "category": "devices",
+      "tags": [
+        "faq",
+        "en"
+      ],
+      "q": "Which phones do you sell?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 3888.9,
+          "cited_doc_ids": [
+            "op-spec-nothing-phone-3",
+            "op-spec-nothing-phone-3a-pro",
+            "op-compare-phone",
+            "op-spec-apple-iphone-16e",
+            "op-spec-motorola-edge-60-pro",
+            "op-spec-nothing-cmf-phone-2-pro",
+            "op-spec-samsung-galaxy-s25",
+            "op-spec-samsung-galaxy-s25plus"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-devices']; cited=['op-spec-nothing-phone-3', 'op-spec-nothing-phone-3a-pro', 'op-compare-phone', 'op-spec-apple-iphone-16e', 'op-spec-motorola-edge-60-pro', 'op-spec-nothing-cmf-phone-2-pro', 'op-spec-samsung-galaxy-s25', 'op-spec-samsung-galaxy-s25plus']"
+            }
+          ],
+          "answer_preview": "Vardar Mobile offers a variety of mobile phones, including: 1. **Nothing Phone 3** - Price: 44,990 MKD - RAM: 12 GB, Storage: 256 GB - Battery: 5000 mAh 2. **Nothing Phone 3a Pr…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 7778.5,
+          "cited_doc_ids": [
+            "op-spec-nothing-phone-3",
+            "op-spec-nothing-phone-3a-pro",
+            "op-compare-phone",
+            "op-spec-apple-iphone-16e",
+            "op-spec-motorola-edge-60-pro",
+            "op-spec-nothing-cmf-phone-2-pro",
+            "op-spec-samsung-galaxy-s25",
+            "op-spec-samsung-galaxy-s25plus"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-devices']; cited=['op-spec-nothing-phone-3', 'op-spec-nothing-phone-3a-pro', 'op-compare-phone', 'op-spec-apple-iphone-16e', 'op-spec-motorola-edge-60-pro', 'op-spec-nothing-cmf-phone-2-pro', 'op-spec-samsung-galaxy-s25', 'op-spec-samsung-galaxy-s25plus']"
+            }
+          ],
+          "answer_preview": "We sell a variety of mobile phones, including: 1. **Apple iPhone 16e** - Price: 49,990 MKD - RAM: 8 GB - Storage: 128 GB - Battery: 4005 mAh - eSIM: supported - 5G: supported 2.…",
+          "error": null
+        },
+        "langchain": {
+          "passed": false,
+          "latency_ms": 821.2,
+          "cited_doc_ids": [],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-devices']; cited=[]"
+            }
+          ],
+          "answer_preview": "I don't have enough information about the phones sold by Vardar Mobile. Please check the official website or contact customer support for the latest information on available pho…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "devices_compare_mk",
+      "category": "devices",
+      "tags": [
+        "compare"
+      ],
+      "q": "Како да споредам телефони кај вас?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2048.7,
+          "cited_doc_ids": [
+            "op-proc-wifi-calling",
+            "op-faq-sim",
+            "op-ts-no-calls",
+            "op-escalation-2026",
+            "op-ts-no-data",
+            "op-spec-nothing-phone-3",
+            "op-compare-phone",
+            "op-ts-voicemail"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Можете да споредите телефони преку нашата веб-страница или во салоните на Вардар Мобиле. Имаме достапна табела со спецификации, цени и други карактеристики на различни модели. Д…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 4583.2,
+          "cited_doc_ids": [
+            "op-proc-wifi-calling",
+            "op-faq-sim",
+            "op-ts-no-calls",
+            "op-escalation-2026",
+            "op-ts-no-data",
+            "op-spec-nothing-phone-3",
+            "op-compare-phone",
+            "op-ts-voicemail"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Можете да споредите телефони преку нашата табела за споредба на мобилни телефони, која вклучува информации за цена, RAM, меморија, батерија, eSIM и 5G поддршка. За да направите …",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 5291.7,
+          "cited_doc_ids": [
+            "op-prigovor-postapka",
+            "op-escalation-2026",
+            "op-proc-compatibility",
+            "op-spec-nothing-phone-3",
+            "op-nivo-usluga",
+            "op-spec-nothing-phone-3a-pro",
+            "op-prigovor-smetka",
+            "op-compare-phone"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "За да споредите телефони кај нас, можете да ги видите техничките спецификации, цените и другите карактеристики на различни модели. На пример, еве некои од најпопуларните модели:…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "contract_cancel_mk",
+      "category": "contract",
+      "tags": [
+        "cancel"
+      ],
+      "q": "Како да го раскинам договорот?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2559.0,
+          "cited_doc_ids": [
+            "op-faq-contract",
+            "op-contract-2026",
+            "op-smetka-poslednja-m",
+            "op-smetka-poslednja-xl",
+            "op-smetka-poslednja-l",
+            "op-smetka-poslednja-s",
+            "op-dogovor-l-2025",
+            "op-dogovor-xl-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "За да го раскинете договорот, треба да поднесете барање за раскинување. Отказниот рок е 30 дена од приемот на барањето. Ако раскинувате пред истекот на минималниот период, ќе тр…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 4607.9,
+          "cited_doc_ids": [
+            "op-faq-contract",
+            "op-contract-2026",
+            "op-smetka-poslednja-m",
+            "op-smetka-poslednja-xl",
+            "op-smetka-poslednja-l",
+            "op-smetka-poslednja-s",
+            "op-dogovor-l-2025",
+            "op-dogovor-xl-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "За да го раскинете договорот, треба да поднесете барање за раскинување. Отказниот рок е 30 дена од приемот на барањето. Ако раскинувате пред истекот на минималниот период, ќе тр…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 4330.3,
+          "cited_doc_ids": [
+            "op-faq-contract",
+            "op-contract-2026",
+            "op-smetka-poslednja-m",
+            "op-dogovor-l-2025",
+            "op-dogovor-m-2025",
+            "op-smetka-poslednja-l",
+            "op-dogovor-s-2025",
+            "op-smetka-poslednja-s"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "За да го раскинете договорот со Вардар Мобилен, треба да знаете следното: 1. **Отказен рок**: Имате 30 дена од приемот на барањето за раскинување. 2. **Надоместок за предвремено…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "contract_portability_mk",
+      "category": "contract",
+      "tags": [
+        "portability"
+      ],
+      "q": "Како да го пренесам бројот кај друг оператор?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2764.0,
+          "cited_doc_ids": [
+            "op-faq-about",
+            "op-portability-2026",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-s-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "За да го пренесете бројот кај друг оператор, треба да поднесете барање кај новиот оператор, а не кај постојниот. Потребна ви е лична карта и бројот што се пренесува. Постапката …",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 6553.0,
+          "cited_doc_ids": [
+            "op-faq-about",
+            "op-portability-2026",
+            "op-cenovnik-m-2026",
+            "op-cenovnik-s-2024",
+            "op-cenovnik-l-2024",
+            "op-cenovnik-m-2024",
+            "op-cenovnik-xl-2024",
+            "op-cenovnik-s-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "За да го пренесете бројот кај друг оператор, следете ја постапката: 1. **Барањето** се поднесува кај **новиот** оператор, а не кај постојниот. 2. Потребна е **лична карта** и бр…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 3793.0,
+          "cited_doc_ids": [
+            "op-portability-2026",
+            "op-proc-device-move",
+            "op-sec-fraud",
+            "op-contract-2026",
+            "op-smetka-promena-paket-l-xl",
+            "op-sec-lost-sim",
+            "op-smetka-promena-paket-xl-l",
+            "op-smetka-promena-paket-s-m"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "За да го пренесете бројот кај друг оператор, следете ги следниве чекори: 1. **Поднесете барање**: Барањето за пренос на бројот се поднесува кај новиот оператор, а не кај постојн…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "contract_faq_en",
+      "category": "contract",
+      "tags": [
+        "cancel",
+        "en"
+      ],
+      "q": "How do I cancel my contract?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 2345.4,
+          "cited_doc_ids": [
+            "op-contract-2026",
+            "op-smetka-poslednja-xl",
+            "op-smetka-poslednja-s",
+            "op-smetka-poslednja-l",
+            "op-smetka-poslednja-m",
+            "op-dogovor-xl-2024",
+            "op-dogovor-xl-2026",
+            "op-dogovor-xl-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-contract']; cited=['op-contract-2026', 'op-smetka-poslednja-xl', 'op-smetka-poslednja-s', 'op-smetka-poslednja-l', 'op-smetka-poslednja-m', 'op-dogovor-xl-2024', 'op-dogovor-xl-2026', 'op-dogovor-xl-2025']"
+            }
+          ],
+          "answer_preview": "To cancel your contract with Vardar Mobile, you need to submit a request for termination. The notice period is 30 days for contracts with a subsidised device or promotional pric…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 2970.4,
+          "cited_doc_ids": [
+            "op-contract-2026",
+            "op-smetka-poslednja-xl",
+            "op-smetka-poslednja-s",
+            "op-smetka-poslednja-l",
+            "op-smetka-poslednja-m",
+            "op-dogovor-xl-2024",
+            "op-dogovor-xl-2026",
+            "op-dogovor-xl-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-contract']; cited=['op-contract-2026', 'op-smetka-poslednja-xl', 'op-smetka-poslednja-s', 'op-smetka-poslednja-l', 'op-smetka-poslednja-m', 'op-dogovor-xl-2024', 'op-dogovor-xl-2026', 'op-dogovor-xl-2025']"
+            }
+          ],
+          "answer_preview": "To cancel your contract with Vardar Mobile, you need to provide a notice period of 30 days from the receipt of your cancellation request. If you are within a minimum term, an ea…",
+          "error": null
+        },
+        "langchain": {
+          "passed": false,
+          "latency_ms": 2249.7,
+          "cited_doc_ids": [],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-contract']; cited=[]"
+            }
+          ],
+          "answer_preview": "I don't have enough information on how to cancel your contract. Please contact Vardar Mobile customer support directly for assistance.",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "security_lost_sim_mk",
+      "category": "security",
+      "tags": [
+        "lost_sim"
+      ],
+      "q": "Што да правам ако ја изгубам SIM картичката?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2776.5,
+          "cited_doc_ids": [
+            "op-sec-lost-sim",
+            "op-faq-sim",
+            "op-proc-esim",
+            "op-proc-device-move",
+            "op-sim-2026",
+            "op-sec-block-sim",
+            "op-smetka-ednokratni",
+            "op-sec-pin-reset"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Ако ја изгубите SIM картичката, веднаш јавете се на 1300 од кој било број или блокирајте ја преку Мој Вардар. Блокирањето е моментално, и од тој момент не одговарате за понатамо…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 3542.5,
+          "cited_doc_ids": [
+            "op-sec-lost-sim",
+            "op-faq-sim",
+            "op-proc-esim",
+            "op-proc-device-move",
+            "op-sim-2026",
+            "op-sec-block-sim",
+            "op-smetka-ednokratni",
+            "op-sec-pin-reset"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Ако ја изгубите SIM картичката, веднаш јавете се на 1300 од кој било број. Блокирањето на картичката е моментално, и од тој момент не одговарате за понатамошниот сообраќај. За с…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 3483.6,
+          "cited_doc_ids": [
+            "op-sec-lost-sim",
+            "op-faq-sim",
+            "op-sim-2026",
+            "op-sec-block-sim",
+            "op-proc-esim",
+            "op-smetka-ednokratni",
+            "op-proc-device-move",
+            "op-sec-pin-reset"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Ако ја изгубите SIM картичката, веднаш јавете се на 1300 или блокирајте ја преку Мој Вардар. Блокирањето е моментално и од тој момент не одговарате за понатамошниот сообраќај. З…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "security_fraud_mk",
+      "category": "security",
+      "tags": [
+        "fraud"
+      ],
+      "q": "Како да пријавам измама или сомнителен повик?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2047.0,
+          "cited_doc_ids": [
+            "op-sec-fraud",
+            "op-escalation-2026",
+            "op-prigovor-smetka",
+            "op-faq-billing",
+            "op-sec-lost-sim",
+            "op-prigovor-postapka",
+            "op-country-ro",
+            "op-ts-roaming-fail"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Ако забележите повици што не сте ги направиле или имате сомнеж за злоупотреба, веднаш јавете се на 1300 и побарајте привремено блокирање на бројот. Операторот никогаш не бара PI…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 3091.3,
+          "cited_doc_ids": [
+            "op-sec-fraud",
+            "op-escalation-2026",
+            "op-prigovor-smetka",
+            "op-faq-billing",
+            "op-sec-lost-sim",
+            "op-prigovor-postapka",
+            "op-country-ro",
+            "op-ts-roaming-fail"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Ако имате сомнеж за измама или сте забележале сомнителен повик, веднаш јавете се на 1300 и побарајте привремено блокирање на вашиот број. Операторот ќе ве упати на тимот за безб…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 2561.4,
+          "cited_doc_ids": [
+            "op-sec-fraud",
+            "op-escalation-2026",
+            "op-country-ie",
+            "op-kb-e-11-zenith-fold",
+            "op-prigovor-smetka",
+            "op-country-sk",
+            "op-smetka-roaming-wb6",
+            "op-kb-e-38-zenith-fold"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Ако забележите измама или сомнителен повик, веднаш јавете се на 1300 и побарајте привремено блокирање на вашиот број. Операторот никогаш не бара PIN, лозинка или SMS код преку т…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "security_lost_sim_en",
+      "category": "security",
+      "tags": [
+        "lost_sim",
+        "en"
+      ],
+      "q": "I lost my SIM card, what should I do?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 1945.0,
+          "cited_doc_ids": [
+            "op-sec-lost-sim",
+            "op-ts-no-service",
+            "op-kb-e-03-nova-x6",
+            "op-kb-e-03-nova-x6-pro",
+            "op-kb-e-03-orbit-a5",
+            "op-kb-e-03-zenith-fold",
+            "op-kb-e-98-nova-x6-pro",
+            "op-kb-e-98-nova-x6"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "You should call 1300 immediately from any number, or block the SIM via My Vardar. Blocking is immediate, and from that moment, you are not liable for further traffic. However, y…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 1764.4,
+          "cited_doc_ids": [
+            "op-sec-lost-sim",
+            "op-ts-no-service",
+            "op-kb-e-03-nova-x6",
+            "op-kb-e-03-nova-x6-pro",
+            "op-kb-e-03-orbit-a5",
+            "op-kb-e-03-zenith-fold",
+            "op-kb-e-98-nova-x6-pro",
+            "op-kb-e-98-nova-x6"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Call 1300 immediately from any number, or block it via My Vardar. Blocking is immediate, and from that moment, you are not liable for further traffic. However, you remain liable…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 2557.8,
+          "cited_doc_ids": [
+            "op-sec-lost-sim",
+            "op-ts-no-service",
+            "op-kb-e-03-orbit-a5",
+            "op-kb-e-03-nova-x6-pro",
+            "op-kb-e-03-nova-x6",
+            "op-kb-e-03-orbit-a3",
+            "op-kb-e-03-zenith-fold",
+            "op-kb-e-98-orbit-a5"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "If you have lost your SIM card, you should call 1300 immediately from any number or block it via the My Vardar app. Blocking is immediate, and you will not be liable for any fur…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "addon_5gb_mk",
+      "category": "addon",
+      "tags": [
+        "ad-5"
+      ],
+      "q": "Колку чини додатокот 5 GB?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2151.8,
+          "cited_doc_ids": [
+            "op-dodatok-ad-5-2024",
+            "op-dodatok-ad-5-2025",
+            "op-dodatok-ad-5-2026",
+            "op-dodatok-ad-20-2025",
+            "op-dodatok-ad-20-2026",
+            "op-dodatok-ad-20-2024",
+            "op-dodatok-ad-1-2026",
+            "op-dodatok-ad-1-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Цената на додатокот 5 GB зависи од годината: - За 2024 година, цената е **449 ден.** [1]. - За 2025 година, цената е **429 ден.** [2]. - За 2026 година, цената е **399 ден.** [3].",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 3683.6,
+          "cited_doc_ids": [
+            "op-dodatok-ad-5-2024",
+            "op-dodatok-ad-5-2025",
+            "op-dodatok-ad-5-2026",
+            "op-dodatok-ad-20-2025",
+            "op-dodatok-ad-20-2026",
+            "op-dodatok-ad-20-2024",
+            "op-dodatok-ad-1-2026",
+            "op-dodatok-ad-1-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Додатокот 5 GB чини **449 ден.** за 2024 година, **429 ден.** за 2025 година, и **399 ден.** за 2026 година [op-dodatok-ad-5-2024], [op-dodatok-ad-5-2025], [op-dodatok-ad-5-2026].",
+          "error": null
+        },
+        "langchain": {
+          "passed": false,
+          "latency_ms": 2456.4,
+          "cited_doc_ids": [
+            "op-dodatok-ad-5-2024",
+            "op-dodatok-ad-5-2025",
+            "op-dodatok-ad-5-2026",
+            "op-dodatok-ad-20-2024",
+            "op-dodatok-ad-20-2025",
+            "op-dodatok-ad-20-2026",
+            "op-dodatok-ad-1-2024",
+            "op-dodatok-ad-1-2025"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            },
+            {
+              "name": "must_contain",
+              "passed": false,
+              "detail": "missing ['399']"
+            }
+          ],
+          "answer_preview": "Додатокот од 5 GB чини **449 ден.** и важи 30 дена од моментот на активација [op-dodatok-ad-5-2024].",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "addon_1gb_mk",
+      "category": "addon",
+      "tags": [
+        "ad-1"
+      ],
+      "q": "Имате ли додатен пакет од 1 GB?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2301.6,
+          "cited_doc_ids": [
+            "op-dodatok-ad-1-2024",
+            "op-dodatok-ad-1-2025",
+            "op-dodatok-ad-5-2024",
+            "op-dodatok-ad-1-2026",
+            "op-dodatok-ad-20-2024",
+            "op-dodatok-ad-20-2025",
+            "op-dodatok-ad-5-2026",
+            "op-dodatok-ad-20-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Да, имаме додатен пакет од 1 GB. Во 2024 година, цената е 169 денари, а пакетот важи 7 дена од активација [1]. Во 2025 година, цената е 159 денари [2], а во 2026 година, цената …",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 3581.9,
+          "cited_doc_ids": [
+            "op-dodatok-ad-1-2024",
+            "op-dodatok-ad-1-2025",
+            "op-dodatok-ad-5-2024",
+            "op-dodatok-ad-1-2026",
+            "op-dodatok-ad-20-2024",
+            "op-dodatok-ad-20-2025",
+            "op-dodatok-ad-5-2026",
+            "op-dodatok-ad-20-2026"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Да, имаме додатен пакет од 1 GB. За 2024 година, цената е 169 денари, а пакетот важи 7 дена од активација. За 2025 година, цената е 159 денари, а условите се исти. За 2026 годин…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 2966.7,
+          "cited_doc_ids": [
+            "op-dodatok-ad-1-2024",
+            "op-dodatok-ad-1-2025",
+            "op-dodatok-ad-5-2024",
+            "op-dodatok-ad-1-2026",
+            "op-dodatok-ad-20-2024",
+            "op-dodatok-ad-20-2025",
+            "op-dodatok-ad-20-2026",
+            "op-dodatok-ad-5-2026"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Да, имаме додатен пакет од 1 GB. Цената за 2024 година е **169 ден.**, а пакетот важи 7 дена од активација. Неискористениот сообраќај не се пренесува и не се рефундира. Пакетот …",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "addon_extra_data_mk",
+      "category": "addon",
+      "tags": [
+        "overview"
+      ],
+      "q": "Како да купам дополнителен интернет?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 2755.5,
+          "cited_doc_ids": [
+            "op-smetka-dodatok",
+            "op-faq-network",
+            "op-dodatok-ad-5-2026",
+            "op-dodatok-ad-1-2026",
+            "op-sim-2026",
+            "op-dodatok-ad-5-2024",
+            "op-dodatok-ad-20-2026",
+            "op-cenovnik-xl-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Можете да купите дополнителен интернет пакет преку вашата сметка во „Мој Вардар“ или во салоните на Вардар Мобиле. Достапни се различни пакети, како што се: - Додаток 1 GB (149 …",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 6673.2,
+          "cited_doc_ids": [
+            "op-smetka-dodatok",
+            "op-faq-network",
+            "op-dodatok-ad-5-2026",
+            "op-dodatok-ad-1-2026",
+            "op-sim-2026",
+            "op-dodatok-ad-5-2024",
+            "op-dodatok-ad-20-2026",
+            "op-cenovnik-xl-2025"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "За да купите дополнителен интернет пакет, можете да активирате пакет преку вашата мобилна апликација или во салоните на Вардар Мобиле. Постојат различни пакети, како што се: - Д…",
+          "error": null
+        },
+        "langchain": {
+          "passed": false,
+          "latency_ms": 2868.2,
+          "cited_doc_ids": [
+            "op-faq-network",
+            "op-coverage-delcevo",
+            "op-coverage-prilep",
+            "op-bulletin-2025-04",
+            "op-bulletin-2025-12",
+            "op-bulletin-2026-07",
+            "op-coverage-probistip",
+            "op-coverage-debar"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-dodatok-ad-5-2026', 'op-faq-plans']; cited=['op-faq-network', 'op-coverage-delcevo', 'op-coverage-prilep', 'op-bulletin-2025-04', 'op-bulletin-2025-12', 'op-bulletin-2026-07', 'op-coverage-probistip', 'op-coverage-debar']"
+            }
+          ],
+          "answer_preview": "Не можам да најдам конкретни информации за купување дополнителен интернет. Ве советувам да се обратите на веб-страницата на Вардaр Мобиле или да контактирате со нивната служба з…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "support_sim_activate_mk",
+      "category": "support",
+      "tags": [
+        "sim"
+      ],
+      "q": "Како да ја активирам SIM картичката?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 1695.5,
+          "cited_doc_ids": [
+            "op-proc-esim",
+            "op-faq-sim",
+            "op-sec-lost-sim",
+            "op-sim-2026",
+            "op-proc-device-move",
+            "op-sec-block-sim",
+            "op-smetka-ednokratni",
+            "op-proc-volte"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Не имам доволно информации за активирање на SIM картичка. Можеш да поставиш конкретно прашање за активирање на eSIM или за замена на SIM картичка.",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 1716.7,
+          "cited_doc_ids": [
+            "op-proc-esim",
+            "op-faq-sim",
+            "op-sec-lost-sim",
+            "op-sim-2026",
+            "op-proc-device-move",
+            "op-sec-block-sim",
+            "op-smetka-ednokratni",
+            "op-proc-volte"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Не имам доволно информации за активирање на SIM картичка. Можете да поставите по-конкретно прашање, како на пример за плановите, роамингот или сметките.",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 2866.9,
+          "cited_doc_ids": [
+            "op-proc-esim",
+            "op-faq-sim",
+            "op-sec-lost-sim",
+            "op-sec-block-sim",
+            "op-sim-2026",
+            "op-proc-device-move",
+            "op-proc-volte",
+            "op-smetka-ednokratni"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "За да ја активирате SIM картичката, следете ги следниве чекори: 1. Вметнете ја SIM картичката во вашиот уред. 2. Вклучете го уредот и почекајте да се поврзе со мрежата. 3. Ако е…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "support_apn_mk",
+      "category": "support",
+      "tags": [
+        "apn"
+      ],
+      "q": "Кои се APN поставките?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 1951.0,
+          "cited_doc_ids": [
+            "op-proc-apn",
+            "op-kb-e-50-orbit-a3",
+            "op-kb-e-50-orbit-a5",
+            "op-proc-compatibility",
+            "op-kb-e-50-nova-x6-pro",
+            "op-kb-e-50-nova-x6",
+            "op-coverage-stip",
+            "op-coverage-probistip"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "APN поставките за Vardar Mobile се следни: - Име: Vardar Internet - APN: internet.vardar.mk - Корисничко име: празно - Лозинка: празно - MCC: 294 - MNC: 04 - Тип на автентикациј…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 4411.0,
+          "cited_doc_ids": [
+            "op-proc-apn",
+            "op-kb-e-50-orbit-a3",
+            "op-kb-e-50-orbit-a5",
+            "op-proc-compatibility",
+            "op-kb-e-50-nova-x6-pro",
+            "op-kb-e-50-nova-x6",
+            "op-coverage-stip",
+            "op-coverage-probistip"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "APN поставките за Вардaр Мобиле се следниве: | Поле | Вредност | |---|---| | Име | Vardar Internet | | APN | internet.vardar.mk | | Корисничко име | празно | | Лозинка | празно …",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 3585.2,
+          "cited_doc_ids": [
+            "op-proc-apn",
+            "op-kb-e-50-orbit-a5",
+            "op-kb-e-50-orbit-a3",
+            "op-kb-e-50-nova-x6-pro",
+            "op-kb-e-50-nova-x6",
+            "op-kb-e-50-zenith-fold",
+            "op-coverage-prilep",
+            "op-smetka-dodatok"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "APN поставките за Вардар Мобиле се следниве: - **Име:** Vardar Internet - **APN:** internet.vardar.mk - **Корисничко име:** празно - **Лозинка:** празно - **MCC:** 294 - **MNC:*…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "support_no_calls_mk",
+      "category": "support",
+      "tags": [
+        "troubleshooting"
+      ],
+      "q": "Не можам да се јавувам, што да проверам?",
+      "modes": {
+        "custom": {
+          "passed": true,
+          "latency_ms": 3072.8,
+          "cited_doc_ids": [
+            "op-ts-no-calls",
+            "op-ts-no-service",
+            "op-ts-slow-data",
+            "op-ts-no-sms",
+            "op-faq-account",
+            "op-ts-voicemail",
+            "op-escalation-2026",
+            "op-faq-technical"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Проверете ги следниве работи: 1. Проверете дали има сигнал и дали бројот е внесен во целосен формат. 2. Проверете забрана за појдовни повици со `*#33#`. 3. Проверете го статусот…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": true,
+          "latency_ms": 4304.5,
+          "cited_doc_ids": [
+            "op-ts-no-calls",
+            "op-ts-no-service",
+            "op-ts-slow-data",
+            "op-ts-no-sms",
+            "op-faq-account",
+            "op-ts-voicemail",
+            "op-escalation-2026",
+            "op-faq-technical"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Проверете ги следниве работи: 1. Проверете дали има сигнал и дали бројот е внесен во целосен формат. 2. Проверете забрана за појдовни повици со `*#33#`. 3. Проверете го статусот…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 3818.7,
+          "cited_doc_ids": [
+            "op-escalation-2026",
+            "op-sec-fraud",
+            "op-ts-no-sms",
+            "op-ts-no-calls",
+            "op-faq-technical",
+            "op-sec-lost-sim",
+            "op-kb-e-11-zenith-fold",
+            "op-kb-e-11-nova-x6"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "Ако не можете да се јавувате, еве неколку чекори што можете да ги проверите: 1. Проверете дали имате сигнал и дали бројот е внесен во целосен формат. 2. Проверете дали имате заб…",
+          "error": null
+        }
+      }
+    },
+    {
+      "id": "support_sim_en",
+      "category": "support",
+      "tags": [
+        "sim",
+        "en"
+      ],
+      "q": "How do I activate my SIM?",
+      "modes": {
+        "custom": {
+          "passed": false,
+          "latency_ms": 2458.1,
+          "cited_doc_ids": [
+            "op-proc-esim",
+            "op-ts-no-service",
+            "op-proc-volte",
+            "op-kb-e-13-nova-x6-pro",
+            "op-sec-lost-sim",
+            "op-kb-e-13-nova-x6",
+            "op-kb-e-13-zenith-fold",
+            "op-proc-device-move"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-sim']; cited=['op-proc-esim', 'op-ts-no-service', 'op-proc-volte', 'op-kb-e-13-nova-x6-pro', 'op-sec-lost-sim', 'op-kb-e-13-nova-x6', 'op-kb-e-13-zenith-fold', 'op-proc-device-move']"
+            }
+          ],
+          "answer_preview": "To activate your SIM, follow these steps: 1. Check that your device supports eSIM and is not locked to another network. 2. Request an eSIM through My Vardar or at a store, and y…",
+          "error": null
+        },
+        "llamaindex": {
+          "passed": false,
+          "latency_ms": 3448.3,
+          "cited_doc_ids": [
+            "op-proc-esim",
+            "op-ts-no-service",
+            "op-proc-volte",
+            "op-kb-e-13-nova-x6-pro",
+            "op-sec-lost-sim",
+            "op-kb-e-13-nova-x6",
+            "op-kb-e-13-zenith-fold",
+            "op-proc-device-move"
+          ],
+          "tool_calls": 0,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": false,
+              "detail": "expected one of ['op-faq-sim']; cited=['op-proc-esim', 'op-ts-no-service', 'op-proc-volte', 'op-kb-e-13-nova-x6-pro', 'op-sec-lost-sim', 'op-kb-e-13-nova-x6', 'op-kb-e-13-zenith-fold', 'op-proc-device-move']"
+            }
+          ],
+          "answer_preview": "To activate your SIM, follow these steps: 1. **Check Compatibility**: Ensure that your device supports eSIM and is not locked to another network. 2. **Request eSIM**: Obtain you…",
+          "error": null
+        },
+        "langchain": {
+          "passed": true,
+          "latency_ms": 2539.4,
+          "cited_doc_ids": [
+            "op-proc-esim",
+            "op-sim-2026",
+            "op-sec-block-sim",
+            "op-faq-sim",
+            "op-sec-lost-sim",
+            "op-kb-e-28-nova-x6-pro",
+            "op-kb-e-98-nova-x6-pro",
+            "op-kb-e-28-nova-x6"
+          ],
+          "tool_calls": 1,
+          "checks": [
+            {
+              "name": "citation",
+              "passed": true,
+              "detail": "ok"
+            }
+          ],
+          "answer_preview": "To activate your SIM, follow these steps: 1. Ensure your device supports the SIM and is not locked to another network. 2. Insert the SIM card into your device. 3. Restart your d…",
+          "error": null
+        }
+      }
+    }
+  ]
+}
