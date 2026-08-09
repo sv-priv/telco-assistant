@@ -25,6 +25,12 @@ def test_expand_leaves_roaming_alone() -> None:
     assert not is_plan_query(q)
 
 
+def test_expand_england_to_united_kingdom() -> None:
+    q = expand_search_query("roaming prices in England")
+    assert "United Kingdom" in q
+    assert "GB" in q
+
+
 def test_expand_about_operator() -> None:
     q = expand_search_query("a mozes da mi kazes nesto povekje za vardar mobile")
     assert "преглед" in q or "about" in q.lower()

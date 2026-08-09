@@ -1,8 +1,11 @@
-"""Deterministic query expansion for plan / package questions.
+"""Deterministic query expansion for plan / package / country questions.
 
 Dense retrieval alone often maps colloquial «XL пакетот» onto addon
 «Додатен интернет пакет…» docs. Expanding toward «тарифен план / ценовник»
 pulls price-list chunks into the candidate set.
+
+Country aliases (England → United Kingdom) keep EN queries aligned with
+corpus titles that use official names.
 """
 
 from __future__ import annotations
@@ -34,6 +37,18 @@ _ABOUT_HINT_RE = re.compile(
     re.I,
 )
 
+# Colloquial / alternate names → corpus wording (official country titles).
+_COUNTRY_ALIASES: list[tuple[re.Pattern[str], str]] = [
+    (
+        re.compile(r"\b(england|britain|great\s+britain|uk)\b", re.I),
+        "United Kingdom GB roaming",
+    ),
+    (re.compile(r"\b(holland|the\s+netherlands)\b", re.I), "Netherlands NL roaming"),
+    (re.compile(r"\b(uae|dubai)\b", re.I), "United Arab Emirates AE roaming"),
+    (re.compile(r"\b(usa|u\.s\.a\.|united\s+states)\b", re.I), "United States US roaming"),
+    (re.compile(r"\b(czechia|czech\s+republic)\b", re.I), "Czechia CZ roaming"),
+]
+
 
 def plan_tiers(query: str) -> list[str]:
     found: list[str] = []
@@ -59,9 +74,23 @@ def is_plan_query(query: str) -> bool:
     )
 
 
-def expand_search_query(query: str) -> str:
-    """Append retrieval-friendly plan terms; leave unrelated queries unchanged."""
+def expand_country_aliases(query: str) -> str:
+    """Append official country names used in corpus titles."""
     text = query.strip()
+    if not text:
+        return query
+    extras: list[str] = []
+    for pattern, expansion in _COUNTRY_ALIASES:
+        if pattern.search(text):
+            extras.append(expansion)
+    if not extras:
+        return text
+    return f"{text} {' '.join(extras)}"
+
+
+def expand_search_query(query: str) -> str:
+    """Append retrieval-friendly plan/country terms; leave unrelated queries unchanged."""
+    text = expand_country_aliases(query.strip())
     if not text:
         return query
 
