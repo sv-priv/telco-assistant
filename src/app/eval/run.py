@@ -111,7 +111,7 @@ async def _run_mode(
         scores.append(scored)
         mark = "ok" if scored.passed else "FAIL"
         print(
-            f"  [{i}/{total}] {mode} {case.id} {mark} " f"{scored.latency_ms:.0f}ms",
+            f"  [{i}/{total}] {mode} {case.id} {mark} {scored.latency_ms:.0f}ms",
             file=sys.stderr,
             flush=True,
         )

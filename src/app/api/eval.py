@@ -60,7 +60,7 @@ async def eval_latest() -> dict[str, Any]:
         raise AppError(
             title="Eval report missing",
             status=404,
-            detail=("No data/eval/latest.json yet. Run: " "uv run python -m app.eval --mode all"),
+            detail=("No data/eval/latest.json yet. Run: uv run python -m app.eval --mode all"),
         )
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))

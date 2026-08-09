@@ -80,8 +80,6 @@ def require_api_key(
         raise AppError(
             title="Rate limit exceeded",
             status=429,
-            detail=(
-                f"Too many requests. Limit is " f"{settings.rate_limit_per_minute} per minute."
-            ),
+            detail=(f"Too many requests. Limit is {settings.rate_limit_per_minute} per minute."),
         )
     return key_name

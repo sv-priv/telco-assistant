@@ -1,18 +1,18 @@
-# Render Blueprint — https://dashboard.render.com → New → Blueprint
-# After first API deploy, run a one-off ingest (see README).
+# Render Blueprint — free-tier demo (spins down when idle; free DB expires in 30 days).
+# https://dashboard.render.com → New → Blueprint
+# After first API deploy, run ingest (see README).
 
 databases:
   - name: telco-db
-    plan: basic-256mb
+    plan: free
     databaseName: telco
     postgresMajorVersion: "16"
-    ipAllowList: [] # private network only
 
 services:
   - type: web
     name: telco-api
     runtime: docker
-    plan: starter
+    plan: free
     dockerfilePath: ./Dockerfile
     dockerContext: .
     healthCheckPath: /v1/health
@@ -37,7 +37,7 @@ services:
       - key: API_KEYS
         sync: false
       - key: RATE_LIMIT_PER_MINUTE
-        value: "60"
+        value: "30"
       - key: CHAT_MODEL
         value: gpt-4o-mini
       - key: EMBEDDING_MODEL
@@ -48,7 +48,7 @@ services:
   - type: web
     name: telco-web
     runtime: node
-    plan: starter
+    plan: free
     rootDir: web
     buildCommand: npm ci && npm run build
     startCommand: npm run start -- --hostname 0.0.0.0 --port $PORT

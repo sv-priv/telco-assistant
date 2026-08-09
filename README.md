@@ -120,26 +120,26 @@ for `CORS_ORIGINS`, rate limits, and optional AWS Secrets Manager.
 
 ## Deploy (Render)
 
-Blueprint: [`render.yaml`](render.yaml) — Postgres (pgvector), API (Docker),
-Next.js UI.
+Blueprint: [`render.yaml`](render.yaml) — free Postgres + free API + free Next.js
+(web services sleep after ~15 min idle; free DB expires after **30 days**).
 
 1. Push this repo to GitHub.
 2. [Render Dashboard](https://dashboard.render.com) → **New** → **Blueprint** →
-   select the repo.
+   select the repo (confirm instance type **Free** if prompted).
 3. When prompted, set:
    - `OPENAI_API_KEY`
    - `API_KEYS` — e.g. `demo:<long-random-secret>`
    - `TELCO_API_KEY` — the **same secret** after the colon (not the `demo:` prefix)
-4. Wait for `telco-api` and `telco-web` to go live.
-5. **Ingest embeddings** (one-off Shell on `telco-api`, after the first deploy):
+4. Wait for `telco-api` and `telco-web` to go live (first request after sleep can take ~1 min).
+5. **Ingest embeddings** (Shell on `telco-api`):
 
 ```bash
 uv run python -m app.ingest --embed --source operator
-# optional regulation layer:
-# uv run python -m app.ingest --embed --source eu --source wb6 --lang en
 ```
 
-Open the `telco-web` URL. Chat will fail until ingest finishes.
+Open the `telco-web` URL. Chat needs ingest to finish first.
+
+OpenAI usage is still billed by OpenAI (embeddings + chat), separate from Render.
 
 ## Development
 

@@ -63,8 +63,7 @@ def build_tools(
                 f"Tell the user '{tier_u}' does not exist and optionally list S/M/L/XL."
             )
         query = (
-            f"тарифен план {tier_u} ценовник Вардар Мобилен {tier_u} "
-            f"што вклучува месечна претплата"
+            f"тарифен план {tier_u} ценовник Вардар Мобилен {tier_u} што вклучува месечна претплата"
         )
         result = await retriever.retrieve(
             query,
