@@ -1,7 +1,7 @@
 [project]
 name = "telco-assistant"
 version = "0.1.0"
-description = "RAG and agentic assistant over EU telecom regulation"
+description = "Grounded RAG assistant over telecom operator docs and regulation"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
